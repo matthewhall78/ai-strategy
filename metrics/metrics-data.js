@@ -149,6 +149,41 @@ window.__METRICS_DATA = {
         prevention: "Ensures interactive dashboard changes are validated at the behavior layer before commit, not only by static parse checks."
       },
       interpretation: "Faster than the baseline dashboard build because the enhancement stayed localized while adding richer interaction and comparison signals."
+    },
+    {
+      id: "enh-2026-05-05-nav-rail-standardization",
+      title: "Standardize site navigation rail contract",
+      type: "navigation-standardization",
+      mergedAt: "2026-05-05",
+      baselineCommitId: "775a2a0",
+      currentCommitId: "1024291",
+      baseline: {
+        filesChanged: 17,
+        insertions: 0,
+        deletions: 0,
+        churnPerFile: 0
+      },
+      current: {
+        filesChanged: 17,
+        insertions: 770,
+        deletions: 337,
+        churnPerFile: 65.12
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "First visual pass showed wrapped multi-row navigation, requiring a second pass to enforce single-row overflow behavior.",
+        processFile: ".github/copilot-instructions.md",
+        ruleChanged: "Added explicit requirements for .site-nav-track and nav-* classes, and enforced single-row nav rail behavior with horizontal overflow.",
+        prevention: "Locks nav updates to one canonical structure and interaction pattern so pages cannot drift into inconsistent wrappers or wrapped rails."
+      },
+      interpretation: "Slower than a one-page change due to full-site remediation, but it removed recurring nav drift and reduced future integration risk."
     }
   ]
 };
