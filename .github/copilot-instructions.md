@@ -48,8 +48,26 @@ Follow this sequence — do not skip or reorder steps:
 - After any nav change: verify every `href` in `.site-nav` resolves to a real file in the repo.
 - After creating a new page: confirm it appears in the nav on all pages and as a card in `index.html`.
 - Before committing: no broken internal hrefs, no missing `active` class on the current page's nav link.
+- Validation must include fallback tooling: prefer `rg`/`rg --files`, but if `rg` is unavailable use `grep`/`find`.
+- After rename operations: verify both conditions hold before commit: (1) no old filename references remain, (2) new filename is referenced everywhere it should be.
+
+### Required Nav Validation Checks
+
+Run these checks after adding or renaming a nav page:
+
+1. Count nav blocks and ensure each contains the new link.
+2. Confirm every local nav `href` target resolves to an existing file.
+3. Confirm canonical nav in `snippets/site-nav-snippet.html` exactly matches live nav structure.
+
+If any check fails, fix before commit.
 
 ## Documentation
 
 - Update `README.md` when pages are added or renamed.
 - Keep the `snippets/site-nav-snippet.html` in sync with the live nav on every page.
+
+## Continuous Improvement
+
+- After each website enhancement, capture one process improvement and apply it immediately to `.github/copilot-instructions.md`, `.github/skills.md`, `.github/agents.md`, or `apm.yml`.
+- Prefer small, specific rule updates over broad rewrites.
+- Do not mark work complete until retrospective updates are considered.

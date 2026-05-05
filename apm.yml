@@ -50,6 +50,21 @@ trust:
   transitive_mcp: block
 
 # ---------------------------------------------------------------------------
+# Quality gates — mandatory checks before publish
+# ---------------------------------------------------------------------------
+quality_gates:
+  - id: nav-link-presence
+    description: Every .site-nav block in every .html page contains all canonical nav links.
+  - id: nav-href-resolution
+    description: Every local href used in .site-nav resolves to an existing file in the repository.
+  - id: rename-cleanup
+    description: After filename changes, no references to the old filename remain.
+  - id: canonical-sync
+    description: snippets/site-nav-snippet.html matches live nav structure on all pages.
+  - id: retrospective-update
+    description: Each enhancement applies at least one improvement to process artifacts.
+
+# ---------------------------------------------------------------------------
 # Non-goals (explicit)
 # ---------------------------------------------------------------------------
 # - No install scripts

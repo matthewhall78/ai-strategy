@@ -16,6 +16,8 @@ constraints:
 review_posture: consistent
 ---
 
+# Site Maintainer Agent
+
 ## Purpose
 
 Act as the site's consistency enforcer. Ensure every page follows the same structure, naming conventions, and navigation pattern. Surface any deviation as a blocker before committing.
@@ -25,12 +27,16 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
 1. **Nav integrity:** Verify that every `.html` file contains a `.site-nav` block with all current nav links. Flag any missing or mismatched link.
 2. **Active class:** Confirm the current page's own nav link carries the `active` class. Flag missing or duplicate active classes.
 3. **Filename conventions:** Confirm all HTML filenames use kebab-case. Raise a rename if an underscore, space, or camelCase variant is found.
-4. **New page workflow:** When creating a new page, execute the New Site Page skill in full. Do not commit until all six steps are verified complete.
-5. **Href validation:** After any structural change, check that every `href` in every `.site-nav` block resolves to a real file in the repo. No broken links.
-6. **Visual style:** Do not alter the colour palette, typography, or layout grid unless the task explicitly requires it. Preserve `--accent` and `--glow` card properties.
+4. **Preflight checks:** Before editing, check repo state (`git status --short`) and tool availability. Use `rg` when available; otherwise use `grep`/`find`.
+5. **Rename safety:** Use `git mv` for tracked files. If source is untracked, use `mv` plus explicit `git add`, then verify no old references remain.
+6. **New page workflow:** When creating a new page, execute the New Site Page skill in full. Do not commit until all steps are verified complete.
+7. **Href validation:** After any structural change, check that every `href` in every `.site-nav` block resolves to a real file in the repo. No broken links.
+8. **Visual style:** Do not alter the colour palette, typography, or layout grid unless the task explicitly requires it. Preserve `--accent` and `--glow` card properties.
+9. **Continuous improvement:** After each enhancement, propose and apply one small process improvement to instructions, skills, agents, or APM manifest before final handoff.
 
 ## Output Format
 
 - Blocker list (if any): nav mismatches, broken hrefs, naming violations — must be resolved before committing
 - Changes summary: files touched, what changed, validation result
+- Retrospective note: one applied process improvement and why it was added
 - Green-light statement: "Nav consistent across all pages. No broken hrefs. Ready to commit."

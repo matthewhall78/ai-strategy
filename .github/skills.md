@@ -14,25 +14,25 @@ outputs:
   - Updated README.md page listing
 ---
 
+# New Site Page Skill
+
 ## Purpose
 
 Create a new page for the site and ensure navigation is fully consistent across every file. This workflow must be completed atomically — partial nav updates leave the site in a broken state.
 
 ## Steps
 
-1. **Choose the filename.** Convert the page title to kebab-case (e.g. "API Review Guide" → `api-review-guide.html`). No underscores, spaces, or camelCase.
-
-2. **Create the HTML file.** Use an existing page (e.g. `first-30-minutes-quickstart.html`) as the structural template. Copy the full page skeleton including: `<head>` with Inter font and embedded CSS, animated perspective grid background, `.site-nav` block, and main content wrapper.
-
-3. **Set the active nav link.** On the new page, add the `active` class to its own nav link (e.g. `class="nav-mypage active"`). Add the corresponding CSS nav variable block if needed.
-
-4. **Add a card to index.html.** Place a `<a class="card …" href="…">` block in the appropriate section grid. Set `--accent` and `--glow` CSS custom properties to give the card a distinct colour.
-
-5. **Update the nav on every other existing page.** Open each `.html` file and add the new `<a class="nav-mypage" href="mypage.html">Nav Label</a>` link inside the `.site-nav` block. The order must match the order in `snippets/site-nav-snippet.html`.
-
-6. **Update snippets/site-nav-snippet.html.** Add the new link to the canonical nav block and add a comment entry to the active link examples list.
-
-7. **Update README.md.** Add the new page to the page listing table.
+1. **Preflight checks:** Confirm tool availability and repo state before editing. Prefer `rg`; if unavailable, switch to `grep`/`find`. Check `git status --short` before changes.
+2. **Choose the filename:** Convert the page title to kebab-case (e.g. "API Review Guide" to `api-review-guide.html`). No underscores, spaces, or camelCase.
+3. **Create or rename the HTML file safely:** If source file is tracked, use `git mv`. If source file is untracked, use `mv` then `git add`. Verify old filename has zero references after rename.
+4. **Create the page content:** Use an existing page (e.g. `first-30-minutes-quickstart.html`) as the structural template. Copy the full page skeleton including `<head>` with Inter font and embedded CSS, animated perspective grid background, `.site-nav` block, and main content wrapper.
+5. **Set the active nav link:** On the new page, add the `active` class to its own nav link (e.g. `class="nav-mypage active"`). Ensure page padding accounts for fixed nav overlap.
+6. **Add a card to index.html:** Place a `<a class="card ..." href="...">` block in the appropriate section grid. Set `--accent` and `--glow` CSS custom properties to give the card a distinct colour.
+7. **Update nav on every other existing page:** Open each `.html` file and add the new `<a class="nav-mypage" href="mypage.html">Nav Label</a>` link inside the `.site-nav` block. The order must match `snippets/site-nav-snippet.html`.
+8. **Update snippets/site-nav-snippet.html:** Add the new link to the canonical nav block and add a comment entry to the active link examples list.
+9. **Update README.md:** Add the new page to the page listing table.
+10. **Run deterministic validation:** Confirm every `.html` nav block contains the new link, every local nav `href` resolves to an existing file, and no references remain to old filenames.
+11. **Retrospective update:** Record one process improvement from the change and apply it to at least one of `.github/copilot-instructions.md`, `.github/skills.md`, `.github/agents.md`, or `apm.yml`.
 
 ## Output Format
 
@@ -42,3 +42,4 @@ Create a new page for the site and ensure navigation is fully consistent across 
 - `snippets/site-nav-snippet.html` — canonical nav updated
 - `README.md` — page listing updated
 - Validation: every `href` in every `.site-nav` block resolves to a real file in the repo
+- Retrospective: one concrete improvement applied to process artifacts
