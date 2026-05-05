@@ -33,25 +33,43 @@
     }
 
     .site-nav {
+      --site-nav-bg: rgba(8, 13, 18, .78);
+      --site-nav-border: rgba(255,255,255,.14);
+      --site-nav-link: #d8e7f1;
+      --site-nav-hover-bg: rgba(56, 189, 248, .18);
+      --site-nav-hover-border: rgba(56, 189, 248, .4);
+      --site-nav-active-bg: rgba(34, 197, 94, .2);
+      --site-nav-active-border: rgba(34, 197, 94, .56);
       position: fixed;
       top: 14px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 30;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
+      max-width: calc(100vw - 28px);
       padding: 10px;
-      border: 1px solid rgba(255,255,255,.14);
+      border: 1px solid var(--site-nav-border);
       border-radius: 999px;
-      background: rgba(8, 13, 18, .78);
+      background: var(--site-nav-bg);
       backdrop-filter: blur(7px);
       box-shadow: 0 12px 34px rgba(0,0,0,.34);
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .site-nav-track {
+      display: flex;
+      gap: 10px;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      min-width: max-content;
     }
 
     .site-nav a {
-      color: #d8e7f1;
+      flex: 0 0 auto;
+      white-space: nowrap;
+      color: var(--site-nav-link);
       text-decoration: none;
       font-size: 13px;
       font-weight: 800;
@@ -62,16 +80,22 @@
       transition: background .22s ease, border-color .22s ease, color .22s ease;
     }
 
-    .site-nav a:hover {
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
       color: #ffffff;
-      background: rgba(56, 189, 248, .18);
-      border-color: rgba(56, 189, 248, .4);
+      background: var(--site-nav-hover-bg);
+      border-color: var(--site-nav-hover-border);
+      outline: none;
     }
 
     .site-nav a.active {
       color: #ffffff;
-      background: rgba(34, 197, 94, .22);
-      border-color: rgba(34, 197, 94, .56);
+      background: var(--site-nav-active-bg);
+      border-color: var(--site-nav-active-border);
+    }
+
+    .site-nav::-webkit-scrollbar {
+      display: none;
     }
 
     .page {
@@ -244,15 +268,17 @@
 </head>
 <body>
   <nav class="site-nav" aria-label="Site navigation">
-    <a href="index.html">Overview</a>
-    <a href="agentic-maturity-ladder.html">Maturity Ladder</a>
-    <a href="context-engineering-primitives.html">Context Primitives</a>
-    <a href="human-intent-agent-execution.html">Intent to Execution</a>
-    <a href="apm-overview.html">APM Overview</a>
-    <a href="github-copilot-coding-agent.html">Coding Agent</a>
-    <a class="active" href="continuous-improvement-copilot-workflow.html">Continuous Improvement</a>
-    <a href="github-copilot-modernization-getting-started.html">Modernization Guide</a>
-    <a href="metrics-dashboard.html">Metrics Dashboard</a>
+    <div class="site-nav-track">
+      <a class="nav-overview" href="index.html">Overview</a>
+      <a class="nav-ladder" href="agentic-maturity-ladder.html">Maturity Ladder</a>
+      <a class="nav-context" href="context-engineering-primitives.html">Context Primitives</a>
+      <a class="nav-intent" href="human-intent-agent-execution.html">Intent to Execution</a>
+      <a class="nav-apm" href="apm-overview.html">APM Overview</a>
+      <a class="nav-coding-agent" href="github-copilot-coding-agent.html">Coding Agent</a>
+      <a class="nav-continuous-improvement active" href="continuous-improvement-copilot-workflow.html">Continuous Improvement</a>
+      <a class="nav-modernization" href="github-copilot-modernization-getting-started.html">Modernization Guide</a>
+      <a class="nav-metrics" href="metrics-dashboard.html">Metrics Dashboard</a>
+    </div>
   </nav>
 
   <main class="page">

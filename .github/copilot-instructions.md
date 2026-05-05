@@ -22,9 +22,11 @@
 ## Navigation Rule
 
 - Every page must include the shared `.site-nav` block with **all current nav links**.
+- Every live nav must preserve the `.site-nav-track` wrapper and canonical `nav-*` link classes from `snippets/site-nav-snippet.html`.
 - The page's own nav link must carry the `active` class (e.g. `class="nav-overview active"`).
 - When a nav link is added, renamed, or removed, update **all** existing `.html` pages and `snippets/site-nav-snippet.html` in the same change.
 - The canonical list of nav links and their classes lives in `snippets/site-nav-snippet.html`.
+- The nav should remain a single-row rail with horizontal overflow when links do not fit; do not reintroduce multi-row wrapped nav links.
 
 ## Adding a New Page
 
