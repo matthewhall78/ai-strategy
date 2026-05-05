@@ -35,7 +35,8 @@ Follow this sequence — do not skip or reorder steps:
 3. Add a card to the correct section in `index.html`.
 4. Add the new nav link to every other existing `.html` page.
 5. Add the new nav link to `snippets/site-nav-snippet.html`.
-6. Update the `README.md` page listing.
+6. Add the page to `general-ghcp-resources-links.html` (internal resources table).
+7. Update the `README.md` page listing.
 
 ## Editing Discipline
 

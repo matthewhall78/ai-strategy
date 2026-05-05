@@ -14,6 +14,7 @@ This repository contains standalone HTML pages focused on AI strategy, context e
 - `agents-md-example.html`
 - `apm-overview.html`
 - `github-copilot-coding-agent.html`
+- `continuous-improvement-copilot-workflow.html`
 - `general-ghcp-resources-links.html`
 
 ## Reusable Navigation Snippet

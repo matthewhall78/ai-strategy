@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Example skills.md File</title>
+  <title>Continuous Improvement in GitHub Copilot Workflow</title>
   <style>
     :root {
-      --bg: #05090e;
-      --panel: #111923;
+      --bg: #060a10;
+      --panel: #121a24;
       --panel-2: #182331;
-      --text: #eef4f9;
-      --muted: #aab7c5;
+      --text: #edf3f8;
+      --muted: #aab8c6;
+      --line: rgba(128, 152, 176, .22);
       --cyan: #38bdf8;
-      --blue: #2f85ff;
       --green: #22c55e;
+      --blue: #2f85ff;
+      --purple: #a970ff;
       --shadow: 0 24px 70px rgba(0,0,0,.42);
     }
 
@@ -22,11 +24,11 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background:
-        radial-gradient(circle at 20% 18%, rgba(56, 189, 248, .14), transparent 30%),
-        radial-gradient(circle at 84% 22%, rgba(34, 197, 94, .12), transparent 28%),
-        var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(56, 189, 248, .14), transparent 30%),
+        radial-gradient(circle at 84% 18%, rgba(34, 197, 94, .11), transparent 26%),
+        var(--bg);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
@@ -68,12 +70,12 @@
 
     .site-nav a.active {
       color: #ffffff;
-      background: rgba(47, 133, 255, .22);
-      border-color: rgba(47, 133, 255, .56);
+      background: rgba(34, 197, 94, .22);
+      border-color: rgba(34, 197, 94, .56);
     }
 
     .page {
-      max-width: 1280px;
+      max-width: 1260px;
       margin: 0 auto;
       padding: 108px 24px 48px;
     }
@@ -98,7 +100,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .05), transparent);
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .06), transparent);
       transform: translateX(-120%);
       animation: sweep 8s ease-in-out infinite;
       pointer-events: none;
@@ -106,23 +108,26 @@
 
     .eyebrow {
       display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 7px 11px;
+      border: 1px solid rgba(34, 197, 94, .36);
       border-radius: 999px;
-      border: 1px solid rgba(34, 197, 94, .34);
+      color: #d6f5e2;
       font-size: 12px;
       font-weight: 800;
       letter-spacing: .06em;
       text-transform: uppercase;
-      background: rgba(8, 13, 18, .48);
+      background: rgba(8, 13, 18, .45);
     }
 
     h1 {
       margin: 16px 0 0;
-      font-size: clamp(38px, 5vw, 70px);
+      font-size: clamp(36px, 4.8vw, 68px);
       line-height: 1.03;
       letter-spacing: -.055em;
       font-weight: 900;
-      max-width: 10ch;
+      max-width: 14ch;
     }
 
     .sub,
@@ -133,14 +138,14 @@
     }
 
     .sub {
-      max-width: 64ch;
+      max-width: 72ch;
       margin: 14px 0 0;
       font-size: clamp(16px, 1.5vw, 21px);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: 1.12fr .88fr;
+      grid-template-columns: 1.05fr .95fr;
       gap: 18px;
       margin-top: 22px;
     }
@@ -151,13 +156,37 @@
       letter-spacing: -.03em;
     }
 
+    .steps,
+    .notes {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step,
+    .note {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px;
+      background: rgba(24, 35, 49, .78);
+    }
+
+    .step strong,
+    .note strong {
+      color: #f5faff;
+    }
+
+    ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
     pre,
     code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     }
 
     pre {
-      margin: 0;
+      margin: 14px 0 0;
       padding: 18px;
       overflow-x: auto;
       border-radius: 18px;
@@ -168,21 +197,12 @@
       font-size: 14px;
     }
 
-    .notes {
-      display: grid;
-      gap: 12px;
-    }
-
-    .note {
-      padding: 14px 16px;
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 3px solid var(--green);
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.07);
-      background: rgba(24, 35, 49, .78);
-    }
-
-    ul {
-      margin: 14px 0 0;
-      padding-left: 18px;
+      background: rgba(34, 197, 94, .08);
     }
 
     .link-row {
@@ -200,7 +220,7 @@
       text-decoration: none;
       color: #eaf4fb;
       border: 1px solid rgba(56, 189, 248, .3);
-      background: rgba(47, 133, 255, .12);
+      background: rgba(34, 197, 94, .12);
       font-weight: 800;
     }
 
@@ -226,85 +246,79 @@
   <nav class="site-nav" aria-label="Site navigation">
     <a href="index.html">Overview</a>
     <a href="agentic-maturity-ladder.html">Maturity Ladder</a>
-    <a class="active" href="context-engineering-primitives.html">Context Primitives</a>
+    <a href="context-engineering-primitives.html">Context Primitives</a>
     <a href="human-intent-agent-execution.html">Intent to Execution</a>
     <a href="apm-overview.html">APM Overview</a>
     <a href="github-copilot-coding-agent.html">Coding Agent</a>
-    <a href="continuous-improvement-copilot-workflow.html">Continuous Improvement</a>
+    <a class="active" href="continuous-improvement-copilot-workflow.html">Continuous Improvement</a>
   </nav>
 
   <main class="page">
     <section class="hero">
-      <span class="eyebrow">Worked Example</span>
-      <h1>What goes in a skills.md file.</h1>
-      <p class="sub">A strong skills file packages a repeatable workflow, not a vague aspiration. The example below shows the parts that matter: purpose, inputs, process, and output contract.</p>
+      <span class="eyebrow">Workflow Setup</span>
+      <h1>Add Continuous Improvement to your Copilot workflow.</h1>
+      <p class="sub">This page shows how to make process improvement a required step after every enhancement: run a short retrospective, update one process artifact, and include a structured handoff record so lessons are never lost.</p>
       <div class="link-row">
-        <a href="context-engineering-primitives.html">Open parent concept</a>
-        <a href="first-30-minutes-quickstart.html">Open quickstart</a>
-        <a href="context-primitives-decision-guide.html">Open decision guide</a>
+        <a href="copilot-instructions-md-guide.html">instructions guide</a>
+        <a href="skills-md-example.html">skills example</a>
+        <a href="agents-md-example.html">agents example</a>
       </div>
     </section>
 
-    <section class="grid" aria-label="Example skills file and annotations">
+    <section class="grid" aria-label="Continuous improvement setup and template">
       <article class="panel">
-        <h2>Example skills.md</h2>
-        <pre>---
-name: API Review
-description: Review an API change for naming, versioning, consistency, and breaking changes.
-inputs:
-  - OpenAPI spec or endpoint diff
-  - Current API standards
-outputs:
-  - Findings list ordered by severity
-  - Recommended contract changes
-  - Release risk summary
----
-
-## Purpose
-Review an API proposal or diff and produce a concise, actionable review.
-
-## Steps
-1. Identify the changed endpoints, schemas, and error contracts.
-2. Check naming and resource consistency.
-3. Check versioning and backward compatibility.
-4. Flag breaking changes and suggest mitigations.
-5. Summarize findings in severity order.
-
-## Output Format
-- Critical findings
-- Medium findings
-- Low findings
-- Suggested revisions
-- Ship / do-not-ship recommendation</pre>
-      </article>
-
-      <aside class="panel">
-        <h2>Why this works</h2>
-        <div class="notes">
-          <section class="note">
-            <strong>Specific purpose</strong>
-            <p>The skill owns one job. It does not try to review architecture, product scope, and security policy all at once.</p>
+        <h2>Setup steps</h2>
+        <div class="steps">
+          <section class="step">
+            <strong>1) Add an explicit CI rule to instructions.</strong>
+            <p>In <code>.github/copilot-instructions.md</code>, require one process improvement after each enhancement and mark completion as blocked until retrospective output is included.</p>
           </section>
-          <section class="note">
-            <strong>Clear inputs</strong>
-            <p>Anyone invoking the skill can tell what artifacts are required before the workflow starts.</p>
+          <section class="step">
+            <strong>2) Add a workflow step to skills.</strong>
+            <p>In <code>.github/skills.md</code>, include a required retrospective step at the end of the new-page workflow so improvement is part of execution, not optional cleanup.</p>
           </section>
-          <section class="note">
-            <strong>Stable output contract</strong>
-            <p>The findings are returned in the same structure every time, which makes review and downstream automation easier.</p>
+          <section class="step">
+            <strong>3) Add output requirements to agents.</strong>
+            <p>In <code>.github/agents.md</code>, require the agent to include a short retrospective record in every final handoff message.</p>
           </section>
-          <section class="note">
-            <strong>Reusable steps</strong>
-            <p>The workflow is generic enough to reuse across many API changes without rewriting the skill every week.</p>
+          <section class="step">
+            <strong>4) Add quality gate in APM.</strong>
+            <p>In <code>apm.yml</code>, add a <code>retrospective-update</code> quality gate so the governance manifest checks this behavior before publish.</p>
           </section>
         </div>
 
-        <h2 style="margin-top: 18px;">Good next examples</h2>
-        <ul>
-          <li>Database migration planning</li>
-          <li>Security review checklist</li>
-          <li>Performance profiling workflow</li>
-        </ul>
+        <div class="callout">
+          <p><strong>Why this works:</strong> by connecting instructions + skills + agents + APM, the same improvement behavior is enforced at policy, workflow, role, and release-gate layers.</p>
+        </div>
+      </article>
+
+      <aside class="panel">
+        <h2>Required handoff template</h2>
+        <pre>Retrospective Record (Required)
+
+1. What slowed us down?
+2. What process/file is being improved?
+3. Exact rule added or changed.
+4. How this prevents repeat issues.</pre>
+
+        <div class="notes" style="margin-top: 14px;">
+          <section class="note">
+            <strong>Good retrospective update</strong>
+            <ul>
+              <li>Identifies a concrete friction point from the latest change.</li>
+              <li>Updates one specific rule in one process file.</li>
+              <li>Explains how the new rule prevents recurrence.</li>
+            </ul>
+          </section>
+          <section class="note">
+            <strong>Common mistakes</strong>
+            <ul>
+              <li>Generic statements with no rule change.</li>
+              <li>Adding broad policy rewrites instead of one targeted fix.</li>
+              <li>Skipping the final handoff record.</li>
+            </ul>
+          </section>
+        </div>
       </aside>
     </section>
   </main>
