@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General GHCP Resources & Links</title>
+  <style>
+    :root {
+      --bg: #030303;
+      --panel: #12171d;
+      --panel-2: #171d24;
+      --border: #303a44;
+      --text: #f3f4f6;
+      --muted: #d7dce2;
+      --link: #0ea5ff;
+      --blue: rgba(48, 112, 255, .55);
+      --purple: rgba(126, 34, 206, .65);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(8, 13, 18, .78);
+      backdrop-filter: blur(7px);
+      box-shadow: 0 12px 34px rgba(0,0,0,.34);
+    }
+
+    .site-nav a {
+      color: #d8e7f1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .22s ease, border-color .22s ease, color .22s ease;
+    }
+
+    .site-nav a:hover {
+      color: #ffffff;
+      background: rgba(56, 189, 248, .18);
+      border-color: rgba(56, 189, 248, .4);
+    }
+
+    .slide {
+      position: relative;
+      min-height: 100vh;
+      padding: 70px 62px 0;
+      background: radial-gradient(circle at 78% 18%, rgba(79, 70, 229, .14), transparent 18%), #000;
+      overflow: hidden;
+    }
+
+    .perspective-grid {
+      position: absolute;
+      left: -12%;
+      right: -12%;
+      bottom: -16%;
+      height: 52%;
+      transform: perspective(540px) rotateX(63deg);
+      transform-origin: center bottom;
+      background:
+        linear-gradient(var(--purple) 2px, transparent 2px),
+        linear-gradient(90deg, transparent 49.7%, rgba(48,112,255,.55) 50%, transparent 50.3%),
+        repeating-linear-gradient(116deg, transparent 0 220px, var(--blue) 222px 225px, transparent 227px),
+        repeating-linear-gradient(64deg, transparent 0 220px, var(--blue) 222px 225px, transparent 227px);
+      background-size: 100% 118px, 100% 100%, auto, auto;
+      opacity: .78;
+      animation: gridDrift 8s linear infinite;
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0 55%, rgba(0,0,0,.1), rgba(0,0,0,.68));
+      pointer-events: none;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 3;
+      margin: 0;
+      font-size: clamp(46px, 5vw, 80px);
+      line-height: 1.05;
+      letter-spacing: -.055em;
+      font-weight: 950;
+      animation: titleIn .7s ease both;
+    }
+
+    .bot {
+      position: absolute;
+      z-index: 4;
+      right: 82px;
+      top: 72px;
+      width: clamp(170px, 16vw, 290px);
+      aspect-ratio: 1.25;
+      filter: drop-shadow(0 0 22px rgba(45, 140, 255, .55));
+      animation: floatBot 4.2s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    .bot:hover { animation-play-state: paused; transform: scale(1.08) rotate(-3deg); }
+
+    .bot-body {
+      position: absolute;
+      inset: 26% 7% 8%;
+      border-radius: 42% 42% 36% 36%;
+      background: linear-gradient(145deg, #70e0ff 0 15%, #5c7cff 42%, #a965ff 78%, #d58cff 100%);
+      box-shadow: inset -18px -14px 28px rgba(0,0,0,.24), inset 12px 10px 20px rgba(255,255,255,.2);
+    }
+
+    .bot-face {
+      position: absolute;
+      left: 17%;
+      right: 17%;
+      top: 38%;
+      height: 42%;
+      border-radius: 18px 18px 26px 26px;
+      background: linear-gradient(160deg, #151d93, #051457 70%);
+      box-shadow: inset 0 0 22px rgba(20, 200, 255, .24);
+    }
+
+    .eye {
+      position: absolute;
+      top: 39%;
+      width: 11%;
+      height: 28%;
+      border-radius: 999px 999px 6px 6px;
+      background: repeating-linear-gradient(0deg, #80fff4 0 4px, #44c9ff 5px 8px);
+      box-shadow: 0 0 12px rgba(98, 255, 244, .75);
+    }
+
+    .eye.left { left: 34%; }
+    .eye.right { right: 34%; }
+
+    .goggle {
+      position: absolute;
+      top: 0;
+      width: 44%;
+      height: 38%;
+      border-radius: 50%;
+      border: 13px solid #41b8ff;
+      background: linear-gradient(135deg, rgba(152,90,255,.9), rgba(28,27,130,.95));
+      box-shadow: inset 0 0 18px rgba(0,0,0,.42), 0 0 12px rgba(65,184,255,.5);
+    }
+
+    .goggle.left { left: 12%; transform: rotate(-12deg); }
+    .goggle.right { right: 12%; transform: rotate(10deg); }
+
+    .chin {
+      position: absolute;
+      left: 35%;
+      right: 28%;
+      bottom: 3%;
+      height: 18%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #84fbff, #198cff);
+      box-shadow: inset 0 -8px 10px rgba(0,0,0,.2), 0 0 18px rgba(94, 234, 255, .65);
+    }
+
+    .side {
+      position: absolute;
+      top: 43%;
+      width: 18%;
+      height: 36%;
+      background: linear-gradient(135deg, #60a5fa, #a855f7);
+      border-radius: 50%;
+      box-shadow: inset -8px -8px 18px rgba(0,0,0,.18);
+    }
+
+    .side.left { left: 0; }
+    .side.right { right: 0; }
+
+    .table-wrap {
+      position: relative;
+      z-index: 3;
+      margin-top: 208px;
+      width: min(100%, 1780px);
+      background: rgba(18,23,29,.96);
+      border: 2px solid var(--border);
+      box-shadow: 0 28px 90px rgba(0,0,0,.74);
+      animation: tableIn .8s cubic-bezier(.2,.8,.2,1) both .15s;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: clamp(28px, 2.1vw, 42px);
+      line-height: 1.15;
+      color: var(--muted);
+    }
+
+    th, td {
+      border: 2px solid var(--border);
+      padding: 10px 16px;
+      text-align: left;
+      background: rgba(16,22,28,.98);
+      transition: background .24s ease, transform .24s ease, box-shadow .24s ease, color .24s ease;
+    }
+
+    th {
+      color: var(--text);
+      font-weight: 950;
+      height: 56px;
+    }
+
+    tbody tr:nth-child(even) td { background: rgba(23,29,36,.98); }
+
+    tbody tr:hover td {
+      background: #202a34;
+      color: #fff;
+    }
+
+    td:hover, th:hover {
+      position: relative;
+      z-index: 5;
+      transform: scale(1.018);
+      box-shadow: 0 0 0 2px rgba(14,165,255,.42), 0 18px 44px rgba(0,0,0,.55);
+    }
+
+    .resource {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-weight: 500;
+      color: #f3f4f6;
+    }
+
+    .icon {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      flex: 0 0 38px;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,.15));
+      transition: transform .25s ease;
+    }
+
+    tr:hover .icon { transform: rotate(-8deg) scale(1.18); }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+      transition: color .22s ease, text-shadow .22s ease;
+    }
+
+    a:hover {
+      color: #55c7ff;
+      text-shadow: 0 0 18px rgba(14,165,255,.55);
+    }
+
+    @keyframes titleIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes tableIn {
+      from { opacity: 0; transform: translateY(38px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes floatBot {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-16px) rotate(2deg); }
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0, 0 0, 0 0, 0 0; }
+      to { background-position: 0 118px, 0 0, 0 82px, 0 82px; }
+    }
+
+    @media (max-width: 1150px) {
+      body { overflow: auto; }
+      .slide { padding: 38px 24px 90px; }
+      .bot { position: relative; top: auto; right: auto; margin: 24px auto 0; display: block; }
+      .table-wrap { margin-top: 54px; overflow-x: auto; }
+      table { min-width: 900px; }
+      .perspective-grid { position: fixed; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="agentic_maturity_ladder_single_page_html.html">Maturity Ladder</a>
+    <a href="context_engineering_primitives_html.html">Context Primitives</a>
+    <a href="human_intent_agent_execution_html.html">Intent to Execution</a>
+  </nav>
+
+  <main class="slide">
+    <div class="perspective-grid"></div>
+
+    <h1>General GHCP Resources &amp; Links</h1>
+
+    <div class="bot" aria-hidden="true">
+      <div class="bot-body"></div>
+      <div class="side left"></div>
+      <div class="side right"></div>
+      <div class="bot-face"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="goggle left"></div>
+      <div class="goggle right"></div>
+      <div class="chin"></div>
+    </div>
+
+    <section class="table-wrap" aria-label="General GHCP Resources and Links table">
+      <table>
+        <colgroup>
+          <col style="width:50%" />
+          <col style="width:50%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Resource</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="resource"><span class="icon">🚀</span>First 30 Minutes</span></td>
+            <td><a href="first_30_minutes_quickstart_html.html">first_30_minutes_quickstart_html.html</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">🧭</span>Decision Guide</span></td>
+            <td><a href="context_primitives_decision_guide_html.html">context_primitives_decision_guide_html.html</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">🧩</span>Example skills.md</span></td>
+            <td><a href="example_skills_md_html.html">example_skills_md_html.html</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">🌐</span>Website</span></td>
+            <td><a href="https://awesome-copilot.github.com">awesome-copilot.github.com</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">🤖</span>Machine-readable</span></td>
+            <td><a href="https://awesome-copilot.github.com/llms.txt">llms.txt</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">📚</span>Learning Hub</span></td>
+            <td><a href="https://awesome-copilot.github.com/learning-hub">awesome-copilot.github.com/learning-hub</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">🎯</span>Skills Browser</span></td>
+            <td><a href="https://awesome-copilot.github.com/skills">awesome-copilot.github.com/skills</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">🔌</span>Plugins Browser</span></td>
+            <td><a href="https://awesome-copilot.github.com/tools">awesome-copilot.github.com/tools</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">📖</span>Official Docs</span></td>
+            <td><a href="https://docs.github.com/copilot">docs.github.com/copilot</a></td>
+          </tr>
+          <tr>
+            <td><span class="resource"><span class="icon">🤝</span>Contributing</span></td>
+            <td><a href="https://awesome-copilot.github.com/CONTRIBUTING.md">CONTRIBUTING.md</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

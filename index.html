@@ -128,6 +128,27 @@
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .section-head {
+      margin: 34px 0 0;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(24px, 2vw, 34px);
+      letter-spacing: -.03em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 56ch;
+      line-height: 1.4;
+    }
+
     .card {
       display: block;
       text-decoration: none;
@@ -206,6 +227,10 @@
     .ladder { --accent: var(--green); --glow: rgba(34, 197, 94, .42); }
     .context { --accent: var(--blue); --glow: rgba(47, 133, 255, .42); }
     .intent { --accent: var(--purple); --glow: rgba(169, 112, 255, .42); }
+    .quickstart { --accent: var(--cyan); --glow: rgba(56, 189, 248, .42); }
+    .decision { --accent: var(--blue); --glow: rgba(47, 133, 255, .42); }
+    .example { --accent: var(--green); --glow: rgba(34, 197, 94, .42); }
+    .resources { --accent: var(--purple); --glow: rgba(169, 112, 255, .42); }
 
     .footer {
       margin-top: 18px;
@@ -265,7 +290,46 @@
       </a>
     </section>
 
-    <div class="footer">Navigation is now available on every page in this site set.</div>
+    <section class="section-head" aria-label="Implementation docs heading">
+      <div>
+        <h2>Start Implementation</h2>
+        <p>The first practical subpages are now live under the Context Engineering track: a quickstart, a selection guide, and a worked <code>skills.md</code> example.</p>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Implementation docs">
+      <a class="card quickstart" href="first_30_minutes_quickstart_html.html">
+        <span class="kicker">Quickstart</span>
+        <h2>First 30 Minutes</h2>
+        <p>Set up one instructions file, one reusable skill, and a simple validation loop.</p>
+        <div class="cta">Open guide -></div>
+      </a>
+
+      <a class="card decision" href="context_primitives_decision_guide_html.html">
+        <span class="kicker">Decision Guide</span>
+        <h2>Instructions vs Skills vs Agents</h2>
+        <p>Use the lightest mechanism that fits the behavior, workflow, or role you need.</p>
+        <div class="cta">Open guide -></div>
+      </a>
+
+      <a class="card example" href="example_skills_md_html.html">
+        <span class="kicker">Worked Example</span>
+        <h2>What Goes in skills.md</h2>
+        <p>Review a concrete skill definition with clear inputs, steps, and output contract.</p>
+        <div class="cta">Open example -></div>
+      </a>
+    </section>
+
+    <section class="grid" aria-label="Additional references">
+      <a class="card resources" href="general_ghcp_resources_links_html.html">
+        <span class="kicker">Reference</span>
+        <h2>General GHCP Resources</h2>
+        <p>External GitHub Copilot links plus internal site links for the implementation guides.</p>
+        <div class="cta">Open resources -></div>
+      </a>
+    </section>
+
+    <div class="footer">Content presented by Ve Sharma</div>
   </main>
 </body>
 </html>

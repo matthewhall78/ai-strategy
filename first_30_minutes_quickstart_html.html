@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>First 30 Minutes with Context Engineering</title>
+  <style>
+    :root {
+      --bg: #060a0f;
+      --panel: #121a24;
+      --panel-2: #182331;
+      --text: #edf3f8;
+      --muted: #aab8c6;
+      --line: rgba(128, 152, 176, .22);
+      --cyan: #38bdf8;
+      --green: #22c55e;
+      --blue: #2f85ff;
+      --purple: #a970ff;
+      --shadow: 0 24px 70px rgba(0,0,0,.4);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(56, 189, 248, .14), transparent 30%),
+        radial-gradient(circle at 86% 18%, rgba(169, 112, 255, .12), transparent 28%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(8, 13, 18, .78);
+      backdrop-filter: blur(7px);
+      box-shadow: 0 12px 34px rgba(0,0,0,.34);
+    }
+
+    .site-nav a {
+      color: #d8e7f1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .22s ease, border-color .22s ease, color .22s ease;
+    }
+
+    .site-nav a:hover {
+      color: #ffffff;
+      background: rgba(56, 189, 248, .18);
+      border-color: rgba(56, 189, 248, .4);
+    }
+
+    .site-nav a.active {
+      color: #ffffff;
+      background: rgba(47, 133, 255, .22);
+      border-color: rgba(47, 133, 255, .56);
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 108px 24px 52px;
+    }
+
+    .hero,
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.04), transparent 34%),
+        var(--panel);
+    }
+
+    .hero {
+      padding: clamp(24px, 4vw, 46px);
+    }
+
+    .hero::after,
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .06), transparent);
+      transform: translateX(-120%);
+      animation: sweep 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid rgba(56, 189, 248, .36);
+      border-radius: 999px;
+      color: #d6e8f4;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: rgba(8, 13, 18, .45);
+    }
+
+    h1 {
+      margin: 16px 0 0;
+      font-size: clamp(38px, 5vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+      font-weight: 900;
+      max-width: 11ch;
+    }
+
+    .sub {
+      max-width: 64ch;
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.5vw, 21px);
+      line-height: 1.42;
+    }
+
+    .grid {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 1.35fr .95fr;
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: clamp(24px, 2.1vw, 34px);
+      letter-spacing: -.035em;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 14px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px;
+      background: rgba(24, 35, 49, .82);
+    }
+
+    .step-num {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.14);
+    }
+
+    .step h3,
+    .artifact h3 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: -.025em;
+    }
+
+    .step p,
+    .artifact p,
+    .callout p,
+    li {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.42;
+    }
+
+    .artifact-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .artifact {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px;
+      background: rgba(24, 35, 49, .78);
+    }
+
+    code,
+    pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    pre {
+      margin: 14px 0 0;
+      padding: 14px 16px;
+      border-radius: 18px;
+      overflow-x: auto;
+      background: #0a1118;
+      border: 1px solid rgba(56, 189, 248, .18);
+      color: #dbeafe;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 3px solid var(--green);
+      border-radius: 18px;
+      background: rgba(34, 197, 94, .08);
+    }
+
+    .link-row {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .link-row a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #eaf4fb;
+      border: 1px solid rgba(56, 189, 248, .3);
+      background: rgba(47, 133, 255, .12);
+      font-weight: 800;
+      letter-spacing: .02em;
+    }
+
+    .link-row a:hover {
+      background: rgba(47, 133, 255, .2);
+    }
+
+    @keyframes sweep {
+      0%, 56% { transform: translateX(-120%); }
+      82%, 100% { transform: translateX(120%); }
+    }
+
+    @media (max-width: 980px) {
+      .site-nav {
+        left: 14px;
+        right: 14px;
+        transform: none;
+        border-radius: 18px;
+      }
+
+      .page {
+        padding: 108px 16px 36px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="agentic_maturity_ladder_single_page_html.html">Maturity Ladder</a>
+    <a class="active" href="context_engineering_primitives_html.html">Context Primitives</a>
+    <a href="human_intent_agent_execution_html.html">Intent to Execution</a>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Quickstart</span>
+      <h1>First 30 minutes with context engineering.</h1>
+      <p class="sub">This page gives a practical first session: define always-on rules, add one reusable skill, and decide when an agent is justified. The goal is not a perfect setup. The goal is one working pattern your team can repeat.</p>
+      <div class="link-row">
+        <a href="context_engineering_primitives_html.html">Open parent concept</a>
+        <a href="example_skills_md_html.html">See skills example</a>
+        <a href="context_primitives_decision_guide_html.html">Use decision guide</a>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Quickstart steps and starter artifacts">
+      <article class="panel">
+        <h2>Run this sequence</h2>
+        <div class="steps">
+          <section class="step">
+            <div class="step-num">01</div>
+            <div>
+              <h3>Write one small instructions file</h3>
+              <p>Capture the rules that should apply every time: coding standards, test expectations, naming conventions, and documentation rules. Keep it short enough that the team will actually maintain it.</p>
+            </div>
+          </section>
+          <section class="step">
+            <div class="step-num">02</div>
+            <div>
+              <h3>Add one repeatable skill</h3>
+              <p>Pick a workflow that appears multiple times each week. Good candidates are bug triage, migration prep, API review, or security checks. The skill should produce a consistent output shape.</p>
+            </div>
+          </section>
+          <section class="step">
+            <div class="step-num">03</div>
+            <div>
+              <h3>Delay agent specialization until it earns its cost</h3>
+              <p>If a role needs different tools, constraints, or review behavior, create an agent. If not, stay with instructions plus skills. Most teams should not start with many agents.</p>
+            </div>
+          </section>
+          <section class="step">
+            <div class="step-num">04</div>
+            <div>
+              <h3>Prove value with one real task</h3>
+              <p>Run the setup on a live piece of work and inspect the outcome. Measure whether the output is faster, clearer, or easier to review than the team’s default path.</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="callout">
+          <p><strong>Rule of thumb:</strong> instructions shape behavior, skills shape workflows, and agents shape operating context.</p>
+        </div>
+      </article>
+
+      <aside class="panel">
+        <h2>Starter artifacts</h2>
+        <div class="artifact-list">
+          <section class="artifact">
+            <h3>Minimal instructions.md</h3>
+            <p>Keep it focused on rules that should always hold true.</p>
+            <pre>## Coding Standards
+- Use descriptive names.
+- Prefer small functions.
+
+## Validation
+- Add or update tests for changed behavior.
+- Explain any missing validation.
+
+## Documentation
+- Document new commands and workflows.</pre>
+          </section>
+
+          <section class="artifact">
+            <h3>Minimal skills.md idea</h3>
+            <p>Describe one workflow with inputs, steps, and expected output.</p>
+            <pre>Skill: API Review
+Input: OpenAPI spec or endpoint diff
+Steps:
+1. Check naming and versioning
+2. Check error contract consistency
+3. Flag breaking changes
+Output: Findings list + recommended fixes</pre>
+          </section>
+
+          <section class="artifact">
+            <h3>Use an agent only when</h3>
+            <ul>
+              <li>The role needs distinct tools or permissions.</li>
+              <li>The role has a different review posture than the default assistant.</li>
+              <li>The role should inherit multiple skills consistently.</li>
+            </ul>
+          </section>
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
