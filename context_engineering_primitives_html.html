@@ -29,10 +29,52 @@
       overflow: hidden;
     }
 
+    .site-nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(7, 7, 10, .74);
+      backdrop-filter: blur(7px);
+      box-shadow: 0 12px 34px rgba(0,0,0,.34);
+    }
+
+    .site-nav a {
+      color: #d7dde8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .22s ease, border-color .22s ease, color .22s ease;
+    }
+
+    .site-nav a:hover {
+      color: #ffffff;
+      background: rgba(14, 165, 183, .18);
+      border-color: rgba(47, 110, 234, .42);
+    }
+
+    .site-nav a.active {
+      color: #ffffff;
+      background: rgba(47, 110, 234, .2);
+      border-color: rgba(47, 110, 234, .6);
+    }
+
     .slide {
       position: relative;
       min-height: 100vh;
-      padding: 48px 32px 0;
+      padding: 94px 32px 0;
       background:
         radial-gradient(circle at 50% 60%, rgba(33, 150, 243, .07), transparent 34%),
         linear-gradient(#000 0 54%, #040404 54% 100%);
@@ -222,7 +264,7 @@
 
     @media (max-width: 1150px) {
       body { overflow: auto; }
-      .slide { padding: 36px 20px 80px; }
+      .slide { padding: 94px 20px 80px; }
       h1 { margin: 0 0 48px 0; }
       .table-wrap { overflow-x: auto; }
       table { min-width: 1100px; }
@@ -231,6 +273,13 @@
   </style>
 </head>
 <body>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="agentic_maturity_ladder_single_page_html.html">Maturity Ladder</a>
+    <a class="active" href="context_engineering_primitives_html.html">Context Primitives</a>
+    <a href="human_intent_agent_execution_html.html">Intent to Execution</a>
+  </nav>
+
   <main class="slide">
     <div class="perspective-grid"></div>
     <div class="glow-lines"><span></span><span></span><span></span></div>
