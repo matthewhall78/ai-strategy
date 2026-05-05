@@ -8,6 +8,18 @@ This repository contains three standalone HTML pages focused on AI strategy and 
 - `context_engineering_primitives_html.html`
 - `human_intent_agent_execution_html.html`
 
+## Reusable Navigation Snippet
+
+Use `snippets/site-nav-snippet.html` as a copy-ready pattern for new pages.
+
+Quick workflow:
+
+1. Copy the full contents of `snippets/site-nav-snippet.html`.
+2. Paste the `STYLE BLOCK` section into the `<head>` of your new page.
+3. Paste the `NAV BLOCK` section as the first element inside `<body>`.
+4. Add the `active` class to the link for the current page.
+5. Update or extend links in one place for new pages.
+
 ## Usage
 
 Open any file directly in a browser, or serve the folder with a simple static server.
