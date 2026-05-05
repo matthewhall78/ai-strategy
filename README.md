@@ -1,12 +1,20 @@
 # AI Strategy Pages
 
-This repository contains three standalone HTML pages focused on AI strategy and agentic design concepts.
+This repository contains standalone HTML pages focused on AI strategy, context engineering, and agentic delivery concepts.
 
 ## Pages
 
 - `agentic-maturity-ladder.html`
 - `context-engineering-primitives.html`
 - `human-intent-agent-execution.html`
+- `first-30-minutes-quickstart.html`
+- `context-primitives-decision-guide.html`
+- `skills-md-example.html`
+- `copilot-instructions-md-guide.html`
+- `agents-md-example.html`
+- `apm-overview.html`
+- `github-copilot-coding-agent.html`
+- `general-ghcp-resources-links.html`
 
 ## Reusable Navigation Snippet
 
