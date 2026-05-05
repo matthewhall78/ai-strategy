@@ -4,9 +4,9 @@ This repository contains three standalone HTML pages focused on AI strategy and 
 
 ## Pages
 
-- `agentic_maturity_ladder_single_page_html.html`
-- `context_engineering_primitives_html.html`
-- `human_intent_agent_execution_html.html`
+- `agentic-maturity-ladder.html`
+- `context-engineering-primitives.html`
+- `human-intent-agent-execution.html`
 
 ## Reusable Navigation Snippet
 
