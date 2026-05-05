@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Making the copilot-instructions.md File</title>
+  <style>
+    :root {
+      --bg: #060a10;
+      --panel: #121a24;
+      --panel-2: #182331;
+      --text: #edf3f8;
+      --muted: #aab8c6;
+      --line: rgba(128, 152, 176, .22);
+      --cyan: #38bdf8;
+      --green: #22c55e;
+      --blue: #2f85ff;
+      --purple: #a970ff;
+      --shadow: 0 24px 70px rgba(0,0,0,.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 14% 18%, rgba(56, 189, 248, .14), transparent 30%),
+        radial-gradient(circle at 84% 18%, rgba(169, 112, 255, .12), transparent 28%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(8, 13, 18, .78);
+      backdrop-filter: blur(7px);
+      box-shadow: 0 12px 34px rgba(0,0,0,.34);
+    }
+
+    .site-nav a {
+      color: #d8e7f1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .22s ease, border-color .22s ease, color .22s ease;
+    }
+
+    .site-nav a:hover {
+      color: #ffffff;
+      background: rgba(56, 189, 248, .18);
+      border-color: rgba(56, 189, 248, .4);
+    }
+
+    .site-nav a.active {
+      color: #ffffff;
+      background: rgba(47, 133, 255, .22);
+      border-color: rgba(47, 133, 255, .56);
+    }
+
+    .page {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 108px 24px 48px;
+    }
+
+    .hero,
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.04), transparent 34%),
+        var(--panel);
+    }
+
+    .hero { padding: clamp(24px, 4vw, 46px); }
+    .panel { padding: 22px; }
+
+    .hero::after,
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .06), transparent);
+      transform: translateX(-120%);
+      animation: sweep 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid rgba(56, 189, 248, .36);
+      border-radius: 999px;
+      color: #d6e8f4;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: rgba(8, 13, 18, .45);
+    }
+
+    h1 {
+      margin: 16px 0 0;
+      font-size: clamp(38px, 5vw, 70px);
+      line-height: 1.03;
+      letter-spacing: -.055em;
+      font-weight: 900;
+      max-width: 12ch;
+    }
+
+    .sub,
+    p,
+    li {
+      color: var(--muted);
+      line-height: 1.44;
+    }
+
+    .sub {
+      max-width: 66ch;
+      margin: 14px 0 0;
+      font-size: clamp(16px, 1.5vw, 21px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(24px, 2vw, 34px);
+      letter-spacing: -.03em;
+    }
+
+    .steps,
+    .notes {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step,
+    .note {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 18px;
+      background: rgba(24, 35, 49, .78);
+    }
+
+    .step strong,
+    .note strong {
+      color: #f5faff;
+    }
+
+    pre,
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    pre {
+      margin: 14px 0 0;
+      padding: 18px;
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(56, 189, 248, .2);
+      background: #09121a;
+      color: #dbeafe;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 3px solid var(--green);
+      border-radius: 18px;
+      background: rgba(34, 197, 94, .08);
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .link-row a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #eaf4fb;
+      border: 1px solid rgba(56, 189, 248, .3);
+      background: rgba(47, 133, 255, .12);
+      font-weight: 800;
+    }
+
+    @keyframes sweep {
+      0%, 56% { transform: translateX(-120%); }
+      82%, 100% { transform: translateX(120%); }
+    }
+
+    @media (max-width: 980px) {
+      .site-nav {
+        left: 14px;
+        right: 14px;
+        transform: none;
+        border-radius: 18px;
+      }
+
+      .page { padding: 108px 16px 36px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="agentic_maturity_ladder_single_page_html.html">Maturity Ladder</a>
+    <a class="active" href="context_engineering_primitives_html.html">Context Primitives</a>
+    <a href="human_intent_agent_execution_html.html">Intent to Execution</a>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">How-To</span>
+      <h1>Making the copilot-instructions.md file.</h1>
+      <p class="sub">A good <code>copilot-instructions.md</code> file is short, durable, and specific. It should encode team-wide rules that need to hold across many prompts, not one-off task details.</p>
+      <div class="link-row">
+        <a href="context_engineering_primitives_html.html">Open parent concept</a>
+        <a href="first_30_minutes_quickstart_html.html">Read quickstart</a>
+        <a href="context_primitives_decision_guide_html.html">Use decision guide</a>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Instructions guide and example">
+      <article class="panel">
+        <h2>How to write it</h2>
+        <div class="steps">
+          <section class="step">
+            <strong>Start with persistent rules only.</strong>
+            <p>Add standards that should shape nearly every coding session: naming, testing, validation, documentation, and repo-specific expectations.</p>
+          </section>
+          <section class="step">
+            <strong>Keep the file scoped and readable.</strong>
+            <p>Prefer a few clear sections over a long wall of policy. If a rule is hard to follow or easy to forget, rewrite it more concretely.</p>
+          </section>
+          <section class="step">
+            <strong>Write rules as actions.</strong>
+            <p>Use direct statements such as “validate touched files” or “prefer focused edits.” Avoid abstract slogans that do not change behavior.</p>
+          </section>
+          <section class="step">
+            <strong>Separate permanent guidance from workflows.</strong>
+            <p>If the content describes a reusable task sequence, it probably belongs in a skill. Instructions should shape behavior, not become a mini-runbook library.</p>
+          </section>
+        </div>
+
+        <div class="callout">
+          <p><strong>Rule of thumb:</strong> if the assistant should follow it even when the user forgets to mention it, put it in <code>copilot-instructions.md</code>.</p>
+        </div>
+      </article>
+
+      <aside class="panel">
+        <h2>Starter example</h2>
+        <pre># copilot-instructions.md
+
+## Editing Rules
+- Prefer small, focused changes.
+- Preserve existing style unless the task requires a change.
+- Avoid touching unrelated files.
+
+## Validation
+- Run the narrowest useful validation after edits.
+- If validation cannot be run, explain why.
+
+## Documentation
+- Update docs when behavior or setup changes.
+- Keep examples copy-ready.
+
+## Collaboration
+- Ask only when a missing choice blocks progress.
+- Otherwise, take the next useful action.</pre>
+
+        <div class="notes" style="margin-top: 14px;">
+          <section class="note">
+            <strong>Good content</strong>
+            <p>Standards, validation expectations, editing boundaries, and collaboration rules.</p>
+          </section>
+          <section class="note">
+            <strong>Bad content</strong>
+            <p>Temporary sprint context, one feature spec, or a long task checklist that only applies once.</p>
+          </section>
+        </div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
