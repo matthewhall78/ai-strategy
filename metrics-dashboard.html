@@ -191,6 +191,219 @@
       gap: 10px;
     }
 
+    .chart-wrap {
+      margin-bottom: 18px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      background: rgba(24, 35, 49, .45);
+    }
+
+    .chart-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .chart-head h3 {
+      margin: 0;
+      font-size: 14px;
+      letter-spacing: .02em;
+      color: #e8f2f9;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chart-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .chart-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chart-legend i {
+      display: inline-block;
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+    }
+
+    .chart-legend .raw i {
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+    }
+
+    .chart-legend .average i {
+      background: linear-gradient(90deg, var(--green), #b7ffcb);
+    }
+
+    .chart-legend .baseline i {
+      background: linear-gradient(90deg, #f7b955, #ffe39b);
+    }
+
+    .chart-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .chart-toggle button {
+      appearance: none;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 7px 11px;
+      background: rgba(255,255,255,.04);
+      color: #dceaf2;
+      font: inherit;
+      font-size: 12px;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .chart-toggle button:hover,
+    .chart-toggle button:focus-visible {
+      border-color: rgba(255,255,255,.28);
+      background: rgba(255,255,255,.08);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .chart-toggle button[aria-pressed="true"] {
+      border-color: rgba(91, 246, 255, .5);
+      background: rgba(91, 246, 255, .12);
+      color: #f4fdff;
+    }
+
+    .chart-toggle button.is-off {
+      opacity: .55;
+    }
+
+    .chart-stage {
+      position: relative;
+    }
+
+    .chart-tooltip {
+      position: absolute;
+      min-width: 176px;
+      max-width: 220px;
+      padding: 12px 12px 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(8, 15, 23, .94);
+      box-shadow: 0 20px 50px rgba(0,0,0,.34);
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, calc(-100% - 14px));
+      transition: opacity .14s ease;
+      z-index: 2;
+    }
+
+    .chart-tooltip.is-visible {
+      opacity: 1;
+    }
+
+    .tooltip-title {
+      margin: 0 0 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      color: #f5fbff;
+    }
+
+    .tooltip-grid {
+      display: grid;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .tooltip-grid strong {
+      color: #edf7fb;
+      font-weight: 700;
+    }
+
+    .trend-chart {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .axis,
+    .grid-line {
+      stroke: rgba(255,255,255,.14);
+      stroke-width: 1;
+    }
+
+    .grid-line {
+      stroke-dasharray: 4 6;
+    }
+
+    .trend-line {
+      fill: none;
+      stroke: var(--cyan);
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    .average-line {
+      fill: none;
+      stroke: var(--green);
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    .baseline-line {
+      fill: none;
+      stroke: #f7c568;
+      stroke-width: 2.5;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      stroke-dasharray: 8 6;
+      opacity: .95;
+    }
+
+    .trend-dot {
+      fill: #bdf3ff;
+      stroke: var(--blue);
+      stroke-width: 2;
+      cursor: pointer;
+    }
+
+    .trend-dot:focus-visible {
+      outline: none;
+      stroke: #f7fbff;
+      stroke-width: 3;
+    }
+
+    .axis-label,
+    .point-label {
+      fill: var(--muted);
+      font-size: 11px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .point-label {
+      fill: #eef7ff;
+      font-weight: 700;
+    }
+
     .bar-row {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -303,6 +516,11 @@
     @media (max-width: 760px) {
       .grid { grid-template-columns: 1fr; }
       table { font-size: 12px; }
+
+      .chart-tooltip {
+        min-width: 0;
+        max-width: 180px;
+      }
     }
   </style>
 </head>
@@ -352,6 +570,27 @@
     <section class="section-grid" aria-label="Trends and quality gates">
       <article class="panel">
         <h2>Efficiency Trend</h2>
+        <div class="chart-wrap">
+          <div class="chart-head">
+            <h3>Churn Per File Trend</h3>
+            <div class="chart-actions">
+              <div class="chart-legend" aria-label="Chart legend">
+                <span class="raw"><i></i>Current churn/file</span>
+                <span class="average"><i></i>Moving average</span>
+                <span class="baseline"><i></i>Baseline churn/file</span>
+              </div>
+              <div class="chart-toggle" aria-label="Chart series controls">
+                <button type="button" class="series-toggle" data-series="current" aria-pressed="true">Current</button>
+                <button type="button" class="series-toggle" data-series="average" aria-pressed="true">Average</button>
+                <button type="button" class="series-toggle" data-series="baseline" aria-pressed="true">Baseline</button>
+              </div>
+            </div>
+          </div>
+          <div class="chart-stage">
+            <svg class="trend-chart" id="trendChart" viewBox="0 0 720 260" aria-label="Efficiency trend line chart"></svg>
+            <div class="chart-tooltip" id="trendTooltip" aria-hidden="true"></div>
+          </div>
+        </div>
         <div class="bar-list" id="trendBars"></div>
         <div class="footer-note">Each bar shows current churn/file for one enhancement. Lower bars indicate more efficient delivery.</div>
       </article>
@@ -438,6 +677,207 @@
       document.getElementById("avgChurn").textContent = avgCurrentChurn.toFixed(2);
       document.getElementById("avgGateRate").textContent = (avgGateRate * 100).toFixed(0) + "%";
       document.getElementById("latestDelta").textContent = (latestDelta >= 0 ? "+" : "") + latestDelta.toFixed(2);
+
+      const svgNs = "http://www.w3.org/2000/svg";
+      const trendChart = document.getElementById("trendChart");
+      const trendTooltip = document.getElementById("trendTooltip");
+      const seriesToggleButtons = Array.from(document.querySelectorAll(".series-toggle"));
+      const createSvg = (tag, attrs) => {
+        const node = document.createElementNS(svgNs, tag);
+        Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+        return node;
+      };
+
+      if (enhancements.length) {
+        const chartWidth = 720;
+        const chartHeight = 260;
+        const margin = { top: 18, right: 18, bottom: 44, left: 48 };
+        const innerWidth = chartWidth - margin.left - margin.right;
+        const innerHeight = chartHeight - margin.top - margin.bottom;
+        const stepX = enhancements.length > 1 ? innerWidth / (enhancements.length - 1) : innerWidth / 2;
+        const movingAverageWindow = Math.min(3, enhancements.length);
+        const movingAverageValues = currentChurnValues.map((_, index, values) => {
+          const start = Math.max(0, index - movingAverageWindow + 1);
+          const slice = values.slice(start, index + 1);
+          return avg(slice);
+        });
+        const baselineValues = enhancements.map((enhancement) => safeNumber(enhancement.baseline && enhancement.baseline.churnPerFile));
+        const seriesState = { current: true, average: true, baseline: true };
+        const toX = (index) => margin.left + (enhancements.length > 1 ? index * stepX : innerWidth / 2);
+        const buildPath = (values, toY) => values.map((value, index) => (index === 0 ? "M" : "L") + " " + toX(index).toFixed(2) + " " + toY(value).toFixed(2)).join(" ");
+        const describeDelta = (currentValue, baselineValue) => {
+          const delta = baselineValue - currentValue;
+          if (delta > 0) {
+            return Math.abs(delta).toFixed(2) + " better";
+          }
+          if (delta < 0) {
+            return Math.abs(delta).toFixed(2) + " worse";
+          }
+          return "No change vs baseline";
+        };
+        const hideTooltip = () => {
+          if (!trendTooltip) {
+            return;
+          }
+          trendTooltip.classList.remove("is-visible");
+          trendTooltip.setAttribute("aria-hidden", "true");
+        };
+        const showTooltip = (point, event) => {
+          if (!trendTooltip || !trendChart) {
+            return;
+          }
+
+          trendTooltip.innerHTML =
+            '<div class="tooltip-title">' + point.title + '</div>' +
+            '<div class="tooltip-grid">' +
+              '<div>Current: <strong>' + point.current.toFixed(2) + '</strong></div>' +
+              '<div>Average: <strong>' + point.average.toFixed(2) + '</strong></div>' +
+              '<div>Baseline: <strong>' + point.baseline.toFixed(2) + '</strong></div>' +
+              '<div>Delta: <strong>' + describeDelta(point.current, point.baseline) + '</strong></div>' +
+            '</div>';
+
+          const bounds = trendChart.getBoundingClientRect();
+          const viewBox = trendChart.viewBox.baseVal;
+          const ratioX = bounds.width / viewBox.width;
+          const ratioY = bounds.height / viewBox.height;
+          const sourceX = event && Number.isFinite(event.clientX) ? event.clientX - bounds.left : point.x * ratioX;
+          const sourceY = event && Number.isFinite(event.clientY) ? event.clientY - bounds.top : point.y * ratioY;
+          const tooltipWidth = trendTooltip.offsetWidth || 180;
+          const left = Math.min(Math.max(sourceX, tooltipWidth / 2 + 8), bounds.width - tooltipWidth / 2 - 8);
+          const top = Math.max(sourceY, 38);
+
+          trendTooltip.style.left = left + 'px';
+          trendTooltip.style.top = top + 'px';
+          trendTooltip.classList.add("is-visible");
+          trendTooltip.setAttribute("aria-hidden", "false");
+        };
+        const renderTrendChart = () => {
+          const visibleValues = [];
+          if (seriesState.current) {
+            visibleValues.push.apply(visibleValues, currentChurnValues);
+          }
+          if (seriesState.average) {
+            visibleValues.push.apply(visibleValues, movingAverageValues);
+          }
+          if (seriesState.baseline) {
+            visibleValues.push.apply(visibleValues, baselineValues);
+          }
+
+          const maxValue = Math.max(1, ...visibleValues);
+          const minValue = Math.min(0, ...visibleValues);
+          const valueRange = Math.max(1, maxValue - minValue);
+          const toY = (value) => margin.top + innerHeight - ((value - minValue) / valueRange) * innerHeight;
+
+          trendChart.innerHTML = "";
+
+          for (let i = 0; i < 4; i += 1) {
+            const yValue = minValue + (valueRange * i) / 3;
+            const y = toY(yValue);
+            trendChart.appendChild(createSvg("line", {
+              x1: margin.left,
+              y1: y,
+              x2: chartWidth - margin.right,
+              y2: y,
+              class: i === 0 ? "axis" : "grid-line"
+            }));
+
+            const label = createSvg("text", {
+              x: margin.left - 10,
+              y: y + 4,
+              "text-anchor": "end",
+              class: "axis-label"
+            });
+            label.textContent = yValue.toFixed(1);
+            trendChart.appendChild(label);
+          }
+
+          trendChart.appendChild(createSvg("line", {
+            x1: margin.left,
+            y1: margin.top + innerHeight,
+            x2: chartWidth - margin.right,
+            y2: margin.top + innerHeight,
+            class: "axis"
+          }));
+
+          if (seriesState.baseline) {
+            trendChart.appendChild(createSvg("path", { d: buildPath(baselineValues, toY), class: "baseline-line" }));
+          }
+
+          if (seriesState.average) {
+            trendChart.appendChild(createSvg("path", { d: buildPath(movingAverageValues, toY), class: "average-line" }));
+          }
+
+          if (seriesState.current) {
+            trendChart.appendChild(createSvg("path", { d: buildPath(currentChurnValues, toY), class: "trend-line" }));
+          }
+
+          enhancements.forEach((enhancement, index) => {
+            const x = toX(index);
+            const y = toY(currentChurnValues[index]);
+            const shortLabel = "#" + (index + 1);
+            const axisLabel = createSvg("text", {
+              x,
+              y: chartHeight - 16,
+              "text-anchor": "middle",
+              class: "axis-label"
+            });
+            axisLabel.textContent = shortLabel;
+            trendChart.appendChild(axisLabel);
+
+            if (seriesState.current) {
+              const point = {
+                title: enhancement.title,
+                current: currentChurnValues[index],
+                average: movingAverageValues[index],
+                baseline: baselineValues[index],
+                x,
+                y
+              };
+              const dot = createSvg("circle", {
+                cx: x,
+                cy: y,
+                r: 5,
+                class: "trend-dot",
+                tabindex: 0
+              });
+
+              dot.addEventListener("mouseenter", (event) => showTooltip(point, event));
+              dot.addEventListener("mousemove", (event) => showTooltip(point, event));
+              dot.addEventListener("mouseleave", hideTooltip);
+              dot.addEventListener("focus", () => showTooltip(point));
+              dot.addEventListener("blur", hideTooltip);
+              trendChart.appendChild(dot);
+
+              const pointLabel = createSvg("text", {
+                x,
+                y: y - 10,
+                "text-anchor": "middle",
+                class: "point-label"
+              });
+              pointLabel.textContent = currentChurnValues[index].toFixed(2);
+              trendChart.appendChild(pointLabel);
+            }
+          });
+
+          seriesToggleButtons.forEach((button) => {
+            const series = button.dataset.series;
+            const active = Boolean(seriesState[series]);
+            button.setAttribute("aria-pressed", String(active));
+            button.classList.toggle("is-off", !active);
+          });
+        };
+
+        seriesToggleButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const series = button.dataset.series;
+            seriesState[series] = !seriesState[series];
+            hideTooltip();
+            renderTrendChart();
+          });
+        });
+
+        renderTrendChart();
+      }
 
       const maxChurn = Math.max(1, ...currentChurnValues);
       const trendBars = document.getElementById("trendBars");

@@ -48,6 +48,7 @@ Follow this sequence — do not skip or reorder steps:
 
 - After any nav change: verify every `href` in `.site-nav` resolves to a real file in the repo.
 - After creating a new page: confirm it appears in the nav on all pages and as a card in `index.html`.
+- After adding or changing interactive charts, dashboards, or controls: run both a parse check and one browser interaction check covering a representative toggle, hover, or focus path.
 - Before committing: no broken internal hrefs, no missing `active` class on the current page's nav link.
 - Validation must include fallback tooling: prefer `rg`/`rg --files`, but if `rg` is unavailable use `grep`/`find`.
 - After rename operations: verify both conditions hold before commit: (1) no old filename references remain, (2) new filename is referenced everywhere it should be.
