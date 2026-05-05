@@ -184,6 +184,41 @@ window.__METRICS_DATA = {
         prevention: "Locks nav updates to one canonical structure and interaction pattern so pages cannot drift into inconsistent wrappers or wrapped rails."
       },
       interpretation: "Initial baseline snapshot recorded because no comparable prior nav-rail baseline existed; this entry seeds future trend comparisons."
+    },
+    {
+      id: "enh-2026-05-05-nav-redesign-dropdown-filters",
+      title: "Navigation redesign: Home/Topics/Metrics/Docs with category filtering",
+      type: "navigation-ux-redesign",
+      mergedAt: "2026-05-05",
+      baselineCommitId: "bc7213b",
+      currentCommitId: "bc7213b",
+      baseline: {
+        filesChanged: 18,
+        insertions: 1342,
+        deletions: 265,
+        churnPerFile: 89.3
+      },
+      current: {
+        filesChanged: 18,
+        insertions: 1342,
+        deletions: 265,
+        churnPerFile: 89.3
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "Manual dropdown CSS and category metadata addition across all 14 content pages required careful batching to stay efficient.",
+        processFile: ".github/copilot-instructions.md",
+        ruleChanged: "Added requirement to batch-update CSS and metadata across multiple files using multi_replace_string_in_file for efficiency. Added category tagging standard: pattern, operating-model, worked-example, quickstart, reference-tool.",
+        prevention: "Future nav redesigns can reuse batch-update patterns and category tagging conventions to minimize per-file iteration and human error."
+      },
+      interpretation: "Initial baseline snapshot recorded for this navigation redesign; impact data (improved discoverability, 5-category filter support) seeds future nav-improvement comparisons."
     }
   ]
 };
