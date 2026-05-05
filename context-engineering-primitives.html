@@ -61,9 +61,10 @@
       flex-wrap: nowrap;
       justify-content: flex-start;
       min-width: max-content;
+      align-items: center;
     }
 
-    .site-nav a {
+    .site-nav a, .site-nav-dropdown-trigger {
       flex: 0 0 auto;
       white-space: nowrap;
       color: var(--site-nav-link);
@@ -75,20 +76,72 @@
       border-radius: 999px;
       border: 1px solid transparent;
       transition: background .22s ease, border-color .22s ease, color .22s ease;
+      cursor: pointer;
+      background: none;
+      font-family: inherit;
     }
 
     .site-nav a:hover,
-    .site-nav a:focus-visible {
+    .site-nav a:focus-visible,
+    .site-nav-dropdown-trigger:hover,
+    .site-nav-dropdown-trigger:focus-visible {
       color: #ffffff;
       background: var(--site-nav-hover-bg);
       border-color: var(--site-nav-hover-border);
       outline: none;
     }
 
-    .site-nav a.active {
+    .site-nav a.active,
+    .site-nav-dropdown-trigger.active {
       color: #ffffff;
       background: var(--site-nav-active-bg);
       border-color: var(--site-nav-active-border);
+    }
+
+    .site-nav-dropdown {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .site-nav-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: var(--site-nav-bg);
+      border: 1px solid var(--site-nav-border);
+      border-radius: 12px;
+      padding: 8px;
+      min-width: 160px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity .22s ease, visibility .22s ease, transform .22s ease;
+      z-index: 40;
+      backdrop-filter: blur(7px);
+    }
+
+    .site-nav-dropdown:hover .site-nav-dropdown-menu,
+    .site-nav-dropdown:focus-within .site-nav-dropdown-menu,
+    .site-nav-dropdown-trigger[aria-expanded="true"] ~ .site-nav-dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .site-nav-dropdown-menu a {
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin: 0;
+      transition: background .22s ease;
+    }
+
+    .site-nav-dropdown-menu a:hover {
+      background: var(--site-nav-hover-bg);
     }
 
     .site-nav::-webkit-scrollbar {
@@ -296,18 +349,24 @@
     }
   </style>
 </head>
-<body>
+<body data-category="pattern">
   <nav class="site-nav" aria-label="Site navigation">
     <div class="site-nav-track">
-      <a class="nav-overview" href="index.html">Overview</a>
-      <a class="nav-ladder" href="agentic-maturity-ladder.html">Maturity Ladder</a>
-      <a class="nav-context active" href="context-engineering-primitives.html">Context Primitives</a>
-      <a class="nav-intent" href="human-intent-agent-execution.html">Intent to Execution</a>
-      <a class="nav-apm" href="apm-overview.html">APM Overview</a>
-      <a class="nav-coding-agent" href="github-copilot-coding-agent.html">Coding Agent</a>
-      <a class="nav-continuous-improvement" href="continuous-improvement-copilot-workflow.html">Continuous Improvement</a>
-      <a class="nav-modernization" href="github-copilot-modernization-getting-started.html">Modernization Guide</a>
-      <a class="nav-metrics" href="metrics-dashboard.html">Metrics Dashboard</a>
+      <a class="nav-home" href="index.html">Home</a>
+      
+      <div class="site-nav-dropdown">
+        <button class="site-nav-dropdown-trigger nav-topics" aria-label="Browse topics by category" aria-expanded="false">Topics</button>
+        <div class="site-nav-dropdown-menu">
+          <a href="index.html?category=pattern">Patterns</a>
+          <a href="index.html?category=operating-model">Operating Model</a>
+          <a href="index.html?category=worked-example">Worked Examples</a>
+          <a href="index.html?category=quickstart">Quickstarts</a>
+          <a href="index.html?category=reference-tool">Reference/Tools</a>
+        </div>
+      </div>
+      
+      <a class="nav-metrics" href="metrics-dashboard.html">Metrics</a>
+      <a class="nav-docs" href="https://github.com/mahall-bc/AI-Website" target="_blank" rel="noopener noreferrer">Docs</a>
     </div>
   </nav>
 

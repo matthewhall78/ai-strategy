@@ -110,6 +110,8 @@ After merge, append one enhancement record to `metrics/metrics-data.js` with:
 3. Quality gate statuses.
 4. Retrospective record and one-sentence interpretation.
 
+If no comparable baseline exists, log an explicit initial baseline snapshot by setting baseline commit and baseline metrics to the current commit and current metrics for that first record.
+
 ### Schema Evolution
 
 - Keep `schemaVersion` in `metrics/metrics-data.js` and increment on structural changes.

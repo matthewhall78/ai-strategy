@@ -155,13 +155,13 @@ window.__METRICS_DATA = {
       title: "Standardize site navigation rail contract",
       type: "navigation-standardization",
       mergedAt: "2026-05-05",
-      baselineCommitId: "775a2a0",
+      baselineCommitId: "1024291",
       currentCommitId: "1024291",
       baseline: {
         filesChanged: 17,
-        insertions: 0,
-        deletions: 0,
-        churnPerFile: 0
+        insertions: 770,
+        deletions: 337,
+        churnPerFile: 65.12
       },
       current: {
         filesChanged: 17,
@@ -183,7 +183,7 @@ window.__METRICS_DATA = {
         ruleChanged: "Added explicit requirements for .site-nav-track and nav-* classes, and enforced single-row nav rail behavior with horizontal overflow.",
         prevention: "Locks nav updates to one canonical structure and interaction pattern so pages cannot drift into inconsistent wrappers or wrapped rails."
       },
-      interpretation: "Slower than a one-page change due to full-site remediation, but it removed recurring nav drift and reduced future integration risk."
+      interpretation: "Initial baseline snapshot recorded because no comparable prior nav-rail baseline existed; this entry seeds future trend comparisons."
     }
   ]
 };
