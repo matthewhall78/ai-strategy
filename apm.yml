@@ -1,0 +1,57 @@
+# apm.yml
+# Agent Package Manifest — see apm-overview.html for full system documentation.
+#
+# This file defines the governance configuration for AI context primitives in this repo.
+# The APM resolver reads this file, pins all artifact versions to full SHAs,
+# runs a pre-deploy security scan, writes apm.lock.yaml, and deploys to the
+# configured targets.
+
+version: "1"
+
+# ---------------------------------------------------------------------------
+# Artifacts — the context primitives managed by APM in this repo
+# ---------------------------------------------------------------------------
+artifacts:
+  - name: copilot-instructions
+    path: .github/copilot-instructions.md
+    description: Always-on rules for every Copilot session in this repo.
+
+  - name: site-maintainer-skill
+    path: .github/skills.md
+    description: Repeatable workflow for adding new pages and keeping nav consistent.
+
+  - name: site-maintainer-agent
+    path: .github/agents.md
+    description: Specialized role that enforces structural and visual consistency.
+
+# ---------------------------------------------------------------------------
+# Deployment targets — where APM writes resolved artifacts per AI tool
+# ---------------------------------------------------------------------------
+targets:
+  copilot:
+    path: .github/
+    description: GitHub Copilot reads copilot-instructions.md from .github/ automatically.
+
+  # Uncomment additional targets as your team adopts other AI tools:
+  # claude:
+  #   path: .claude/
+  # cursor:
+  #   path: .cursor/
+  # opencode:
+  #   path: .opencode/
+  # codex:
+  #   path: AGENTS.md
+
+# ---------------------------------------------------------------------------
+# Trust boundary — MCP configuration
+# ---------------------------------------------------------------------------
+trust:
+  direct_mcp: allow
+  transitive_mcp: block
+
+# ---------------------------------------------------------------------------
+# Non-goals (explicit)
+# ---------------------------------------------------------------------------
+# - No install scripts
+# - No daemon
+# - No telemetry

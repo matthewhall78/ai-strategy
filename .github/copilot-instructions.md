@@ -1,0 +1,55 @@
+# copilot-instructions.md
+
+## Architecture
+
+- This is a static HTML site. Every page is a self-contained `.html` file with embedded CSS.
+- No build system, no package manager, no external JavaScript frameworks.
+- Do not introduce dependencies, npm packages, or bundling tools.
+
+## File Naming
+
+- All HTML filenames must use kebab-case: `my-new-page.html`.
+- Never use underscores, spaces, or camelCase in filenames.
+
+## Visual Style
+
+- Background colours range from `#030303` to `#090d12`. Preserve this dark palette on every page.
+- Font: `Inter` loaded from Google Fonts. Do not substitute or add other typefaces.
+- Navigation: glassmorphism pill bar (`.site-nav`) fixed at the top. Preserve all CSS custom properties and layout.
+- Page backgrounds use an animated perspective grid. Preserve the `@keyframes` and canvas/gradient pattern.
+- Card components use `--accent` and `--glow` CSS custom properties for per-card theming. Preserve this pattern.
+
+## Navigation Rule
+
+- Every page must include the shared `.site-nav` block with **all current nav links**.
+- The page's own nav link must carry the `active` class (e.g. `class="nav-overview active"`).
+- When a nav link is added, renamed, or removed, update **all** existing `.html` pages and `snippets/site-nav-snippet.html` in the same change.
+- The canonical list of nav links and their classes lives in `snippets/site-nav-snippet.html`.
+
+## Adding a New Page
+
+Follow this sequence — do not skip or reorder steps:
+
+1. Create `{kebab-name}.html` using an existing page as the structural template.
+2. Embed the `.site-nav` block with the `active` class on the new page's own link.
+3. Add a card to the correct section in `index.html`.
+4. Add the new nav link to every other existing `.html` page.
+5. Add the new nav link to `snippets/site-nav-snippet.html`.
+6. Update the `README.md` page listing.
+
+## Editing Discipline
+
+- Prefer small, focused edits. Do not touch files unrelated to the task.
+- Preserve existing CSS class names, custom properties, and layout patterns unless the task explicitly requires changing them.
+- Do not reformat or reorder HTML/CSS that is not being edited.
+
+## Validation
+
+- After any nav change: verify every `href` in `.site-nav` resolves to a real file in the repo.
+- After creating a new page: confirm it appears in the nav on all pages and as a card in `index.html`.
+- Before committing: no broken internal hrefs, no missing `active` class on the current page's nav link.
+
+## Documentation
+
+- Update `README.md` when pages are added or renamed.
+- Keep the `snippets/site-nav-snippet.html` in sync with the live nav on every page.
