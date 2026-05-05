@@ -114,6 +114,41 @@ window.__METRICS_DATA = {
         prevention: "Reduces manual rework and improves first-pass consistency in multi-page nav updates."
       },
       interpretation: "Faster than baseline despite broader scope; churn per file improved by 43.7 percent."
+    },
+    {
+      id: "enh-2026-05-05-dashboard-trend-chart",
+      title: "Enhance metrics dashboard trend chart",
+      type: "dashboard-enhancement",
+      mergedAt: "2026-05-05",
+      baselineCommitId: "4c4f0ff",
+      currentCommitId: "c27fb24",
+      baseline: {
+        filesChanged: 2,
+        insertions: 507,
+        deletions: 0,
+        churnPerFile: 253.5
+      },
+      current: {
+        filesChanged: 2,
+        insertions: 441,
+        deletions: 0,
+        churnPerFile: 220.5
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "The first large patch missed the exact script context and had to be reapplied with a tighter local anchor.",
+        processFile: ".github/copilot-instructions.md",
+        ruleChanged: "Added a validation rule requiring a parse check and one browser interaction check for interactive charts, dashboards, or controls.",
+        prevention: "Ensures interactive dashboard changes are validated at the behavior layer before commit, not only by static parse checks."
+      },
+      interpretation: "Faster than the baseline dashboard build because the enhancement stayed localized while adding richer interaction and comparison signals."
     }
   ]
 };
