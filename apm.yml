@@ -63,6 +63,8 @@ quality_gates:
     description: snippets/site-nav-snippet.html matches live nav structure on all pages.
   - id: retrospective-update
     description: Each enhancement applies at least one improvement to process artifacts.
+  - id: efficiency-scorecard
+    description: Each enhancement includes baseline-vs-current efficiency metrics in final handoff.
 
 # ---------------------------------------------------------------------------
 # Non-goals (explicit)

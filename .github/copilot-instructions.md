@@ -83,3 +83,17 @@ For every enhancement, include this short record in the final handoff message:
 4. How this prevents repeat issues.
 
 No enhancement is complete until this record is provided.
+
+### Efficiency Scorecard (Required)
+
+For every enhancement, include this short scorecard in the final handoff message:
+
+1. Baseline commit ID (previous comparable enhancement).
+2. Current commit ID.
+3. Files changed (baseline vs current).
+4. Insertions and deletions (baseline vs current).
+5. Churn per file: $(insertions + deletions) / files$ (baseline vs current).
+6. Quality gates pass/fail summary (nav-link-presence, nav-href-resolution, rename-cleanup, canonical-sync).
+7. One-sentence interpretation: faster/slower and why.
+
+No enhancement is complete until this scorecard is provided.

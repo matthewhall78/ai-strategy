@@ -44,4 +44,10 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
   - What process/file was improved?
   - Exact rule added or changed.
   - How this prevents repeat issues.
+- Efficiency scorecard (required):
+  - Baseline commit ID and current commit ID
+  - Files changed and insertions/deletions (baseline vs current)
+  - Churn per file comparison
+  - Quality gates pass/fail summary
+  - One-sentence interpretation
 - Green-light statement: "Nav consistent across all pages. No broken hrefs. Ready to commit."
