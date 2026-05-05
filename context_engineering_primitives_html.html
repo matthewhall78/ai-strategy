@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Use Context Engineering Primitives</title>
+  <style>
+    :root {
+      --bg: #030303;
+      --panel: #191919;
+      --grid: #050505;
+      --text: #e8e8ec;
+      --muted: #cfd0d5;
+      --cyan: #0ea5b7;
+      --blue: #2f6eea;
+      --purple: #7c3aed;
+      --line: rgba(38, 109, 192, .55);
+      --horizon: rgba(126, 34, 206, .65);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: relative;
+      min-height: 100vh;
+      padding: 48px 32px 0;
+      background:
+        radial-gradient(circle at 50% 60%, rgba(33, 150, 243, .07), transparent 34%),
+        linear-gradient(#000 0 54%, #040404 54% 100%);
+      overflow: hidden;
+    }
+
+    .perspective-grid {
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -12%;
+      height: 48%;
+      transform: perspective(520px) rotateX(62deg);
+      transform-origin: center bottom;
+      background:
+        linear-gradient(var(--horizon) 2px, transparent 2px),
+        linear-gradient(90deg, transparent 49.7%, rgba(70, 129, 255, .55) 50%, transparent 50.3%),
+        repeating-linear-gradient(115deg, transparent 0 210px, var(--line) 212px 215px, transparent 217px),
+        repeating-linear-gradient(65deg, transparent 0 210px, var(--line) 212px 215px, transparent 217px);
+      background-size: 100% 110px, 100% 100%, auto, auto;
+      opacity: .78;
+      animation: gridDrift 8s linear infinite;
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0 58%, rgba(0,0,0,.15), rgba(0,0,0,.75));
+      pointer-events: none;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 2;
+      margin: 0 0 158px 54px;
+      font-size: clamp(42px, 4.1vw, 70px);
+      line-height: 1.05;
+      letter-spacing: -.055em;
+      font-weight: 900;
+      color: #e7e7eb;
+      animation: titleIn .7s ease both;
+    }
+
+    .table-wrap {
+      position: relative;
+      z-index: 3;
+      width: min(100%, 1820px);
+      margin: 0 auto;
+      background: var(--panel);
+      border: 3px solid #050505;
+      box-shadow: 0 28px 80px rgba(0,0,0,.7);
+      animation: tableIn .8s cubic-bezier(.2,.8,.2,1) both .14s;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: clamp(20px, 1.5vw, 30px);
+      line-height: 1.52;
+      font-weight: 850;
+      color: var(--muted);
+    }
+
+    col.feature { width: 10.7%; }
+    col.custom { width: 32.4%; }
+    col.skills { width: 29.8%; }
+    col.agents { width: 27.1%; }
+
+    th, td {
+      border: 3px solid #050505;
+      vertical-align: top;
+      text-align: left;
+      padding: 20px 24px;
+      background: rgba(27,27,27,.98);
+      transition: transform .24s ease, background .24s ease, color .24s ease, box-shadow .24s ease;
+    }
+
+    th {
+      height: 150px;
+      font-size: clamp(20px, 1.55vw, 31px);
+      color: #d9d9de;
+    }
+
+    td:first-child, th:first-child {
+      font-weight: 950;
+      color: #e5e5ea;
+    }
+
+    tr:hover td, tr:hover th {
+      background: #202020;
+    }
+
+    td:hover, th:hover {
+      position: relative;
+      z-index: 6;
+      transform: scale(1.025);
+      background: #252525;
+      color: #fff;
+      box-shadow: 0 0 0 2px rgba(14,165,183,.5), 0 18px 48px rgba(0,0,0,.6);
+    }
+
+    .linkish {
+      color: var(--cyan);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 5px;
+      background: rgba(14,165,183,.14);
+      padding: 0 4px;
+      transition: color .25s ease, background .25s ease, text-shadow .25s ease;
+    }
+
+    .linkish:hover {
+      color: #3ee5f5;
+      background: rgba(14,165,183,.28);
+      text-shadow: 0 0 18px rgba(62,229,245,.45);
+    }
+
+    em {
+      color: #e4e4e8;
+      font-style: italic;
+      font-weight: 850;
+    }
+
+    .feature-label {
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .numbered {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .numbered li {
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .glow-lines {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      top: 53%;
+      height: 12%;
+      pointer-events: none;
+      opacity: .75;
+    }
+
+    .glow-lines span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--purple), var(--blue), transparent);
+      animation: pulseLine 2.8s ease-in-out infinite;
+    }
+
+    .glow-lines span:nth-child(1) { top: 0; animation-delay: 0s; }
+    .glow-lines span:nth-child(2) { top: 34%; animation-delay: .3s; }
+    .glow-lines span:nth-child(3) { top: 68%; animation-delay: .6s; }
+
+    @keyframes titleIn {
+      from { opacity: 0; transform: translateY(-18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes tableIn {
+      from { opacity: 0; transform: translateY(36px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0, 0 0, 0 0, 0 0; }
+      to { background-position: 0 110px, 0 0, 0 80px, 0 80px; }
+    }
+
+    @keyframes pulseLine {
+      0%, 100% { opacity: .25; filter: blur(0); }
+      50% { opacity: .95; filter: blur(.3px); }
+    }
+
+    @media (max-width: 1150px) {
+      body { overflow: auto; }
+      .slide { padding: 36px 20px 80px; }
+      h1 { margin: 0 0 48px 0; }
+      .table-wrap { overflow-x: auto; }
+      table { min-width: 1100px; }
+      .perspective-grid { position: fixed; }
+    }
+  </style>
+</head>
+<body>
+  <main class="slide">
+    <div class="perspective-grid"></div>
+    <div class="glow-lines"><span></span><span></span><span></span></div>
+
+    <h1>Use Context Engineering Primitives</h1>
+
+    <section class="table-wrap" aria-label="Context Engineering Primitives comparison table">
+      <table>
+        <colgroup>
+          <col class="feature" />
+          <col class="custom" />
+          <col class="skills" />
+          <col class="agents" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>
+              Custom Instructions<br>
+              * .<span class="linkish">instructions.md</span> <em>(Rules of engagement)</em>
+            </th>
+            <th>
+              Skills* .<span class="linkish">skills.md</span> <em>(Executable commands)</em>
+            </th>
+            <th>
+              Custom Agents * .<span class="linkish">agents.md</span><br>
+              <em>(Personas and workflows)</em>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="feature-label">Primary</span>Purpose</td>
+            <td>Always-on guidelines that influence all AI interactions</td>
+            <td>Specialized tasks for the LLM or Agent</td>
+            <td>Different working contexts with specialized tools and instructions</td>
+          </tr>
+          <tr>
+            <td>Best For</td>
+            <td>
+              <ol class="numbered">
+                <li>1. Coding standards</li>
+                <li>2. Language-specific rules</li>
+                <li>3. Documentation guidelines</li>
+              </ol>
+            </td>
+            <td>
+              <ol class="numbered">
+                <li>1. Complex, reusable workflows</li>
+                <li>2. Storing Domain knowledge</li>
+                <li>3. Inheritable&nbsp;&nbsp;traits</li>
+              </ol>
+            </td>
+            <td>
+              <ol class="numbered">
+                <li>1. API Architect</li>
+                <li>2. SRE Debugger</li>
+                <li>3. Security Review</li>
+              </ol>
+            </td>
+          </tr>
+          <tr>
+            <td>Usage</td>
+            <td>Automatically applied to all requests</td>
+            <td>Runs slash command (auto-run)</td>
+            <td>User switches agent <em>(soon: auto-suggested) and can inherit skills</em></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

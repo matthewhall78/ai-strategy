@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Intent. Agent Execution. Human Approval.</title>
+  <style>
+    :root {
+      --bg: #090e0d;
+      --stage: #0b1118;
+      --grid: rgba(128, 148, 168, 0.13);
+      --text: #f3f7fb;
+      --muted: #aeb9c6;
+      --blue: #2f85ff;
+      --purple: #a970ff;
+      --orange: #fb8500;
+      --green: #22c55e;
+      --cyan: #38bdf8;
+      --line: #7b8794;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #151515;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    .slide {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(840px, 4fr) minmax(280px, 1fr);
+      background: var(--bg);
+      position: relative;
+      border: 4px solid rgba(255,255,255,.035);
+    }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0 78%, var(--green) 83% 100%);
+      pointer-events: none;
+    }
+
+    .diagram {
+      position: relative;
+      margin-top: 118px;
+      height: calc(100vh - 174px);
+      background:
+        linear-gradient(var(--grid) 2px, transparent 2px),
+        linear-gradient(90deg, var(--grid) 2px, transparent 2px),
+        linear-gradient(rgba(128,148,168,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(128,148,168,.06) 1px, transparent 1px),
+        var(--stage);
+      background-size: 112px 112px, 112px 112px, 56px 56px, 56px 56px, auto;
+      overflow: hidden;
+      box-shadow: inset -35px 0 80px rgba(9,14,13,.5);
+      animation: revealLeft .8s ease both;
+    }
+
+    .diagram::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(56,189,248,.06), transparent);
+      transform: translateX(-120%);
+      animation: scan 6.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .diagram-title {
+      position: absolute;
+      top: 48px;
+      left: 13%;
+      right: 8%;
+      text-align: center;
+      font-size: clamp(30px, 3.1vw, 50px);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+      font-weight: 900;
+      color: #e9f0f7;
+      text-shadow: 0 0 18px rgba(255,255,255,.07);
+    }
+
+    .right-copy {
+      padding: 120px 46px 0 0;
+      font-size: clamp(42px, 4.2vw, 72px);
+      line-height: 1.22;
+      letter-spacing: -.055em;
+      font-weight: 500;
+      animation: fadeInRight .85s ease both .22s;
+    }
+
+    .pipeline {
+      position: absolute;
+      left: 6%;
+      right: 7%;
+      top: 252px;
+      height: 90px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 36px;
+      align-items: center;
+    }
+
+    .node {
+      position: relative;
+      min-width: 0;
+      height: 66px;
+      border-radius: 10px;
+      border: 3px solid var(--accent);
+      border-top-width: 13px;
+      background: rgba(18, 27, 38, .92);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 6px 10px;
+      color: #dce5ee;
+      font-size: clamp(13px, 1.1vw, 19px);
+      line-height: 1.12;
+      font-weight: 900;
+      letter-spacing: .01em;
+      box-shadow: 0 14px 28px rgba(0,0,0,.28);
+      opacity: 0;
+      transform: translateY(18px);
+      animation: nodeIn .55s cubic-bezier(.2,.85,.2,1) forwards;
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      cursor: default;
+    }
+
+    .node:hover {
+      transform: translateY(-11px) scale(1.06);
+      box-shadow: 0 22px 52px rgba(0,0,0,.48), 0 0 28px color-mix(in srgb, var(--accent) 50%, transparent);
+      filter: brightness(1.12);
+      z-index: 4;
+    }
+
+    .node::after {
+      content: "";
+      position: absolute;
+      right: -27px;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      transform: translateY(-50%);
+      background: #798593;
+      clip-path: polygon(0 0, 100% 50%, 0 100%, 18% 50%);
+      opacity: .9;
+    }
+
+    .node:last-child::after { display: none; }
+
+    .blue { --accent: var(--blue); }
+    .purple { --accent: var(--purple); }
+    .orange { --accent: var(--orange); }
+    .green { --accent: var(--green); }
+
+    .node:nth-child(1) { animation-delay: .25s; }
+    .node:nth-child(2) { animation-delay: .36s; }
+    .node:nth-child(3) { animation-delay: .47s; }
+    .node:nth-child(4) { animation-delay: .58s; }
+    .node:nth-child(5) { animation-delay: .69s; }
+    .node:nth-child(6) { animation-delay: .80s; }
+    .node:nth-child(7) { animation-delay: .91s; }
+
+    .tag {
+      position: absolute;
+      border: 3px solid var(--cyan);
+      color: var(--muted);
+      border-radius: 999px;
+      background: rgba(11,17,24,.92);
+      font-weight: 900;
+      font-size: 13px;
+      padding: 3px 11px;
+      line-height: 1;
+      box-shadow: 0 0 16px rgba(56,189,248,.12);
+    }
+
+    .tag.loop { left: 6%; top: 190px; }
+    .tag.acts { left: 6%; top: 408px; }
+
+    .lower-track {
+      position: absolute;
+      left: 9%;
+      right: 18%;
+      top: 455px;
+      height: 58px;
+    }
+
+    .track-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(123,135,148,.2), rgba(168,178,190,.95), rgba(123,135,148,.25));
+      transform: translateY(-50%);
+      overflow: hidden;
+    }
+
+    .track-line::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
+      transform: translateX(-120%);
+      animation: flow 3.4s linear infinite;
+    }
+
+    .pill-action {
+      position: absolute;
+      top: 7px;
+      height: 44px;
+      min-width: 160px;
+      border: 3px solid var(--accent);
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      padding: 0 26px;
+      background: rgba(17, 25, 35, .96);
+      color: #c4ceda;
+      font-size: 15px;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(0,0,0,.28);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .pill-action:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 18px 42px rgba(0,0,0,.45), 0 0 26px color-mix(in srgb, var(--accent) 46%, transparent);
+    }
+
+    .decide { --accent: var(--blue); left: 0; }
+    .spec { --accent: var(--purple); left: 31%; }
+    .code { --accent: var(--orange); left: 63%; }
+    .approve { --accent: var(--blue); left: 79%; }
+
+    .connector {
+      position: absolute;
+      top: 335px;
+      width: 0;
+      height: 128px;
+      border-left: 3px dashed var(--accent);
+      opacity: .85;
+      animation: dash 1.8s linear infinite;
+    }
+
+    .c1 { --accent: var(--blue); left: 10%; }
+    .c2 { --accent: var(--purple); left: 37%; }
+    .c3 { --accent: var(--orange); left: 63%; }
+    .c4 { --accent: var(--blue); left: 77%; }
+
+    .footer-note {
+      position: absolute;
+      left: 28%;
+      right: 7%;
+      bottom: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      color: #d8e0e8;
+      font-weight: 900;
+      font-size: clamp(14px, 1.3vw, 21px);
+      letter-spacing: .01em;
+    }
+
+    .footer-note::before,
+    .footer-note::after {
+      content: "";
+      height: 2px;
+      flex: 1;
+      max-width: 280px;
+      background: rgba(151, 163, 176, .28);
+    }
+
+    .github-dot {
+      position: absolute;
+      right: 28px;
+      bottom: 15px;
+      width: 45px;
+      height: 45px;
+      border: 2px solid rgba(255,255,255,.45);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,.42);
+      font-weight: 900;
+      transition: transform .25s ease, background .25s ease;
+    }
+
+    .github-dot:hover {
+      transform: rotate(-10deg) scale(1.12);
+      background: rgba(34,197,94,.22);
+    }
+
+    @keyframes revealLeft {
+      from { opacity: 0; transform: translateX(-28px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(28px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes nodeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scan {
+      0%, 58% { transform: translateX(-120%); }
+      82%, 100% { transform: translateX(120%); }
+    }
+
+    @keyframes flow {
+      to { transform: translateX(120%); }
+    }
+
+    @keyframes dash {
+      to { stroke-dashoffset: 20; }
+    }
+
+    @media (max-width: 1180px) {
+      body { overflow: auto; }
+      .slide { grid-template-columns: 1fr; }
+      .right-copy { order: -1; padding: 48px 32px 8px; font-size: clamp(42px, 7vw, 68px); }
+      .diagram { margin-top: 22px; height: 760px; }
+      .pipeline { gap: 18px; left: 4%; right: 4%; }
+      .node { font-size: 13px; }
+      .node::after { right: -18px; }
+      .footer-note { left: 7%; }
+    }
+
+    @media (max-width: 760px) {
+      .diagram { height: auto; min-height: 980px; padding-bottom: 160px; }
+      .diagram-title { position: relative; top: auto; left: auto; right: auto; padding: 40px 20px 20px; }
+      .pipeline {
+        position: relative;
+        top: auto;
+        left: auto;
+        right: auto;
+        height: auto;
+        grid-template-columns: 1fr;
+        margin: 20px 32px;
+      }
+      .node::after { display: none; }
+      .tag.loop { top: 132px; left: 32px; }
+      .tag.acts { top: auto; left: 32px; bottom: 378px; }
+      .connector { display: none; }
+      .lower-track { left: 32px; right: 32px; top: auto; bottom: 285px; }
+      .pill-action { min-width: 0; padding: 0 14px; font-size: 12px; }
+      .decide { left: 0; }
+      .spec { left: 25%; }
+      .code { left: 52%; }
+      .approve { left: 74%; }
+      .footer-note { left: 24px; right: 24px; bottom: 120px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="slide">
+    <section class="diagram" aria-label="Canonical SDLC loop with agent execution">
+      <h1 class="diagram-title">Human intent. Agent execution. Human approval.</h1>
+
+      <div class="tag loop">Canonical SDLC loop</div>
+
+      <div class="pipeline">
+        <div class="node blue">Idea</div>
+        <div class="node blue">Human<br>Oversight</div>
+        <div class="node purple">Planning</div>
+        <div class="node blue">Human<br>Review</div>
+        <div class="node orange">Implementation</div>
+        <div class="node blue">Human<br>Validation</div>
+        <div class="node green">Ship</div>
+      </div>
+
+      <div class="connector c1"></div>
+      <div class="connector c2"></div>
+      <div class="connector c3"></div>
+      <div class="connector c4"></div>
+
+      <div class="tag acts">Where the human or agent acts most explicitly</div>
+
+      <div class="lower-track">
+        <div class="track-line"></div>
+        <div class="pill-action decide">you decide</div>
+        <div class="pill-action spec">agent writes spec</div>
+        <div class="pill-action code">agent writes code</div>
+        <div class="pill-action approve">you approve</div>
+      </div>
+
+      <div class="footer-note">You are not removed from the loop. You are elevated above it.</div>
+    </section>
+
+    <aside class="right-copy">
+      Human intent.<br>
+      Agent execution.<br>
+      Human approval.
+    </aside>
+
+    <div class="github-dot" title="GitHub-style marker">⌘</div>
+  </main>
+</body>
+</html>
