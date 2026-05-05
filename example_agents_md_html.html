@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Example agents.md File</title>
+  <style>
+    :root {
+      --bg: #05090f;
+      --panel: #111923;
+      --panel-2: #182331;
+      --text: #eef4f9;
+      --muted: #aab7c5;
+      --cyan: #38bdf8;
+      --blue: #2f85ff;
+      --green: #22c55e;
+      --purple: #a970ff;
+      --shadow: 0 24px 70px rgba(0,0,0,.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(169, 112, 255, .14), transparent 30%),
+        radial-gradient(circle at 82% 22%, rgba(56, 189, 248, .12), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(8, 13, 18, .78);
+      backdrop-filter: blur(7px);
+      box-shadow: 0 12px 34px rgba(0,0,0,.34);
+    }
+
+    .site-nav a {
+      color: #d8e7f1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .22s ease, border-color .22s ease, color .22s ease;
+    }
+
+    .site-nav a:hover {
+      color: #ffffff;
+      background: rgba(56, 189, 248, .18);
+      border-color: rgba(56, 189, 248, .4);
+    }
+
+    .site-nav a.active {
+      color: #ffffff;
+      background: rgba(47, 133, 255, .22);
+      border-color: rgba(47, 133, 255, .56);
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 108px 24px 48px;
+    }
+
+    .hero,
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.04), transparent 34%),
+        var(--panel);
+    }
+
+    .hero { padding: clamp(24px, 4vw, 46px); }
+    .panel { padding: 22px; }
+
+    .hero::after,
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .05), transparent);
+      transform: translateX(-120%);
+      animation: sweep 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(169, 112, 255, .34);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: rgba(8, 13, 18, .48);
+    }
+
+    h1 {
+      margin: 16px 0 0;
+      font-size: clamp(38px, 5vw, 70px);
+      line-height: 1.03;
+      letter-spacing: -.055em;
+      font-weight: 900;
+      max-width: 10ch;
+    }
+
+    .sub,
+    p,
+    li {
+      color: var(--muted);
+      line-height: 1.44;
+    }
+
+    .sub {
+      max-width: 64ch;
+      margin: 14px 0 0;
+      font-size: clamp(16px, 1.5vw, 21px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(24px, 2vw, 34px);
+      letter-spacing: -.03em;
+    }
+
+    pre,
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      padding: 18px;
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(56, 189, 248, .2);
+      background: #09121a;
+      color: #dbeafe;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .notes {
+      display: grid;
+      gap: 12px;
+    }
+
+    .note {
+      padding: 14px 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(24, 35, 49, .78);
+    }
+
+    ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+    }
+
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .link-row a {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #eaf4fb;
+      border: 1px solid rgba(56, 189, 248, .3);
+      background: rgba(47, 133, 255, .12);
+      font-weight: 800;
+    }
+
+    @keyframes sweep {
+      0%, 56% { transform: translateX(-120%); }
+      82%, 100% { transform: translateX(120%); }
+    }
+
+    @media (max-width: 980px) {
+      .site-nav {
+        left: 14px;
+        right: 14px;
+        transform: none;
+        border-radius: 18px;
+      }
+
+      .page { padding: 108px 16px 36px; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="agentic_maturity_ladder_single_page_html.html">Maturity Ladder</a>
+    <a class="active" href="context_engineering_primitives_html.html">Context Primitives</a>
+    <a href="human_intent_agent_execution_html.html">Intent to Execution</a>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Worked Example</span>
+      <h1>What goes in an agents.md file.</h1>
+      <p class="sub">An effective <code>agents.md</code> file defines a role with a clear purpose, tool boundaries, inherited skills, and a review posture. It should make the agent behave differently for a justified reason, not just sound different.</p>
+      <div class="link-row">
+        <a href="context_engineering_primitives_html.html">Open parent concept</a>
+        <a href="context_primitives_decision_guide_html.html">Open decision guide</a>
+        <a href="making_the_copilot-instructions_md_file.html">Open instructions guide</a>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Example agents file and annotations">
+      <article class="panel">
+        <h2>Example agents.md</h2>
+        <pre>---
+name: API Architect
+description: Review API design decisions, contract changes, and versioning strategy.
+tools:
+  - code search
+  - schema inspection
+  - diff review
+skills:
+  - API Review
+  - Breaking Change Audit
+constraints:
+  - Preserve backward compatibility unless explicitly approved.
+  - Flag any contract ambiguity before implementation.
+review_posture: strict
+---
+
+## Purpose
+Act as a specialized reviewer for API shape, versioning, and change risk.
+
+## Responsibilities
+1. Review endpoint and schema design.
+2. Check naming and consistency against standards.
+3. Flag breaking changes and propose mitigations.
+4. Summarize release risk and recommendations.
+
+## Output Format
+- Critical issues
+- Design inconsistencies
+- Migration concerns
+- Recommended next actions</pre>
+      </article>
+
+      <aside class="panel">
+        <h2>Why this works</h2>
+        <div class="notes">
+          <section class="note">
+            <strong>Distinct role</strong>
+            <p>The agent has a narrow responsibility. It is not a generic coding assistant with a new label.</p>
+          </section>
+          <section class="note">
+            <strong>Tool boundaries</strong>
+            <p>The file makes clear what the agent should use to do its work and what type of evidence it should inspect.</p>
+          </section>
+          <section class="note">
+            <strong>Inherited skills</strong>
+            <p>The agent reuses workflow assets such as API review or breaking-change checks instead of embedding every step directly.</p>
+          </section>
+          <section class="note">
+            <strong>Review posture</strong>
+            <p>The agent is strict for a reason: API changes can create lasting compatibility problems if reviewed casually.</p>
+          </section>
+        </div>
+
+        <h2 style="margin-top: 18px;">Good next agent examples</h2>
+        <ul>
+          <li>SRE debugger</li>
+          <li>Security reviewer</li>
+          <li>Product spec writer</li>
+        </ul>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
