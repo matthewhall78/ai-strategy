@@ -16,6 +16,7 @@ This repository contains standalone HTML pages focused on AI strategy, context e
 - `github-copilot-coding-agent.html`
 - `continuous-improvement-copilot-workflow.html`
 - `github-copilot-modernization-getting-started.html`
+- `metrics-dashboard.html`
 - `general-ghcp-resources-links.html`
 
 ## Reusable Navigation Snippet

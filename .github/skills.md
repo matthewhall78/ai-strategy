@@ -35,6 +35,7 @@ Create a new page for the site and ensure navigation is fully consistent across 
 11. **Retrospective update:** Record one process improvement from the change and apply it to at least one of `.github/copilot-instructions.md`, `.github/skills.md`, `.github/agents.md`, or `apm.yml`.
 12. **Retrospective handoff record:** Include the required 4-line retrospective record in the final response.
 13. **Efficiency scorecard:** Compare this enhancement with the previous comparable enhancement and include the required scorecard in the final response.
+14. **Post-merge metrics append:** Add one new record to `metrics/metrics-data.js` after merge using scorecard + retrospective values.
 
 When using scripted nav updates, handle both normal and active-link variants so pages where a nav item is active are not skipped.
 
@@ -58,3 +59,6 @@ When using scripted nav updates, handle both normal and active-link variants so 
   - Insertions/deletions (baseline vs current)
   - Churn per file comparison and interpretation
   - Quality gates pass/fail summary
+- Metrics data update:
+  - Confirm one new record was appended to `metrics/metrics-data.js`
+  - Confirm `schemaVersion` compatibility was preserved

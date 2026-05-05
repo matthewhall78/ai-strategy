@@ -65,6 +65,8 @@ quality_gates:
     description: Each enhancement applies at least one improvement to process artifacts.
   - id: efficiency-scorecard
     description: Each enhancement includes baseline-vs-current efficiency metrics in final handoff.
+  - id: metrics-log-updated
+    description: After merge, metrics/metrics-data.js includes a new enhancement record.
 
 # ---------------------------------------------------------------------------
 # Non-goals (explicit)

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metrics Dashboard | Copilot Process Value</title>
+  <style>
+    :root {
+      --bg: #070b10;
+      --panel: #121a24;
+      --panel-2: #182331;
+      --text: #edf3f8;
+      --muted: #aab8c6;
+      --line: rgba(128, 152, 176, .22);
+      --cyan: #38bdf8;
+      --green: #22c55e;
+      --blue: #2f85ff;
+      --purple: #a970ff;
+      --shadow: 0 24px 70px rgba(0,0,0,.42);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(56, 189, 248, .14), transparent 32%),
+        radial-gradient(circle at 82% 84%, rgba(34, 197, 94, .10), transparent 30%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .site-nav {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(8, 13, 18, .78);
+      backdrop-filter: blur(7px);
+      box-shadow: 0 12px 34px rgba(0,0,0,.34);
+    }
+
+    .site-nav a {
+      color: #d8e7f1;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: background .22s ease, border-color .22s ease, color .22s ease;
+    }
+
+    .site-nav a:hover {
+      color: #ffffff;
+      background: rgba(56, 189, 248, .18);
+      border-color: rgba(56, 189, 248, .4);
+    }
+
+    .site-nav a.active {
+      color: #ffffff;
+      background: rgba(34, 197, 94, .22);
+      border-color: rgba(34, 197, 94, .56);
+    }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 110px 24px 48px;
+    }
+
+    .hero,
+    .panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, rgba(255,255,255,.04), transparent 34%), var(--panel);
+    }
+
+    .hero { padding: clamp(24px, 4vw, 46px); }
+    .panel { padding: 20px; }
+
+    .hero::after,
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .06), transparent);
+      transform: translateX(-120%);
+      animation: sweep 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid rgba(56, 189, 248, .36);
+      border-radius: 999px;
+      color: #d6e8f4;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: rgba(8, 13, 18, .45);
+    }
+
+    h1 {
+      margin: 16px 0 0;
+      font-size: clamp(36px, 4.8vw, 66px);
+      line-height: 1.03;
+      letter-spacing: -.055em;
+      font-weight: 900;
+      max-width: 16ch;
+    }
+
+    .sub {
+      margin: 12px 0 0;
+      color: var(--muted);
+      max-width: 76ch;
+      font-size: clamp(16px, 1.45vw, 20px);
+      line-height: 1.42;
+    }
+
+    .grid {
+      margin-top: 20px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .metric-card {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 16px;
+      background: linear-gradient(170deg, rgba(255,255,255,.04), transparent 28%), var(--panel-2);
+    }
+
+    .metric-card h3 {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .metric-value {
+      margin-top: 8px;
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      color: #f6fbff;
+    }
+
+    .metric-note {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .section-grid {
+      margin-top: 18px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.1fr .9fr;
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(22px, 2vw, 30px);
+      letter-spacing: -.03em;
+    }
+
+    .bar-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .bar-label {
+      color: #e8f2f9;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .bar-track {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+      border-radius: 999px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 8px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: #d6e8f4;
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: #dff8ea;
+    }
+
+    .pill.pass {
+      border-color: rgba(34, 197, 94, .48);
+      background: rgba(34, 197, 94, .16);
+      color: #dff8ea;
+    }
+
+    .pill.fail {
+      border-color: rgba(244, 63, 94, .42);
+      background: rgba(244, 63, 94, .16);
+      color: #ffd9e3;
+    }
+
+    .ledger {
+      margin-top: 16px;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #d8e7f1;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @keyframes sweep {
+      0%, 56% { transform: translateX(-120%); }
+      82%, 100% { transform: translateX(120%); }
+    }
+
+    @media (max-width: 1080px) {
+      .site-nav {
+        left: 14px;
+        right: 14px;
+        transform: none;
+        border-radius: 18px;
+      }
+
+      .page { padding: 108px 16px 36px; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .section-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      table { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site navigation">
+    <a href="index.html">Overview</a>
+    <a href="agentic-maturity-ladder.html">Maturity Ladder</a>
+    <a href="context-engineering-primitives.html">Context Primitives</a>
+    <a href="human-intent-agent-execution.html">Intent to Execution</a>
+    <a href="apm-overview.html">APM Overview</a>
+    <a href="github-copilot-coding-agent.html">Coding Agent</a>
+    <a href="continuous-improvement-copilot-workflow.html">Continuous Improvement</a>
+    <a href="github-copilot-modernization-getting-started.html">Modernization Guide</a>
+    <a class="active" href="metrics-dashboard.html">Metrics Dashboard</a>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <span class="eyebrow">Process Value</span>
+      <h1>Metrics Dashboard</h1>
+      <p class="sub">This dashboard reads enhancement metrics from an in-repo JavaScript data file and shows efficiency and quality trends without requiring APIs, CORS handling, or external services.</p>
+    </section>
+
+    <section class="grid" aria-label="Top metrics">
+      <article class="metric-card">
+        <h3>Total Enhancements</h3>
+        <div class="metric-value" id="totalEnhancements">-</div>
+        <div class="metric-note">records in dataset</div>
+      </article>
+      <article class="metric-card">
+        <h3>Avg Current Churn/File</h3>
+        <div class="metric-value" id="avgChurn">-</div>
+        <div class="metric-note">lower is better</div>
+      </article>
+      <article class="metric-card">
+        <h3>Avg Gate Pass Rate</h3>
+        <div class="metric-value" id="avgGateRate">-</div>
+        <div class="metric-note">across all enhancements</div>
+      </article>
+      <article class="metric-card">
+        <h3>Latest Efficiency Delta</h3>
+        <div class="metric-value" id="latestDelta">-</div>
+        <div class="metric-note">baseline vs current churn/file</div>
+      </article>
+    </section>
+
+    <section class="section-grid" aria-label="Trends and quality gates">
+      <article class="panel">
+        <h2>Efficiency Trend</h2>
+        <div class="bar-list" id="trendBars"></div>
+        <div class="footer-note">Each bar shows current churn/file for one enhancement. Lower bars indicate more efficient delivery.</div>
+      </article>
+
+      <article class="panel">
+        <h2>Quality Gate Pass Rate</h2>
+        <table aria-label="Quality gate summary table">
+          <thead>
+            <tr>
+              <th>Gate</th>
+              <th>Pass</th>
+              <th>Total</th>
+              <th>Rate</th>
+            </tr>
+          </thead>
+          <tbody id="gateRows"></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section class="panel ledger" aria-label="Enhancement ledger">
+      <h2>Enhancement Ledger</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Enhancement</th>
+            <th>Baseline</th>
+            <th>Current</th>
+            <th>Files</th>
+            <th>Churn/File</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="ledgerRows"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="metrics/metrics-data.js"></script>
+  <script>
+    (function () {
+      const data = window.__METRICS_DATA || { enhancements: [], qualityGateOrder: [] };
+      const enhancements = Array.isArray(data.enhancements) ? data.enhancements : [];
+      const total = enhancements.length;
+
+      const safeNumber = (value) => Number.isFinite(Number(value)) ? Number(value) : 0;
+      const avg = (arr) => arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
+
+      const currentChurnValues = enhancements.map((e) => safeNumber(e.current && e.current.churnPerFile));
+      const avgCurrentChurn = avg(currentChurnValues);
+
+      const gateOrder = data.qualityGateOrder || [];
+      const gateStats = {};
+      gateOrder.forEach((gate) => {
+        gateStats[gate] = { pass: 0, total: 0 };
+      });
+
+      enhancements.forEach((enhancement) => {
+        const gates = enhancement.qualityGates || {};
+        gateOrder.forEach((gate) => {
+          const status = gates[gate];
+          if (status) {
+            gateStats[gate].total += 1;
+            if (status === "pass") {
+              gateStats[gate].pass += 1;
+            }
+          }
+        });
+      });
+
+      const gateRates = gateOrder.map((gate) => {
+        const stat = gateStats[gate];
+        return stat.total ? stat.pass / stat.total : 0;
+      });
+      const avgGateRate = avg(gateRates);
+
+      const latest = enhancements[enhancements.length - 1];
+      let latestDelta = 0;
+      if (latest && latest.baseline && latest.current) {
+        latestDelta = safeNumber(latest.current.churnPerFile) - safeNumber(latest.baseline.churnPerFile);
+      }
+
+      document.getElementById("totalEnhancements").textContent = String(total);
+      document.getElementById("avgChurn").textContent = avgCurrentChurn.toFixed(2);
+      document.getElementById("avgGateRate").textContent = (avgGateRate * 100).toFixed(0) + "%";
+      document.getElementById("latestDelta").textContent = (latestDelta >= 0 ? "+" : "") + latestDelta.toFixed(2);
+
+      const maxChurn = Math.max(1, ...currentChurnValues);
+      const trendBars = document.getElementById("trendBars");
+      enhancements.forEach((enhancement) => {
+        const churn = safeNumber(enhancement.current && enhancement.current.churnPerFile);
+        const widthPct = (churn / maxChurn) * 100;
+
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        row.innerHTML =
+          '<div>' +
+            '<div class="bar-label">' + enhancement.title + ' (' + enhancement.currentCommitId + ')</div>' +
+            '<div class="bar-track"><div class="bar-fill" style="width:' + widthPct.toFixed(2) + '%"></div></div>' +
+          '</div>' +
+          '<strong>' + churn.toFixed(2) + '</strong>';
+        trendBars.appendChild(row);
+      });
+
+      const gateRows = document.getElementById("gateRows");
+      gateOrder.forEach((gate) => {
+        const stat = gateStats[gate];
+        const rate = stat.total ? (stat.pass / stat.total) * 100 : 0;
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          '<td><code>' + gate + '</code></td>' +
+          '<td>' + stat.pass + '</td>' +
+          '<td>' + stat.total + '</td>' +
+          '<td>' + rate.toFixed(0) + '%</td>';
+        gateRows.appendChild(tr);
+      });
+
+      const ledgerRows = document.getElementById("ledgerRows");
+      enhancements.forEach((enhancement) => {
+        const baseline = enhancement.baseline || {};
+        const current = enhancement.current || {};
+        const delta = safeNumber(current.churnPerFile) - safeNumber(baseline.churnPerFile);
+        const better = delta < 0;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML =
+          '<td><strong>' + enhancement.title + '</strong></td>' +
+          '<td><code>' + enhancement.baselineCommitId + '</code></td>' +
+          '<td><code>' + enhancement.currentCommitId + '</code></td>' +
+          '<td>' + safeNumber(current.filesChanged) + '</td>' +
+          '<td>' + safeNumber(baseline.churnPerFile).toFixed(2) + ' -> ' + safeNumber(current.churnPerFile).toFixed(2) + '</td>' +
+          '<td><span class="pill ' + (better ? 'pass' : 'fail') + '">' + (better ? 'Improved' : 'Regressed') + '</span></td>';
+        ledgerRows.appendChild(tr);
+      });
+    })();
+  </script>
+</body>
+</html>

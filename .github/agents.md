@@ -50,4 +50,7 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
   - Churn per file comparison
   - Quality gates pass/fail summary
   - One-sentence interpretation
+- Metrics payload (required):
+  - Data-ready fields for one append entry in `metrics/metrics-data.js`
+  - Include merged date, baseline/current metrics, quality gates, and retrospective fields
 - Green-light statement: "Nav consistent across all pages. No broken hrefs. Ready to commit."

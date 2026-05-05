@@ -97,3 +97,18 @@ For every enhancement, include this short scorecard in the final handoff message
 7. One-sentence interpretation: faster/slower and why.
 
 No enhancement is complete until this scorecard is provided.
+
+### Metrics Logging (Required)
+
+After merge, append one enhancement record to `metrics/metrics-data.js` with:
+
+1. Metadata: title, type, merged date, baseline commit, current commit.
+2. Efficiency values: files changed, insertions/deletions, churn per file (baseline/current).
+3. Quality gate statuses.
+4. Retrospective record and one-sentence interpretation.
+
+### Schema Evolution
+
+- Keep `schemaVersion` in `metrics/metrics-data.js` and increment on structural changes.
+- Preserve backward compatibility for older records when adding new fields.
+- Put optional future metrics into new fields without removing existing required fields.
