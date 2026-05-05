@@ -71,3 +71,14 @@ If any check fails, fix before commit.
 - After each website enhancement, capture one process improvement and apply it immediately to `.github/copilot-instructions.md`, `.github/skills.md`, `.github/agents.md`, or `apm.yml`.
 - Prefer small, specific rule updates over broad rewrites.
 - Do not mark work complete until retrospective updates are considered.
+
+### Retrospective Record (Required)
+
+For every enhancement, include this short record in the final handoff message:
+
+1. What slowed us down?
+2. What process/file is being improved?
+3. Exact rule added or changed.
+4. How this prevents repeat issues.
+
+No enhancement is complete until this record is provided.

@@ -33,6 +33,7 @@ Create a new page for the site and ensure navigation is fully consistent across 
 9. **Update README.md:** Add the new page to the page listing table.
 10. **Run deterministic validation:** Confirm every `.html` nav block contains the new link, every local nav `href` resolves to an existing file, and no references remain to old filenames.
 11. **Retrospective update:** Record one process improvement from the change and apply it to at least one of `.github/copilot-instructions.md`, `.github/skills.md`, `.github/agents.md`, or `apm.yml`.
+12. **Retrospective handoff record:** Include the required 4-line retrospective record in the final response.
 
 ## Output Format
 
@@ -43,3 +44,8 @@ Create a new page for the site and ensure navigation is fully consistent across 
 - `README.md` — page listing updated
 - Validation: every `href` in every `.site-nav` block resolves to a real file in the repo
 - Retrospective: one concrete improvement applied to process artifacts
+- Retrospective record:
+  - What slowed us down?
+  - What process/file was improved?
+  - Exact rule added or changed.
+  - How this prevents repeat issues.

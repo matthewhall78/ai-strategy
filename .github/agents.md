@@ -39,4 +39,9 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
 - Blocker list (if any): nav mismatches, broken hrefs, naming violations — must be resolved before committing
 - Changes summary: files touched, what changed, validation result
 - Retrospective note: one applied process improvement and why it was added
+- Retrospective record (required):
+  - What slowed us down?
+  - What process/file was improved?
+  - Exact rule added or changed.
+  - How this prevents repeat issues.
 - Green-light statement: "Nav consistent across all pages. No broken hrefs. Ready to commit."
