@@ -35,6 +35,8 @@ Create a new page for the site and ensure navigation is fully consistent across 
 11. **Retrospective update:** Record one process improvement from the change and apply it to at least one of `.github/copilot-instructions.md`, `.github/skills.md`, `.github/agents.md`, or `apm.yml`.
 12. **Retrospective handoff record:** Include the required 4-line retrospective record in the final response.
 
+When using scripted nav updates, handle both normal and active-link variants so pages where a nav item is active are not skipped.
+
 ## Output Format
 
 - New file: `{kebab-name}.html` — self-contained, passes href validation, `active` class on own nav link
