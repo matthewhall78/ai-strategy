@@ -219,6 +219,41 @@ window.__METRICS_DATA = {
         prevention: "Future nav redesigns can reuse batch-update patterns and category tagging conventions to minimize per-file iteration and human error."
       },
       interpretation: "Initial baseline snapshot recorded for this navigation redesign; impact data (improved discoverability, 5-category filter support) seeds future nav-improvement comparisons."
+    },
+    {
+      id: "enh-2026-05-05-new-page-workflow-guardrail",
+      title: "Complete new-page workflow and add pre-push guardrail",
+      type: "process-hardening",
+      mergedAt: "2026-05-05",
+      baselineCommitId: "b873bbb",
+      currentCommitId: "fde4df9",
+      baseline: {
+        filesChanged: 1,
+        insertions: 607,
+        deletions: 0,
+        churnPerFile: 607.0
+      },
+      current: {
+        filesChanged: 5,
+        insertions: 30,
+        deletions: 0,
+        churnPerFile: 6.0
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "The new page was created and functional before discovery/documentation wiring was completed, causing follow-up work.",
+        processFile: ".github/copilot-instructions.md",
+        ruleChanged: "Added a required New Page Pre-Push Gate with explicit checks for index card, resources table entry, README listing, kebab-case naming, and rename cleanup.",
+        prevention: "Forces a deterministic checklist before push so page creation cannot ship without discoverability and documentation integration."
+      },
+      interpretation: "Faster and cleaner than baseline by drastically reducing churn per file while completing workflow integration and adding a durable guardrail."
     }
   ]
 };
