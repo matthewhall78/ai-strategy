@@ -18,6 +18,7 @@ This repository contains standalone HTML pages focused on AI strategy, context e
 - `github-copilot-modernization-getting-started.html`
 - `metrics-dashboard.html`
 - `general-ghcp-resources-links.html`
+- `open-source-product-governance-principles.html`
 
 ## Reusable Navigation Snippet
 

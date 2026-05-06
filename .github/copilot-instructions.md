@@ -40,6 +40,23 @@ Follow this sequence — do not skip or reorder steps:
 6. Add the page to `general-ghcp-resources-links.html` (internal resources table).
 7. Update the `README.md` page listing.
 
+### New Page Pre-Push Gate (Required)
+
+When a new `.html` file is added in the current change, do not push until all checks pass:
+
+1. The new page is linked from `index.html` as a card with the correct `data-category`.
+2. The new page is listed in `general-ghcp-resources-links.html`.
+3. The new page is listed in `README.md`.
+4. The filename is kebab-case.
+5. Zero old-name references remain after any rename.
+
+Run this verification checklist before commit/push:
+
+- `git diff --name-status -- '*.html'` (detect added/renamed pages)
+- `grep -n "<new-page>.html" index.html general-ghcp-resources-links.html README.md`
+- `find . -maxdepth 2 -type f -name '<new-page>.html'`
+- `grep -R "<old-page>.html" .` (only when renaming; expect no hits)
+
 ## Editing Discipline
 
 - Prefer small, focused edits. Do not touch files unrelated to the task.
