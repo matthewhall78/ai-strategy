@@ -66,11 +66,27 @@ Run this verification checklist before commit/push:
 ## Validation
 
 - After any nav change: verify every `href` in `.site-nav` resolves to a real file in the repo.
+- For the `Docs` nav link: verify it matches the active git remote repository URL and returns a non-404 HTTP status before claiming completion.
 - After creating a new page: confirm it appears in the nav on all pages and as a card in `index.html`.
 - After adding or changing interactive charts, dashboards, or controls: run both a parse check and one browser interaction check covering a representative toggle, hover, or focus path.
 - Before committing: no broken internal hrefs, no missing `active` class on the current page's nav link.
 - Validation must include fallback tooling: prefer `rg`/`rg --files`, but if `rg` is unavailable use `grep`/`find`.
+- Include one external-link health check for `Docs` (for example `curl -L -s -o /dev/null -w "%{http_code}" <docs-url>`), and record the observed status in the handoff.
 - After rename operations: verify both conditions hold before commit: (1) no old filename references remain, (2) new filename is referenced everywhere it should be.
+
+### Completion Claim Gate (Required)
+
+Do not state that work is "done", "complete", or "fixed" until all required checks below are executed and pass.
+
+Required completion checks:
+
+1. Define explicit pass/fail criteria before editing (expected behavior and measurable result).
+2. Run parse/lint validation for changed files.
+3. Run at least one real browser interaction path for changed UI behavior (for example click, hover, focus, or toggle).
+4. Verify observed outcome matches the pass criteria (not only DOM/code presence).
+5. Report evidence in handoff: action performed, observed result, and pass/fail status.
+
+If any required check is not executed or fails, use "implemented, pending validation" and list missing checks.
 
 ### Required Nav Validation Checks
 
