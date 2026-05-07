@@ -254,6 +254,41 @@ window.__METRICS_DATA = {
         prevention: "Forces a deterministic checklist before push so page creation cannot ship without discoverability and documentation integration."
       },
       interpretation: "Faster and cleaner than baseline by drastically reducing churn per file while completing workflow integration and adding a durable guardrail."
+    },
+    {
+      id: "enh-2026-05-06-shared-problems-infographic",
+      title: "Integrate Shared Problems Infographic page",
+      type: "new-page",
+      mergedAt: "2026-05-06",
+      baselineCommitId: "11f1f19",
+      currentCommitId: "270f532",
+      baseline: {
+        filesChanged: 16,
+        insertions: 140,
+        deletions: 0,
+        churnPerFile: 8.75
+      },
+      current: {
+        filesChanged: 19,
+        insertions: 1117,
+        deletions: 2,
+        churnPerFile: 58.78
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "None; systematic pre-push gate workflow prevented surprises.",
+        processFile: ".github/copilot-instructions.md",
+        ruleChanged: "No new rule needed; existing pre-push gate execution was systematic and complete.",
+        prevention: "Adhering to established process gates (index card check, resources link, README, nav link count, parse validation, browser test, external link health) ensured zero rework."
+      },
+      interpretation: "Higher churn per file due to nav block insertion (350+ lines) on new page, but same integration speed as prior enhancements. Process discipline ensured all 7 quality gates passed on first try."
     }
   ]
 };
