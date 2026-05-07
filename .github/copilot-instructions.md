@@ -146,8 +146,46 @@ After merge, append one enhancement record to `metrics/metrics-data.js` with:
 
 If no comparable baseline exists, log an explicit initial baseline snapshot by setting baseline commit and baseline metrics to the current commit and current metrics for that first record.
 
-### Schema Evolution
+### Metrics Categories (Fixed Taxonomy)
+
+All enhancement records must use one of the following five category values for the `type` field. This fixed set prevents category sprawl and enables deterministic baseline selection (compare each enhancement against the most recent prior enhancement of the same category).
+
+**1. Page Content & Integration**
+- When to use: Adding new pages, new content sections, integrating external content blocks, page creation workflows
+- Effort: Low–Medium | Uncertainty: Low
+- Examples: New page creation, content block integration, site map expansion
+- Baseline rule: Use most recent "Page Content & Integration" enhancement, or current if none exists
+
+**2. Layout & Responsive Architecture**
+- When to use: Full-page redesigns, grid restructuring, scroll behavior overhauls, breakpoint changes, major DOM reorganization
+- Effort: High | Uncertainty: Medium
+- Examples: Fixed-canvas-to-scroll refactors, multi-column-to-single-column changes, responsive layout fixes
+- Baseline rule: Use most recent "Layout & Responsive Architecture" enhancement, or current if none exists
+
+**3. Navigation & Information Architecture**
+- When to use: Nav bar redesigns, menu structure changes, category systems, filtering systems, discoverability patterns, information hierarchy
+- Effort: Medium–High | Uncertainty: Medium
+- Examples: Nav restructure, dropdown implementation, category filtering, breadcrumb changes
+- Baseline rule: Use most recent "Navigation & Information Architecture" enhancement, or current if none exists
+
+**4. Interactive Features & Dashboards**
+- When to use: Charting, data visualization, interactive controls, tooltips, dynamic behavior, event handlers, animations
+- Effort: Medium | Uncertainty: High
+- Examples: Trend charts, dashboards, interactive toggles, animated transitions
+- Baseline rule: Use most recent "Interactive Features & Dashboards" enhancement, or current if none exists
+
+**5. Process & Governance**
+- When to use: Workflow guardrails, validation rules, documentation, quality gates, instruction updates, process templates
+- Effort: Low–Medium | Uncertainty: Low
+- Examples: Pre-push gates, validation rules, instruction documentation, process improvements
+- Baseline rule: Use most recent "Process & Governance" enhancement, or current if none exists
+
+**Category Selection Rule**: When choosing a category for a new enhancement, match it against the primary work being done. If work spans multiple categories, assign to the dominant category (e.g., if an enhancement is mostly a new page but includes minor nav updates, use "Page Content & Integration"). If in doubt, escalate ambiguity to the user before logging.
+
 
 - Keep `schemaVersion` in `metrics/metrics-data.js` and increment on structural changes.
 - Preserve backward compatibility for older records when adding new fields.
 - Put optional future metrics into new fields without removing existing required fields.
+
+### Schema Evolution
+

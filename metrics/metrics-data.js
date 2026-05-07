@@ -13,7 +13,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-05-coding-agent",
       title: "Integrate Coding Agent page",
-      type: "new-page",
+      type: "Page Content & Integration",
       mergedAt: "2026-05-05",
       baselineCommitId: "231fc45",
       currentCommitId: "4e11206",
@@ -48,7 +48,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-05-continuous-improvement-page",
       title: "Add Continuous Improvement workflow page",
-      type: "new-page",
+      type: "Page Content & Integration",
       mergedAt: "2026-05-05",
       baselineCommitId: "4e11206",
       currentCommitId: "67a6193",
@@ -83,7 +83,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-05-modernization-guide",
       title: "Integrate Modernization Getting Started guide",
-      type: "new-page",
+      type: "Page Content & Integration",
       mergedAt: "2026-05-05",
       baselineCommitId: "4e11206",
       currentCommitId: "b8b7f3f",
@@ -118,7 +118,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-05-dashboard-trend-chart",
       title: "Enhance metrics dashboard trend chart",
-      type: "dashboard-enhancement",
+      type: "Interactive Features & Dashboards",
       mergedAt: "2026-05-05",
       baselineCommitId: "4c4f0ff",
       currentCommitId: "c27fb24",
@@ -153,7 +153,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-05-nav-rail-standardization",
       title: "Standardize site navigation rail contract",
-      type: "navigation-standardization",
+      type: "Navigation & Information Architecture",
       mergedAt: "2026-05-05",
       baselineCommitId: "1024291",
       currentCommitId: "1024291",
@@ -188,7 +188,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-05-nav-redesign-dropdown-filters",
       title: "Navigation redesign: Home/Topics/Metrics/Docs with category filtering",
-      type: "navigation-ux-redesign",
+      type: "Navigation & Information Architecture",
       mergedAt: "2026-05-05",
       baselineCommitId: "bc7213b",
       currentCommitId: "bc7213b",
@@ -223,7 +223,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-05-new-page-workflow-guardrail",
       title: "Complete new-page workflow and add pre-push guardrail",
-      type: "process-hardening",
+      type: "Process & Governance",
       mergedAt: "2026-05-05",
       baselineCommitId: "b873bbb",
       currentCommitId: "fde4df9",
@@ -258,7 +258,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-06-shared-problems-infographic",
       title: "Integrate Shared Problems Infographic page",
-      type: "new-page",
+      type: "Page Content & Integration",
       mergedAt: "2026-05-06",
       baselineCommitId: "270f532",
       currentCommitId: "270f532",
@@ -293,7 +293,7 @@ window.__METRICS_DATA = {
     {
       id: "enh-2026-05-07-agentic-ladder-scroll-refactor",
       title: "Refactor Agentic Maturity Ladder into progressive scroll layout",
-      type: "layout-refactor",
+      type: "Layout & Responsive Architecture",
       mergedAt: "2026-05-07",
       baselineCommitId: "b67d4b2",
       currentCommitId: "b67d4b2",
