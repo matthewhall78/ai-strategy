@@ -589,6 +589,223 @@
       .assignees-card { width: 610px; }
       .bot { right: 2%; }
     }
+
+    /* ── Content section (reference: open-source-product-governance-principles.html) ── */
+
+    .content-section {
+      position: relative;
+      min-height: 100vh;
+      padding: 54px 66px 72px;
+      background:
+        radial-gradient(circle at 50% 42%, rgba(85, 234, 255, .10), transparent 22%),
+        radial-gradient(circle at 62% 50%, rgba(124, 58, 237, .22), transparent 30%),
+        radial-gradient(circle at 33% 76%, rgba(22, 119, 255, .10), transparent 23%),
+        #000;
+      overflow: hidden;
+    }
+
+    .content-section::before {
+      content: "";
+      position: absolute;
+      inset: -25%;
+      background:
+        radial-gradient(circle at 50% 46%, rgba(85,234,255,.14), transparent 12%),
+        radial-gradient(circle at 58% 50%, rgba(124,58,237,.26), transparent 25%);
+      filter: blur(28px);
+      animation: glowPulse 5.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .content-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0 58%, rgba(0,0,0,.18), rgba(0,0,0,.82));
+      pointer-events: none;
+    }
+
+    .perspective-grid {
+      position: absolute;
+      left: -12%;
+      right: -12%;
+      bottom: -18%;
+      height: 45%;
+      transform: perspective(560px) rotateX(64deg);
+      transform-origin: center bottom;
+      background:
+        linear-gradient(rgba(126, 34, 206, .55) 2px, transparent 2px),
+        linear-gradient(90deg, transparent 49.7%, rgba(48,112,255,.55) 50%, transparent 50.3%),
+        repeating-linear-gradient(116deg, transparent 0 220px, rgba(48, 112, 255, .55) 222px 225px, transparent 227px),
+        repeating-linear-gradient(64deg, transparent 0 220px, rgba(48, 112, 255, .55) 222px 225px, transparent 227px);
+      background-size: 100% 118px, 100% 100%, auto, auto;
+      opacity: .58;
+      animation: gridDrift 8s linear infinite;
+      pointer-events: none;
+    }
+
+    .content-header {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      animation: titleIn .75s ease both;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: .32em;
+      font-size: clamp(14px, 1.05vw, 20px);
+      font-weight: 950;
+    }
+
+    .content-header h2 {
+      margin: 0;
+      font-size: clamp(44px, 4.8vw, 78px);
+      line-height: 1.02;
+      letter-spacing: -.06em;
+      font-weight: 950;
+      text-shadow: 0 0 34px rgba(85,234,255,.16);
+    }
+
+    .subtitle {
+      margin: 18px auto 0;
+      max-width: 1040px;
+      color: #aeb9c6;
+      font-size: clamp(17px, 1.35vw, 24px);
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    .hybrid {
+      position: relative;
+      z-index: 3;
+      width: min(1480px, 92vw);
+      margin: 46px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 42px;
+      align-items: start;
+      animation: hybridIn .9s cubic-bezier(.2,.8,.2,1) both .14s;
+    }
+
+    .layers-panel {
+      position: relative;
+      padding: 28px;
+      border: 1px solid rgba(85,234,255,.22);
+      border-radius: 28px;
+      background: rgba(18,23,31,.68);
+      box-shadow: 0 24px 70px rgba(0,0,0,.52);
+      overflow: hidden;
+    }
+
+    .layers-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent);
+      transform: translateX(-120%);
+      animation: shimmer 4.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .panel-title {
+      margin: 0 0 18px;
+      color: #fff;
+      font-size: clamp(26px, 2vw, 36px);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+      font-weight: 950;
+    }
+
+    .panel-copy {
+      margin: 0 0 24px;
+      color: #aeb9c6;
+      font-size: 17px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .stack-layer {
+      position: relative;
+      padding: 18px 20px 18px 56px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02)), rgba(9,13,18,.78);
+      border: 1px solid rgba(255,255,255,.14);
+      color: #eef6ff;
+      font-weight: 850;
+      font-size: 17px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.32);
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .stack-layer:hover {
+      transform: translateX(10px);
+      border-color: var(--cyan);
+      box-shadow: 0 18px 44px rgba(0,0,0,.45), 0 0 24px rgba(85,234,255,.12);
+    }
+
+    .stack-layer::before {
+      content: attr(data-num);
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      width: 28px;
+      height: 28px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--color);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 950;
+      box-shadow: 0 0 18px color-mix(in srgb, var(--color) 55%, transparent);
+    }
+
+    .stack-layer small {
+      display: block;
+      margin-top: 5px;
+      color: #aeb9c6;
+      font-size: 13px;
+      line-height: 1.25;
+      font-weight: 600;
+    }
+
+    @keyframes titleIn {
+      from { opacity: 0; transform: translateY(-18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes hybridIn {
+      from { opacity: 0; transform: translateY(34px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes gridDrift {
+      from { background-position: 0 0, 0 0, 0 0, 0 0; }
+      to { background-position: 0 118px, 0 0, 0 82px, 0 82px; }
+    }
+
+    @keyframes shimmer {
+      0%, 48% { transform: translateX(-120%); }
+      78%, 100% { transform: translateX(120%); }
+    }
+
+    @media (max-width: 1180px) {
+      .content-section { padding: 40px 22px 80px; }
+      .hybrid { grid-template-columns: 1fr; }
+      .perspective-grid { position: absolute; }
+    }
+
+    @media (max-width: 760px) {
+      .hybrid { gap: 24px; }
+    }
   </style>
 </head>
 <body data-category="reference-tool">
@@ -676,5 +893,60 @@
       </div>
     </section>
   </main>
+
+  <section class="content-section" aria-label="Copilot Coding Agent description and guide">
+    <div class="perspective-grid" aria-hidden="true"></div>
+
+    <header class="content-header">
+      <p class="eyebrow">GitHub Copilot</p>
+      <h2>Your AI software engineer</h2>
+      <p class="subtitle">The Coding Agent autonomously resolves GitHub issues — writing code, creating branches, and opening pull requests, all directly from GitHub.com without any local setup.</p>
+    </header>
+
+    <div class="hybrid">
+      <aside class="layers-panel" aria-label="What the Coding Agent can do">
+        <h3 class="panel-title">What can the Coding Agent do?</h3>
+        <p class="panel-copy">The Coding Agent is a fully autonomous AI that takes issues from backlog to pull request. It runs inside GitHub Actions, uses real tools, and leaves a traceable audit trail of every decision it makes.</p>
+        <div class="stack">
+          <div class="stack-layer" data-num="1" style="--color:#7c3aed;">Autonomous issue resolution<small>Copilot reads your issue, forms a plan, and executes code changes end-to-end without manual intervention.</small></div>
+          <div class="stack-layer" data-num="2" style="--color:#1677ff;">Branch &amp; pull request creation<small>A dedicated branch is created automatically and a pull request is opened for your team to review.</small></div>
+          <div class="stack-layer" data-num="3" style="--color:#22c55e;">Iterative feedback loop<small>Leave comments on the pull request and Copilot will read them and revise its work in response.</small></div>
+          <div class="stack-layer" data-num="4" style="--color:#55eaff;">Runs in GitHub Actions<small>Every session is auditable, reproducible, and integrated with your existing CI/CD pipeline and checks.</small></div>
+          <div class="stack-layer" data-num="5" style="--color:#c084fc;">MCP tool integration<small>Extend Copilot's reach with custom tools via the Model Context Protocol, giving the agent broader capabilities.</small></div>
+        </div>
+      </aside>
+
+      <aside class="layers-panel" aria-label="How to use Copilot Coding Agent on GitHub.com">
+        <h3 class="panel-title">How to use it on GitHub.com</h3>
+        <p class="panel-copy">No CLI, no local environment. Assign Copilot directly from any issue page and the agent handles everything from there — all inside your browser.</p>
+        <div class="stack">
+          <div class="stack-layer" data-num="1" style="--color:#7c3aed;">Enable Copilot in your repository<small>Go to your organization or repository Settings → Copilot and enable the Coding Agent feature.</small></div>
+          <div class="stack-layer" data-num="2" style="--color:#1677ff;">Open a GitHub issue<small>Navigate to the Issues tab of your repository and open the issue you want Copilot to work on.</small></div>
+          <div class="stack-layer" data-num="3" style="--color:#22c55e;">Assign Copilot<small>In the Assignees sidebar on the right, click the gear icon and select Copilot from the assignee picker.</small></div>
+          <div class="stack-layer" data-num="4" style="--color:#55eaff;">Watch the agent work<small>Copilot starts a session in GitHub Actions, creates a branch, and begins writing and testing code changes.</small></div>
+          <div class="stack-layer" data-num="5" style="--color:#f59e0b;">Review the pull request<small>Copilot opens a PR with its changes. Examine the diff, check the CI results, and leave review comments.</small></div>
+          <div class="stack-layer" data-num="6" style="--color:#c084fc;">Iterate and merge<small>Reply in the PR conversation with further guidance; Copilot revises its work. Approve and merge when satisfied.</small></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdownTrigger = document.querySelector('.site-nav-dropdown-trigger');
+      if (!dropdownTrigger) return;
+
+      dropdownTrigger.addEventListener('click', function() {
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!isExpanded));
+      });
+
+      document.querySelectorAll('.site-nav-dropdown-menu a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          dropdownTrigger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
