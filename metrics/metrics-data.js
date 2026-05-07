@@ -324,6 +324,41 @@ window.__METRICS_DATA = {
         prevention: "Forces explicit long-page checks so clipping or non-scrollable states are caught before completion claims."
       },
       interpretation: "Initial baseline snapshot recorded because no directly comparable prior refactor baseline existed; this establishes a baseline for future layout refactor trend analysis."
+    },
+    {
+      id: "enh-2026-05-07-dashboard-category-ledger",
+      title: "Aggregate dashboard ledger by fixed metrics categories",
+      type: "Interactive Features & Dashboards",
+      mergedAt: "2026-05-07",
+      baselineCommitId: "c27fb24",
+      currentCommitId: "484a52c",
+      baseline: {
+        filesChanged: 2,
+        insertions: 441,
+        deletions: 0,
+        churnPerFile: 220.5
+      },
+      current: {
+        filesChanged: 2,
+        insertions: 63,
+        deletions: 31,
+        churnPerFile: 47.0
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "Commit-level ledger output obscured category-level trends and required a structural aggregation pass for clearer storytelling.",
+        processFile: ".github/copilot-instructions.md",
+        ruleChanged: "Added a dashboard aggregation validation rule requiring exactly five category rows with one row per fixed taxonomy category.",
+        prevention: "Prevents regressions where category dashboards drift from the canonical taxonomy or silently omit categories."
+      },
+      interpretation: "Faster than the prior dashboard enhancement baseline with substantially lower churn per file while improving decision-ready category visibility."
     }
   ]
 };
