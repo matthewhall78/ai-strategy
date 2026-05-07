@@ -260,13 +260,13 @@ window.__METRICS_DATA = {
       title: "Integrate Shared Problems Infographic page",
       type: "new-page",
       mergedAt: "2026-05-06",
-      baselineCommitId: "11f1f19",
+      baselineCommitId: "270f532",
       currentCommitId: "270f532",
       baseline: {
-        filesChanged: 16,
-        insertions: 140,
-        deletions: 0,
-        churnPerFile: 8.75
+        filesChanged: 19,
+        insertions: 1117,
+        deletions: 2,
+        churnPerFile: 58.78
       },
       current: {
         filesChanged: 19,
@@ -288,20 +288,20 @@ window.__METRICS_DATA = {
         ruleChanged: "No new rule needed; existing pre-push gate execution was systematic and complete.",
         prevention: "Adhering to established process gates (index card check, resources link, README, nav link count, parse validation, browser test, external link health) ensured zero rework."
       },
-      interpretation: "Higher churn per file due to nav block insertion (350+ lines) on new page, but same integration speed as prior enhancements. Process discipline ensured all 7 quality gates passed on first try."
+      interpretation: "Initial baseline snapshot recorded because no directly comparable baseline existed; this seeds future new-page comparisons for this workflow pattern."
     },
     {
       id: "enh-2026-05-07-agentic-ladder-scroll-refactor",
       title: "Refactor Agentic Maturity Ladder into progressive scroll layout",
       type: "layout-refactor",
       mergedAt: "2026-05-07",
-      baselineCommitId: "11d8f4b",
+      baselineCommitId: "b67d4b2",
       currentCommitId: "b67d4b2",
       baseline: {
-        filesChanged: 8,
-        insertions: 26,
-        deletions: 20,
-        churnPerFile: 5.75
+        filesChanged: 2,
+        insertions: 507,
+        deletions: 365,
+        churnPerFile: 436.0
       },
       current: {
         filesChanged: 2,
@@ -323,7 +323,7 @@ window.__METRICS_DATA = {
         ruleChanged: "Added a validation rule requiring top/mid/bottom scroll checks after any full-page layout refactor.",
         prevention: "Forces explicit long-page checks so clipping or non-scrollable states are caught before completion claims."
       },
-      interpretation: "This change is slower than baseline by churn-per-file because it is a full page architecture rewrite, but quality gates passed with interaction validation."
+      interpretation: "Initial baseline snapshot recorded because no directly comparable prior refactor baseline existed; this establishes a baseline for future layout refactor trend analysis."
     }
   ]
 };
