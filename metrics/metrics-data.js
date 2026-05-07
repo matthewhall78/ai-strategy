@@ -1,6 +1,6 @@
 window.__METRICS_DATA = {
   schemaVersion: "1.0.0",
-  updatedAt: "2026-05-05",
+  updatedAt: "2026-05-07",
   qualityGateOrder: [
     "nav-link-presence",
     "nav-href-resolution",
@@ -289,6 +289,41 @@ window.__METRICS_DATA = {
         prevention: "Adhering to established process gates (index card check, resources link, README, nav link count, parse validation, browser test, external link health) ensured zero rework."
       },
       interpretation: "Higher churn per file due to nav block insertion (350+ lines) on new page, but same integration speed as prior enhancements. Process discipline ensured all 7 quality gates passed on first try."
+    },
+    {
+      id: "enh-2026-05-07-agentic-ladder-scroll-refactor",
+      title: "Refactor Agentic Maturity Ladder into progressive scroll layout",
+      type: "layout-refactor",
+      mergedAt: "2026-05-07",
+      baselineCommitId: "11d8f4b",
+      currentCommitId: "b67d4b2",
+      baseline: {
+        filesChanged: 8,
+        insertions: 26,
+        deletions: 20,
+        churnPerFile: 5.75
+      },
+      current: {
+        filesChanged: 2,
+        insertions: 507,
+        deletions: 365,
+        churnPerFile: 436.0
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "Scroll behavior verification took extra time because fixed-canvas layout assumptions did not map cleanly to long-page interaction testing.",
+        processFile: ".github/copilot-instructions.md",
+        ruleChanged: "Added a validation rule requiring top/mid/bottom scroll checks after any full-page layout refactor.",
+        prevention: "Forces explicit long-page checks so clipping or non-scrollable states are caught before completion claims."
+      },
+      interpretation: "This change is slower than baseline by churn-per-file because it is a full page architecture rewrite, but quality gates passed with interaction validation."
     }
   ]
 };

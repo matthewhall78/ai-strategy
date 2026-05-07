@@ -69,6 +69,7 @@ Run this verification checklist before commit/push:
 - For the `Docs` nav link: verify it matches the active git remote repository URL and returns a non-404 HTTP status before claiming completion.
 - After creating a new page: confirm it appears in the nav on all pages and as a card in `index.html`.
 - After adding or changing interactive charts, dashboards, or controls: run both a parse check and one browser interaction check covering a representative toggle, hover, or focus path.
+- After any full-page layout refactor: verify scrollability at top, midpoint, and bottom of the page in a real browser session before claiming completion.
 - Before committing: no broken internal hrefs, no missing `active` class on the current page's nav link.
 - Validation must include fallback tooling: prefer `rg`/`rg --files`, but if `rg` is unavailable use `grep`/`find`.
 - Include one external-link health check for `Docs` (for example `curl -L -s -o /dev/null -w "%{http_code}" <docs-url>`), and record the observed status in the handoff.
