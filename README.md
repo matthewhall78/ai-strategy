@@ -19,6 +19,7 @@ This repository contains standalone HTML pages focused on AI strategy, context e
 - `metrics-dashboard.html`
 - `general-ghcp-resources-links.html`
 - `open-source-product-governance-principles.html`
+- `shared-problems-infographic.html`
 
 ## Reusable Navigation Snippet
 
