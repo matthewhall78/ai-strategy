@@ -182,6 +182,8 @@ All enhancement records must use one of the following five category values for t
 
 **Category Selection Rule**: When choosing a category for a new enhancement, match it against the primary work being done. If work spans multiple categories, assign to the dominant category (e.g., if an enhancement is mostly a new page but includes minor nav updates, use "Page Content & Integration"). If in doubt, escalate ambiguity to the user before logging.
 
+**Dashboard Aggregation Validation Rule**: When dashboard tables or bars are aggregated by the fixed taxonomy, validate that exactly five category rows render and each fixed category appears once.
+
 
 - Keep `schemaVersion` in `metrics/metrics-data.js` and increment on structural changes.
 - Preserve backward compatibility for older records when adding new fields.

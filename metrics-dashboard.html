@@ -662,7 +662,7 @@
         <h2>Efficiency Trend</h2>
         <div class="chart-wrap">
           <div class="chart-head">
-            <h3>Churn Per File Trend</h3>
+            <h3>Churn Per File Trend (by Enhancement)</h3>
             <div class="chart-actions">
               <div class="chart-legend" aria-label="Chart legend">
                 <span class="raw"><i></i>Current churn/file</span>
@@ -682,7 +682,7 @@
           </div>
         </div>
         <div class="bar-list" id="trendBars"></div>
-        <div class="footer-note">Each bar shows current churn/file for one enhancement. Lower bars indicate more efficient delivery.</div>
+        <div class="footer-note">Each bar shows average current churn/file for one category. Lower bars indicate more efficient delivery.</div>
       </article>
 
       <article class="panel">
@@ -701,16 +701,16 @@
       </article>
     </section>
 
-    <section class="panel ledger" aria-label="Enhancement ledger">
-      <h2>Enhancement Ledger</h2>
+    <section class="panel ledger" aria-label="Category improvement ledger">
+      <h2>Category Improvement Ledger</h2>
       <table>
         <thead>
           <tr>
-            <th>Enhancement</th>
-            <th>Baseline</th>
-            <th>Current</th>
-            <th>Files</th>
-            <th>Churn/File</th>
+            <th>Category</th>
+            <th>Enhancements</th>
+            <th>Avg Baseline Churn/File</th>
+            <th>Avg Current Churn/File</th>
+            <th>Delta</th>
             <th>Result</th>
           </tr>
         </thead>
@@ -724,6 +724,13 @@
     (function () {
       const data = window.__METRICS_DATA || { enhancements: [], qualityGateOrder: [] };
       const enhancements = Array.isArray(data.enhancements) ? data.enhancements : [];
+      const fixedCategories = [
+        "Page Content & Integration",
+        "Layout & Responsive Architecture",
+        "Navigation & Information Architecture",
+        "Interactive Features & Dashboards",
+        "Process & Governance"
+      ];
       const total = enhancements.length;
 
       const safeNumber = (value) => Number.isFinite(Number(value)) ? Number(value) : 0;
@@ -741,6 +748,34 @@
 
       const currentChurnValues = enhancements.map((e) => safeNumber(e.current && e.current.churnPerFile));
       const avgCurrentChurn = avg(currentChurnValues);
+
+      const categoryBuckets = fixedCategories.reduce((acc, category) => {
+        acc[category] = [];
+        return acc;
+      }, {});
+
+      enhancements.forEach((enhancement) => {
+        const category = enhancement.type;
+        if (categoryBuckets[category]) {
+          categoryBuckets[category].push(enhancement);
+        }
+      });
+
+      const categorySummaries = fixedCategories.map((category) => {
+        const records = categoryBuckets[category] || [];
+        const baselineValues = records.map((record) => effectiveBaselineChurn(record));
+        const currentValues = records.map((record) => safeNumber(record.current && record.current.churnPerFile));
+        const baselineAvg = avg(baselineValues);
+        const currentAvg = avg(currentValues);
+        const delta = currentAvg - baselineAvg;
+        return {
+          category,
+          count: records.length,
+          baselineAvg,
+          currentAvg,
+          delta
+        };
+      });
 
       const gateOrder = data.qualityGateOrder || [];
       const gateStats = {};
@@ -985,20 +1020,19 @@
         renderTrendChart();
       }
 
-      const maxChurn = Math.max(1, ...currentChurnValues);
       const trendBars = document.getElementById("trendBars");
-      enhancements.forEach((enhancement) => {
-        const churn = safeNumber(enhancement.current && enhancement.current.churnPerFile);
-        const widthPct = (churn / maxChurn) * 100;
+      const maxCategoryCurrentChurn = Math.max(1, ...categorySummaries.map((summary) => summary.currentAvg));
+      categorySummaries.forEach((summary) => {
+        const widthPct = (summary.currentAvg / maxCategoryCurrentChurn) * 100;
 
         const row = document.createElement("div");
         row.className = "bar-row";
         row.innerHTML =
           '<div>' +
-            '<div class="bar-label">' + enhancement.title + ' (' + enhancement.currentCommitId + ')</div>' +
+            '<div class="bar-label">' + summary.category + ' (' + summary.count + ')</div>' +
             '<div class="bar-track"><div class="bar-fill" style="width:' + widthPct.toFixed(2) + '%"></div></div>' +
           '</div>' +
-          '<strong>' + churn.toFixed(2) + '</strong>';
+          '<strong>' + summary.currentAvg.toFixed(2) + '</strong>';
         trendBars.appendChild(row);
       });
 
@@ -1016,21 +1050,15 @@
       });
 
       const ledgerRows = document.getElementById("ledgerRows");
-      enhancements.forEach((enhancement) => {
-        const current = enhancement.current || {};
-        const baselineExists = hasBaselineChurn(enhancement);
-        const baselineCommit = enhancement.baselineCommitId || enhancement.currentCommitId || "-";
-        const baselineChurn = effectiveBaselineChurn(enhancement);
-        const currentChurn = safeNumber(current.churnPerFile);
-        const delta = currentChurn - baselineChurn;
+      categorySummaries.forEach((summary) => {
         let resultClass = "";
-        let resultText = "Initial";
+        let resultText = "No data";
 
-        if (baselineExists) {
-          if (delta < 0) {
+        if (summary.count > 0) {
+          if (summary.delta < 0) {
             resultClass = "pass";
             resultText = "Improved";
-          } else if (delta > 0) {
+          } else if (summary.delta > 0) {
             resultClass = "fail";
             resultText = "Regressed";
           } else {
@@ -1038,13 +1066,15 @@
           }
         }
 
+        const deltaDisplay = (summary.delta >= 0 ? "+" : "") + summary.delta.toFixed(2);
+
         const tr = document.createElement("tr");
         tr.innerHTML =
-          '<td><strong>' + enhancement.title + '</strong></td>' +
-          '<td><code>' + baselineCommit + '</code></td>' +
-          '<td><code>' + enhancement.currentCommitId + '</code></td>' +
-          '<td>' + safeNumber(current.filesChanged) + '</td>' +
-          '<td>' + baselineChurn.toFixed(2) + ' -> ' + currentChurn.toFixed(2) + '</td>' +
+          '<td><strong>' + summary.category + '</strong></td>' +
+          '<td>' + summary.count + '</td>' +
+          '<td>' + summary.baselineAvg.toFixed(2) + '</td>' +
+          '<td>' + summary.currentAvg.toFixed(2) + '</td>' +
+          '<td>' + deltaDisplay + '</td>' +
           '<td><span class="pill ' + resultClass + '">' + resultText + '</span></td>';
         ledgerRows.appendChild(tr);
       });
