@@ -30,32 +30,7 @@
 
 ## Adding a New Page
 
-Follow this sequence — do not skip or reorder steps:
-
-1. Create `{kebab-name}.html` using an existing page as the structural template.
-2. Embed the `.site-nav` block with the `active` class on the new page's own link.
-3. Add a card to the correct section in `index.html`.
-4. Add the new nav link to every other existing `.html` page.
-5. Add the new nav link to `snippets/site-nav-snippet.html`.
-6. Add the page to `general-ghcp-resources-links.html` (internal resources table).
-7. Update the `README.md` page listing.
-
-### New Page Pre-Push Gate (Required)
-
-When a new `.html` file is added in the current change, do not push until all checks pass:
-
-1. The new page is linked from `index.html` as a card with the correct `data-category`.
-2. The new page is listed in `general-ghcp-resources-links.html`.
-3. The new page is listed in `README.md`.
-4. The filename is kebab-case.
-5. Zero old-name references remain after any rename.
-
-Run this verification checklist before commit/push:
-
-- `git diff --name-status -- '*.html'` (detect added/renamed pages)
-- `grep -n "<new-page>.html" index.html general-ghcp-resources-links.html README.md`
-- `find . -maxdepth 2 -type f -name '<new-page>.html'`
-- `grep -R "<old-page>.html" .` (only when renaming; expect no hits)
+Refer to `.github/skills.md` — "New Site Page Skill" — for the complete workflow, validation checklist, and browser interaction testing requirements. The skill covers all 14 required steps from file creation through metrics logging.
 
 ## Editing Discipline
 
@@ -75,119 +50,18 @@ Run this verification checklist before commit/push:
 - Include one external-link health check for `Docs` (for example `curl -L -s -o /dev/null -w "%{http_code}" <docs-url>`), and record the observed status in the handoff.
 - After rename operations: verify both conditions hold before commit: (1) no old filename references remain, (2) new filename is referenced everywhere it should be.
 
-### Completion Claim Gate (Required)
+- Include one external-link health check for `Docs` (for example `curl -L -s -o /dev/null -w "%{http_code}" <docs-url>`), and record the observed status in the handoff.
+- After rename operations: verify both conditions hold before commit: (1) no old filename references remain, (2) new filename is referenced everywhere it should be.
 
-Do not state that work is "done", "complete", or "fixed" until all required checks below are executed and pass.
+## Continuous Improvement & Retrospective Requirements
 
-Required completion checks:
+After each website enhancement, refer to `.github/metrics.md` for:
 
-1. Define explicit pass/fail criteria before editing (expected behavior and measurable result).
-2. Run parse/lint validation for changed files.
-3. Run at least one real browser interaction path for changed UI behavior (for example click, hover, focus, or toggle).
-4. Verify observed outcome matches the pass criteria (not only DOM/code presence).
-5. Report evidence in handoff: action performed, observed result, and pass/fail status.
+1. **Retrospective Record** — Required 4-line record (what slowed us down, process file improved, exact rule changed, prevention mechanism)
+2. **Efficiency Scorecard** — Required comparison with baseline (commit IDs, files changed, churn per file, quality gates, interpretation)
+3. **Metrics Logging** — Post-merge append to `metrics/metrics-data.js` using the record + scorecard
+4. **Fixed Metrics Categories** — Use one of five immutable categories (Page Content & Integration, Layout & Responsive Architecture, Navigation & Information Architecture, Interactive Features & Dashboards, Process & Governance)
+5. **Quality Gates** — All six gates must pass before merge (nav-link-presence, nav-href-resolution, rename-cleanup, canonical-sync, browser-interaction-test, docs-link-health)
 
-If any required check is not executed or fails, use "implemented, pending validation" and list missing checks.
-
-### Required Nav Validation Checks
-
-Run these checks after adding or renaming a nav page:
-
-1. Count nav blocks and ensure each contains the new link.
-2. Confirm every local nav `href` target resolves to an existing file.
-3. Confirm canonical nav in `snippets/site-nav-snippet.html` exactly matches live nav structure.
-
-If any check fails, fix before commit.
-
-## Documentation
-
-- Update `README.md` when pages are added or renamed.
-- Keep the `snippets/site-nav-snippet.html` in sync with the live nav on every page.
-
-## Continuous Improvement
-
-- After each website enhancement, capture one process improvement and apply it immediately to `.github/copilot-instructions.md`, `.github/skills.md`, `.github/agents.md`, or `apm.yml`.
-- Prefer small, specific rule updates over broad rewrites.
-- Do not mark work complete until retrospective updates are considered.
-
-### Retrospective Record (Required)
-
-For every enhancement, include this short record in the final handoff message:
-
-1. What slowed us down?
-2. What process/file is being improved?
-3. Exact rule added or changed.
-4. How this prevents repeat issues.
-
-No enhancement is complete until this record is provided.
-
-### Efficiency Scorecard (Required)
-
-For every enhancement, include this short scorecard in the final handoff message:
-
-1. Baseline commit ID (previous comparable enhancement).
-2. Current commit ID.
-3. Files changed (baseline vs current).
-4. Insertions and deletions (baseline vs current).
-5. Churn per file: $(insertions + deletions) / files$ (baseline vs current).
-6. Quality gates pass/fail summary (nav-link-presence, nav-href-resolution, rename-cleanup, canonical-sync).
-7. One-sentence interpretation: faster/slower and why.
-
-No enhancement is complete until this scorecard is provided.
-
-### Metrics Logging (Required)
-
-After merge, append one enhancement record to `metrics/metrics-data.js` with:
-
-1. Metadata: title, type, merged date, baseline commit, current commit.
-2. Efficiency values: files changed, insertions/deletions, churn per file (baseline/current).
-3. Quality gate statuses.
-4. Retrospective record and one-sentence interpretation.
-
-If no comparable baseline exists, log an explicit initial baseline snapshot by setting baseline commit and baseline metrics to the current commit and current metrics for that first record.
-
-### Metrics Categories (Fixed Taxonomy)
-
-All enhancement records must use one of the following five category values for the `type` field. This fixed set prevents category sprawl and enables deterministic baseline selection (compare each enhancement against the most recent prior enhancement of the same category).
-
-**1. Page Content & Integration**
-- When to use: Adding new pages, new content sections, integrating external content blocks, page creation workflows
-- Effort: Low–Medium | Uncertainty: Low
-- Examples: New page creation, content block integration, site map expansion
-- Baseline rule: Use most recent "Page Content & Integration" enhancement, or current if none exists
-
-**2. Layout & Responsive Architecture**
-- When to use: Full-page redesigns, grid restructuring, scroll behavior overhauls, breakpoint changes, major DOM reorganization
-- Effort: High | Uncertainty: Medium
-- Examples: Fixed-canvas-to-scroll refactors, multi-column-to-single-column changes, responsive layout fixes
-- Baseline rule: Use most recent "Layout & Responsive Architecture" enhancement, or current if none exists
-
-**3. Navigation & Information Architecture**
-- When to use: Nav bar redesigns, menu structure changes, category systems, filtering systems, discoverability patterns, information hierarchy
-- Effort: Medium–High | Uncertainty: Medium
-- Examples: Nav restructure, dropdown implementation, category filtering, breadcrumb changes
-- Baseline rule: Use most recent "Navigation & Information Architecture" enhancement, or current if none exists
-
-**4. Interactive Features & Dashboards**
-- When to use: Charting, data visualization, interactive controls, tooltips, dynamic behavior, event handlers, animations
-- Effort: Medium | Uncertainty: High
-- Examples: Trend charts, dashboards, interactive toggles, animated transitions
-- Baseline rule: Use most recent "Interactive Features & Dashboards" enhancement, or current if none exists
-
-**5. Process & Governance**
-- When to use: Workflow guardrails, validation rules, documentation, quality gates, instruction updates, process templates
-- Effort: Low–Medium | Uncertainty: Low
-- Examples: Pre-push gates, validation rules, instruction documentation, process improvements
-- Baseline rule: Use most recent "Process & Governance" enhancement, or current if none exists
-
-**Category Selection Rule**: When choosing a category for a new enhancement, match it against the primary work being done. If work spans multiple categories, assign to the dominant category (e.g., if an enhancement is mostly a new page but includes minor nav updates, use "Page Content & Integration"). If in doubt, escalate ambiguity to the user before logging.
-
-**Dashboard Aggregation Validation Rule**: When dashboard tables or bars are aggregated by the fixed taxonomy, validate that exactly five category rows render and each fixed category appears once.
-
-
-- Keep `schemaVersion` in `metrics/metrics-data.js` and increment on structural changes.
-- Preserve backward compatibility for older records when adding new fields.
-- Put optional future metrics into new fields without removing existing required fields.
-
-### Schema Evolution
+Prefer small, specific rule updates over broad rewrites. Do not mark work complete until retrospective updates are considered.
 

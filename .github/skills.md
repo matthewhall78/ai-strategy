@@ -39,26 +39,45 @@ Create a new page for the site and ensure navigation is fully consistent across 
 
 When using scripted nav updates, handle both normal and active-link variants so pages where a nav item is active are not skipped.
 
+## Pre-Push Validation Checklist
+
+Before committing, run these checks to ensure nav consistency:
+
+1. **Nav link presence:** Count nav blocks in changed files. Confirm each contains the new link.
+2. **Href resolution:** Verify every local nav `href` target resolves to an existing file. Use:
+   - `git diff --name-status -- '*.html'` (detect added/renamed pages)
+   - `grep -n "<page-name>.html" index.html general-ghcp-resources-links.html README.md` (verify card + table + listing)
+   - `find . -maxdepth 2 -type f -name '<page-name>.html'` (confirm file exists)
+3. **Rename cleanup:** If renaming, run `grep -R "<old-name>.html" .` and expect zero matches.
+4. **Canonical sync:** Confirm `snippets/site-nav-snippet.html` matches live nav structure on all pages.
+5. **No broken hrefs:** Use browser DevTools or `grep` to verify no broken internal links.
+6. **Active class present:** Verify `active` class is on the current page's nav link and not duplicated elsewhere.
+
+## Browser Interaction Testing
+
+For new pages, test these representative paths in a real browser:
+- Navigate to the new page and verify it loads without errors
+- Hover over nav links to confirm styling transitions
+- Click nav links to confirm they navigate correctly
+- On pages with dropdowns/toggles, test opening/closing behavior
+- Verify page background grid animation is smooth
+- Scroll to top, middle, and bottom of page to confirm no layout breaks
+
 ## Output Format
 
-- New file: `{kebab-name}.html` — self-contained, passes href validation, `active` class on own nav link
-- `index.html` — card present in the correct section
-- All other `.html` files — nav updated with new link, no other changes
-- `snippets/site-nav-snippet.html` — canonical nav updated
-- `README.md` — page listing updated
-- Validation: every `href` in every `.site-nav` block resolves to a real file in the repo
-- Retrospective: one concrete improvement applied to process artifacts
-- Retrospective record:
-  - What slowed us down?
-  - What process/file was improved?
-  - Exact rule added or changed.
-  - How this prevents repeat issues.
-- Efficiency scorecard:
-  - Baseline commit ID and current commit ID
-  - Files changed (baseline vs current)
-  - Insertions/deletions (baseline vs current)
-  - Churn per file comparison and interpretation
-  - Quality gates pass/fail summary
-- Metrics data update:
-  - Confirm one new record was appended to `metrics/metrics-data.js`
-  - Confirm `schemaVersion` compatibility was preserved
+- **New file:** `{kebab-name}.html` — self-contained, passes href validation, `active` class on own nav link
+- **index.html** — card present in the correct section with `--accent` and `--glow` CSS properties
+- **All other .html files** — nav updated with new link in correct order, no other changes
+- **snippets/site-nav-snippet.html** — canonical nav updated with new link and commented in active link examples
+- **README.md** — page listing updated with new page entry
+- **Validation evidence:**
+  - All 6 quality gates status (nav-link-presence, nav-href-resolution, rename-cleanup, canonical-sync, browser-interaction-test, docs-link-health)
+  - Grep/find command outputs confirming href resolution
+  - Screenshot or description of browser interaction test
+- **Retrospective record:** Required 4-line record (see `.github/metrics.md`)
+- **Efficiency scorecard:** Required scorecard with baseline/current comparison (see `.github/metrics.md`)
+- **Metrics data:** Confirm one new record appended to `metrics/metrics-data.js` after merge
+
+## Quality Gates Summary
+
+Refer to `.github/metrics.md` for the authoritative list of six quality gates and their validation methods. All gates must pass before merge.
