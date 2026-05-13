@@ -84,7 +84,7 @@ Assess which skills have well-defined procedures vs. require design decisions:
 
 Once you've identified a skill you want to use, click its link in `skills.md` to open the detailed procedure file:
 
-```
+```text
 [`.github/skill-{name}.md`](./skill-{name}.md)
 ```
 
@@ -151,16 +151,19 @@ This file demonstrates:
 ## Quick Reference
 
 **To find a skill by category:**
+
 ```bash
 grep "^category:" .github/skills.md
 ```
 
 **To find all low-effort skills:**
+
 ```bash
 grep "^effort: Low" .github/skills.md
 ```
 
 **To list all available skills:**
+
 ```bash
 grep "^name:" .github/skills.md
 ```

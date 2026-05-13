@@ -58,6 +58,7 @@ Choose the primary category that best describes the skill's impact:
 **Inputs:** What must the user provide to apply this skill?
 
 Example for "New Site Page":
+
 - Page title
 - Purpose or description (one sentence)
 - Nav label (short)
@@ -66,6 +67,7 @@ Example for "New Site Page":
 **Outputs:** What will the skill produce?
 
 Example for "New Site Page":
+
 - New .html page file (kebab-case)
 - Updated index.html with card
 - Updated .site-nav on all pages
@@ -75,6 +77,7 @@ Example for "New Site Page":
 #### Step 4: Estimate Effort and Uncertainty
 
 **Effort:**
+
 - **Low:** Single file edit, 1–2 simple changes, < 5 minutes
 - **Low–Medium:** Few files, 3–5 coordinated changes, 5–15 minutes
 - **Medium:** Multiple files, 5–10 changes, 15–30 minutes
@@ -82,6 +85,7 @@ Example for "New Site Page":
 - **High:** Site-wide changes, many interdependencies, 60+ minutes
 
 **Uncertainty:**
+
 - **Low:** Procedure is stable, no design decisions, same result every time
 - **Medium:** Some procedure variation or user choice, or occasional edge cases
 - **High:** Design decisions required, many edge cases, result varies significantly
@@ -93,6 +97,7 @@ Example for "New Site Page":
 #### Step 5: Create `.github/skill-{name}.md`
 
 Choose a kebab-case filename matching the skill name:
+
 - "New Site Page" → `skill-new-site-page.md`
 - "Rename a Page" → `skill-rename-page.md`
 - "Manage Skills" → `skill-manage-skills.md`
@@ -185,8 +190,9 @@ See `.github/skill-new-site-page.md` for a complete example with 14 steps across
 
 Identify 3–5 common problems that can occur while applying this skill:
 
+
 | Issue | How to Detect | How to Fix |
-|-------|---------------|-----------|
+| --- | --- | --- |
 | Missing active class on new nav link | grep for `class="nav-name"` (no `active`), vs other links which have `class="nav-name active"` | Add `active` class to the nav link on the new page itself |
 | Old filename references remain after rename | grep for old filename across .html, .md, .js files | Use `find` + `sed` or editor find-replace to update all references |
 | Nav link order differs between pages | Compare .site-nav blocks on any two pages visually | Use `snippets/site-nav-snippet.html` as the canonical source; copy exact link order to all pages |

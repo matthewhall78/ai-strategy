@@ -29,11 +29,13 @@ Create, update, and maintain agents in the agents registry with complete documen
 
 An agent is a **specialized tool with focused responsibilities**. Examples:
 
+
 - **Site Maintainer** (current) — Enforce structural and visual consistency across all documentation pages
 - **Code Refactor Agent** (hypothetical) — Coordinate refactoring tasks across multiple files
 - **Performance Auditor** (hypothetical) — Analyze and optimize site performance metrics
 
 An agent **differs from a skill** in that:
+
 - **Skills** = repeatable user-facing workflows (many will be added)
 - **Agents** = specialized tools with specific responsibilities (fewer, more stable)
 
@@ -42,11 +44,13 @@ An agent **differs from a skill** in that:
 List 5–10 specific responsibilities this agent will handle:
 
 Examples for Site Maintainer:
+
 - Nav integrity verification
 - Active class consistency
 - Filename convention enforcement
 - Href validation
 - Visual style preservation
+
 
 #### Step 3: Specify the Agent's Tools
 
@@ -61,6 +65,7 @@ Examples for Site Maintainer:
 - run_in_terminal
 - screenshot_page
 
+
 #### Step 4: Specify the Agent's Skills
 
 Reference skills from [`.github/skills.md`](./skills.md) that the agent will use:
@@ -69,6 +74,7 @@ Examples for Site Maintainer:
 - New Site Page
 - Validation Checklist
 - Testing Guide
+
 
 #### Step 5: Define Hard Constraints
 
@@ -205,7 +211,7 @@ All of the following must be true before marking work as complete:
 Identify 3–5 common problems that can occur when this agent is invoked:
 
 | Issue | Detection Method | Response |
-|-------|------------------|----------|
+| --- | --- | --- |
 | [Common issue 1] | How to detect it | How to fix it |
 | [Common issue 2] | How to detect it | How to fix it |
 
@@ -267,6 +273,7 @@ If the agent represents a new capability or workflow, consider documenting it in
 
 Before finalizing, verify your new agent's markdown file has no linting errors:
 
+
 ```bash
 # Check for linting errors in the new agent file
 # Look for these common issues in the new .github/agent-{name}.md file:
@@ -279,27 +286,28 @@ Before finalizing, verify your new agent's markdown file has no linting errors:
 
 Fix any linting errors before proceeding.
 
-#### Step 14: Verify Agent File Structure
+#### Step 14: Verify Skill File Structure
 
 ```bash
-# Check that agent specification file exists
-test -f ".github/agent-{name}.md" && echo "✓ Agent specification file exists"
+# Check that skill procedure file exists
+test -f ".github/skill-{name}.md" && echo "✓ Skill procedure file exists"
 
-# Check that agents.md references the file
-grep -q "agent-{name}.md" ".github/agents.md" && echo "✓ Agent referenced in agents.md"
+# Check that skills.md references the file
+grep -q "skill-{name}.md" ".github/skills.md" && echo "✓ Skill referenced in skills.md"
 
 # Check that YAML frontmatter is valid
-grep -q "^name:" ".github/agents.md" && echo "✓ YAML frontmatter present"
+grep -q "^name:" ".github/skills.md" && echo "✓ YAML frontmatter present"
 ```
 
-#### Step 14: Test the Agent on a Real Task
+#### Step 15: Test the Skill on a Real Task
 
 Before committing:
-1. Choose a task that would invoke this agent
-2. Verify the agent has the correct tools and skills listed
-3. Verify hard constraints are documented and understood
-4. Verify responsibilities are clearly defined
-5. Update the specification if anything was unclear
+
+1. Choose a simple real task that applies this skill
+2. Follow the procedure end-to-end
+3. Note any steps that were unclear or missing
+4. Update the procedure file with clarifications
+5. Verify all validation checks and tests pass
 
 ---
 
@@ -318,6 +326,7 @@ Update an existing agent when:
 ### How to Update an Agent
 
 1. Update the detailed `.github/agent-{name}.md` file with changes
+
 2. Update the YAML frontmatter in `agents.md` if tools or skills changed
 3. Commit with message: "Update {Agent Name} agent: [specific change]"
 4. Document significant changes in a retrospective if they affect project workflow
