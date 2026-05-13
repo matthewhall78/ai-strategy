@@ -38,7 +38,7 @@ For each skill entry, you'll see:
 All skills in the registry are classified into one of 5 immutable categories:
 
 | Category | When to Use | Example |
-|----------|-------------|---------|
+| --- | --- | --- |
 | **Page Content & Integration** | Adding new pages, content updates, site map expansion | New Site Page |
 | **Layout & Responsive Architecture** | Full-page redesigns, grid restructuring, scroll behavior | Redesign Dashboard |
 | **Navigation & Information Architecture** | Nav redesigns, menu changes, category systems | Add Nav Link |

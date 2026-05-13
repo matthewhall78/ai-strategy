@@ -36,6 +36,7 @@ A skill is a **repeatable, multi-step workflow** that produces a consistent outp
 - **Create Dashboard** (hypothetical) — Build a new analytics dashboard with metrics integration
 
 A skill is **not**:
+
 - A single simple task (e.g., "Update a CSS color" is not a skill)
 - A one-time setup (e.g., "Initialize the repo" is not a repeatable skill)
 - A generic activity (e.g., "Write documentation" is a skill template, but "Write README" is a task)
@@ -45,7 +46,7 @@ A skill is **not**:
 Choose the primary category that best describes the skill's impact:
 
 | Category | When to Use | Example Efforts |
-|----------|-------------|-----------------|
+| --- | --- | --- |
 | **Page Content & Integration** | New pages, content updates, site map expansion | Low–Medium; Low uncertainty |
 | **Layout & Responsive Architecture** | Full-page redesigns, grid restructuring, scroll behavior | High; Medium uncertainty |
 | **Navigation & Information Architecture** | Nav redesigns, menu changes, category systems | Medium–High; Medium uncertainty |

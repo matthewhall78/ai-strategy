@@ -55,6 +55,7 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
 ## Constraints
 
 **Hard constraints (never violate):**
+
 - ❌ Never introduce external dependencies, npm packages, or build tools
 - ❌ Never change the dark colour palette (#030303–#090d12), Inter font, or glassmorphism `.site-nav` pill bar styling
 - ❌ Never apply nav changes to only some pages. All `.html` files and `snippets/site-nav-snippet.html` must update atomically
@@ -63,6 +64,7 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
 - ❌ Never allow broken internal hrefs or missing nav links
 
 **Soft constraints (enforce unless overridden):**
+
 - Prefer small, focused edits over broad rewrites
 - Preserve existing CSS class names unless task requires changing them
 - Use parallel edits (`multi_replace_string_in_file`) for consistency across many files
@@ -99,7 +101,8 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
 ## Output Format
 
 **Pre-commit report:**
-```
+
+```text
 Validation Status:
 ✅ Nav link presence: PASS (14 pages)
 ✅ Href resolution: PASS (no broken links)
@@ -121,6 +124,7 @@ Ready to commit.
 ```
 
 **Final handoff:**
+
 - Blocker list (if any issues)
 - Files changed summary
 - Validation and test results (all 6 gates)
@@ -132,7 +136,7 @@ Ready to commit.
 ## Common Issues & Responses
 
 | Issue | Detection | Response |
-|-------|-----------|----------|
+| --- | --- | --- |
 | Nav missing on one page | Grep finds the link on 13/14 pages | Flag as blocker; add missing link |
 | Broken internal href | Href target doesn't exist | Flag as blocker; verify file exists |
 | Old filename still referenced | Grep finds "old-file.html" after rename | Flag as blocker; update all references |
@@ -143,6 +147,7 @@ Ready to commit.
 ## When to Escalate
 
 Escalate to user (do not auto-fix):
+
 - Conflicting style guide requirements (ask for clarification)
 - Ambiguous category assignment for metrics (ask which of 5 categories)
 - Design decisions beyond "enforce existing rules" (ask user preference)

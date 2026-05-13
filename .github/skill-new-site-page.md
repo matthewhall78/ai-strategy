@@ -4,12 +4,14 @@
 **Category:** Page Content & Integration  
 **Effort:** Low–Medium | **Uncertainty:** Low  
 **Inputs:**
+
 - Page title
 - Purpose or description (one sentence)
 - Nav label (short, fits in the pill nav bar)
 - Section it belongs in on index.html (Patterns, Operating Models, Worked Examples, Quickstarts, References)
 
 **Outputs:**
+
 - New .html page file (kebab-case filename) with full embedded CSS and shared nav
 - Updated index.html with card in the correct section
 - Updated .site-nav block on every existing .html page
@@ -18,17 +20,19 @@
 
 ---
 
-## Complete Workflow (14 Steps)
+## Complete Workflow (15 Steps)
 
 ### Phase 1: Planning & Setup (Steps 1–2)
 
-**Step 1: Preflight checks**
+#### Step 1: Preflight checks
+
 - Confirm `rg` (ripgrep) availability: `which rg` or `rg --version`
 - If unavailable, switch to `grep` and `find` for file operations
 - Check current git status: `git status --short` (should be clean)
 - Verify no uncommitted changes to existing `.html` files
 
-**Step 2: Choose the filename**
+#### Step 2: Choose the filename
+
 - Convert page title to kebab-case
 - Examples: "API Review Guide" → `api-review-guide.html`
 - Rules: No underscores, spaces, or camelCase
@@ -37,13 +41,15 @@
 
 ### Phase 2: File Creation (Steps 3–4)
 
-**Step 3: Create or rename the HTML file safely**
+#### Step 3: Create or rename the HTML file safely
+
 - **If starting from scratch:** Create empty `{kebab-name}.html`
 - **If copying from template:** Use `cp` or copy/paste from an existing page (e.g., `first-30-minutes-quickstart.html`)
 - **If renaming an existing file:** Use `git mv old-name.html new-name.html` (tracked files) or `mv` then `git add` (untracked)
 - **After rename:** Run `grep -R "old-name.html" .` and verify zero matches (except in git history)
 
-**Step 4: Create the page content**
+#### Step 4: Create the page content
+
 - Copy full page skeleton from existing template page:
   - `<head>` with `<meta charset>`, `<meta viewport>`, `<title>`
   - Inter font loading and declaration
@@ -57,13 +63,15 @@
 
 ### Phase 3: Navigation Setup (Steps 5–8)
 
-**Step 5: Set the active nav link on the new page**
+#### Step 5: Set the active nav link on the new page
+
 - Locate the `.site-nav` block in the new page
 - On the page's own nav link (or nav-home if no dedicated link), add `active` class
 - Example: `<a class="nav-home active" href="index.html">Home</a>`
 - Verify `active` class is present AND only on this one link
 
-**Step 6: Add a card to index.html**
+#### Step 6: Add a card to index.html
+
 - Open `index.html`
 - Choose the correct section grid (Patterns, Operating Models, Worked Examples, Quickstarts, References)
 - Add a new `<a class="card ..." href="new-page.html">` block
@@ -71,7 +79,8 @@
 - Example: `<a class="card" style="--accent: #38bdf8; --glow: rgba(56, 189, 248, .2);" href="api-guide.html">API Review Guide</a>`
 - Add brief description text inside the card element
 
-**Step 7: Update nav on every OTHER existing page**
+#### Step 7: Update nav on every OTHER existing page
+
 - For each existing `.html` file (except the new page):
   - Open the file and locate the `.site-nav` block
   - Add `<a class="nav-newpage" href="new-page.html">Nav Label</a>` in the correct position
@@ -79,7 +88,8 @@
   - Preserve the canonical link order from Step 8
 - **Critical:** Do not skip any pages; nav must be consistent everywhere
 
-**Step 8: Update snippets/site-nav-snippet.html**
+#### Step 8: Update snippets/site-nav-snippet.html
+
 - Open `snippets/site-nav-snippet.html`
 - Locate the "NAV BLOCK" section (the `<nav>` HTML template)
 - Add the new `<a class="nav-newpage" href="new-page.html">Nav Label</a>` link in the correct position
@@ -88,21 +98,31 @@
 
 ### Phase 4: Documentation (Steps 9–10)
 
-**Step 9: Update README.md**
+#### Step 9: Update README.md
+
 - Open `README.md`
 - Locate the page listing table
 - Add a new row with: filename, page title, category, short description
 - Keep table rows in alphabetical order by filename
 
-**Step 10: Update general-ghcp-resources-links.html**
+#### Step 10: Update general-ghcp-resources-links.html
+
 - Open `general-ghcp-resources-links.html` (internal resources reference)
 - Locate the resources table (data-category="reference-tool")
 - Add the new page to the table in the appropriate section or general resources
 - Include a link, title, and brief description
 
-### Phase 5: Validation (Steps 11–12)
+### Phase 5: Validation (Steps 11–13)
 
-**Step 11: Run deterministic validation**
+#### Step 11: Check for markdown linting errors
+
+- Run markdown linter on all modified files (`.github/` files, `.html` pages, `README.md`)
+- Check for common errors: MD031 (blank lines around code blocks), MD032 (blank lines around lists), MD040 (language on code blocks)
+- Fix any linting errors before proceeding to validation checks
+- This ensures documentation quality and prevents linting gate failures
+
+#### Step 12: Run deterministic validation
+
 - Refer to `.github/validation-checklist.md` for complete pre-push checks
 - Run 6 validation checks:
   1. **Nav link presence:** Every `.html` has the new link
@@ -113,7 +133,8 @@
   6. **Active class consistency:** Only one page's own link has `active` class
 - If any check fails, fix and re-run before proceeding
 
-**Step 12: Run browser interaction tests**
+#### Step 13: Run browser interaction tests
+
 - Refer to `.github/testing-guide.md` for complete test procedures
 - Run 6 browser test paths:
   1. Page load and initial render
@@ -125,9 +146,10 @@
 - Document test results (pass/fail for each path)
 - All tests must pass on desktop and at least one mobile breakpoint
 
-### Phase 6: Retrospective & Metrics (Steps 13–14)
+### Phase 6: Retrospective & Metrics (Steps 14–15)
 
-**Step 13: Retrospective update**
+#### Step 14: Retrospective update
+
 - Refer to `.github/metrics.md` for retrospective record template
 - Write the 4-line retrospective:
   1. What slowed us down? (specific constraint or gap)
@@ -136,7 +158,8 @@
   4. How this prevents repeat issues
 - Include this record in the final commit message or handoff
 
-**Step 14: Metrics logging**
+#### Step 15: Metrics logging
+
 - After merge, append one enhancement record to `metrics/metrics-data.js`
 - Use template from `.github/metrics.md`
 - Include: title, type (Page Content & Integration), merged date, commit IDs, file changes, churn per file, quality gates, retrospective, interpretation
@@ -147,6 +170,7 @@
 ## Validation Reference
 
 See `.github/validation-checklist.md` for:
+
 - Complete 6-check validation with exact grep/find commands
 - When to run checks
 - Pass/fail criteria
@@ -154,6 +178,7 @@ See `.github/validation-checklist.md` for:
 ## Testing Reference
 
 See `.github/testing-guide.md` for:
+
 - Complete 6-test path browser interaction procedures
 - Expected results for each test
 - Mobile responsiveness testing
@@ -162,6 +187,7 @@ See `.github/testing-guide.md` for:
 ## Metrics Reference
 
 See `.github/metrics.md` for:
+
 - Retrospective record template (4 lines)
 - Efficiency scorecard template
 - Metrics logging schema
@@ -172,7 +198,9 @@ See `.github/metrics.md` for:
 ## Common Issues & Fixes
 
 ### Issue: "Nav link on new page doesn't have active class"
+
 **Fix:** Locate the new page's own `<a>` tag and add `active` class
+
 ```html
 <!-- Before -->
 <a class="nav-newpage" href="new-page.html">Label</a>
@@ -182,16 +210,20 @@ See `.github/metrics.md` for:
 ```
 
 ### Issue: "Old page names still referenced after rename"
+
 **Fix:** Run `grep -R "old-name.html" .` and replace all matches in:
+
 - All `.html` nav blocks
 - `snippets/site-nav-snippet.html`
 - `README.md`
 - `index.html` (card href)
 
 ### Issue: "Nav links don't match canonical snippet"
+
 **Fix:** Copy the canonical nav structure exactly from `snippets/site-nav-snippet.html` to all pages
 
 ### Issue: "Active class appears on multiple links in same nav bar"
+
 **Fix:** Remove `active` class from all but one link. Only the current page's own link should have it.
 
 ---
