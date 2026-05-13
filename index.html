@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Common Capability Strategies</title>
   <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/shared-styles.css">
   <style>
 /* Dark mode - explicit toggle via data-theme attribute */
     :root[data-theme="dark"] {
@@ -37,353 +38,6 @@
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       overflow-x: hidden;
     }
-
-    .site-nav {
-      --site-nav-bg: rgba(255, 255, 255, .94);
-      --site-nav-border: rgba(100, 120, 150, .22);
-      --site-nav-link: #1a2637;
-      --site-nav-hover-bg: rgba(236, 72, 153, .12);
-      --site-nav-hover-border: rgba(236, 72, 153, .4);
-      --site-nav-active-bg: rgba(30, 58, 138, .12);
-      --site-nav-active-border: rgba(30, 58, 138, .56);
-      position: fixed;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
-      max-width: calc(100vw - 28px);
-      padding: 10px;
-      border: 1px solid var(--site-nav-border);
-      border-radius: 999px;
-      background: var(--site-nav-bg);
-      backdrop-filter: blur(7px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
-      overflow: visible;
-    }
-
-    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
-      .site-nav {
-        --site-nav-bg: rgba(8, 13, 18, .78);
-        --site-nav-border: rgba(255,255,255,.14);
-        --site-nav-link: #d8e7f1;
-        --site-nav-hover-bg: rgba(236, 72, 153, .18);
-        --site-nav-hover-border: rgba(236, 72, 153, .4);
-        --site-nav-active-bg: rgba(30, 58, 138, .2);
-        --site-nav-active-border: rgba(30, 58, 138, .56);
-        box-shadow: 0 12px 34px rgba(0,0,0,.34);
-      }
-    }
-
-    .site-nav-track {
-      display: flex;
-      gap: 10px;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      min-width: max-content;
-      align-items: center;
-      overflow: visible;
-    }
-
-    .site-nav a, .site-nav-dropdown-trigger {
-      flex: 0 0 auto;
-      white-space: nowrap;
-      color: var(--site-nav-link);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .02em;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: background .22s ease, border-color .22s ease, color .22s ease;
-      cursor: pointer;
-      background: none;
-      font-family: inherit;
-    }
-
-    .site-nav a:hover,
-    .site-nav a:focus-visible,
-    .site-nav-dropdown-trigger:hover,
-    .site-nav-dropdown-trigger:focus-visible {
-      color: #ffffff;
-      background: var(--site-nav-hover-bg);
-      border-color: var(--site-nav-hover-border);
-      outline: none;
-    }
-
-    .site-nav a.active,
-    .site-nav-dropdown-trigger.active {
-      color: #ffffff;
-      background: var(--site-nav-active-bg);
-      border-color: var(--site-nav-active-border);
-    }
-
-    .site-nav-dropdown {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .site-nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      background: var(--site-nav-bg);
-      border: 1px solid var(--site-nav-border);
-      border-radius: 12px;
-      padding: 8px;
-      min-width: 160px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition: opacity .22s ease, visibility .22s ease, transform .22s ease;
-      z-index: 40;
-      backdrop-filter: blur(7px);
-    }
-
-    .site-nav-dropdown:hover .site-nav-dropdown-menu,
-    .site-nav-dropdown:focus-within .site-nav-dropdown-menu,
-    .site-nav-dropdown-trigger[aria-expanded="true"] ~ .site-nav-dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .site-nav-dropdown-menu a {
-      padding: 8px 12px;
-      border-radius: 8px;
-      margin: 0;
-      transition: background .22s ease;
-    }
-
-    .site-nav-dropdown-menu a:hover {
-      background: var(--site-nav-hover-bg);
-    }
-
-    .site-nav-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .theme-toggle {
-      flex: 0 0 auto;
-      margin-left: auto;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--site-nav-link);
-      cursor: pointer;
-      font-size: 16px;
-      transition: background .22s ease, border-color .22s ease;
-      font-family: inherit;
-    }
-
-    .theme-toggle:hover,
-    .theme-toggle:focus-visible {
-      background: var(--site-nav-hover-bg);
-      border-color: var(--site-nav-hover-border);
-      outline: none;
-    }
-
-    body {
-      padding-top: 70px;
-    }
-
-    .page {
-      max-width: 1300px;
-      margin: 0 auto;
-      padding: 110px 26px 58px;
-    }
-
-    .hero {
-      border-radius: 24px;
-      padding: clamp(24px, 4vw, 52px);
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.04), transparent 34%),
-        repeating-linear-gradient(45deg, transparent 0 58px, rgba(128, 152, 176, .06) 59px, transparent 60px),
-        var(--panel);
-      border: 1px solid rgba(255,255,255,.08);
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .06), transparent);
-      transform: translateX(-120%);
-      animation: sweep 8s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(36px, 5.3vw, 74px);
-      line-height: 1.06;
-      letter-spacing: -.05em;
-      font-weight: 900;
-      text-wrap: balance;
-    }
-
-    .sub {
-      margin: 14px 0 0;
-      color: var(--muted);
-      max-width: 760px;
-      font-size: clamp(16px, 1.5vw, 22px);
-      line-height: 1.4;
-    }
-
-    .grid {
-      margin-top: 26px;
-      display: grid;
-      gap: 18px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .section-head {
-      margin: 34px 0 0;
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .section-head h2 {
-      margin: 0;
-      font-size: clamp(24px, 2vw, 34px);
-      letter-spacing: -.03em;
-    }
-
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      max-width: 56ch;
-      line-height: 1.4;
-    }
-
-    .card {
-      display: block;
-      text-decoration: none;
-      color: inherit;
-      border-radius: 18px;
-      padding: 20px;
-      border: 1px solid rgba(255,255,255,.08);
-      background:
-        linear-gradient(170deg, rgba(255,255,255,.04), transparent 28%),
-        var(--panel-2);
-      box-shadow: 0 16px 40px rgba(0,0,0,.35);
-      transition: transform .26s ease, border-color .26s ease, box-shadow .26s ease;
-      position: relative;
-      overflow: hidden;
-      min-height: 210px;
-    }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.015);
-      border-color: rgba(56, 189, 248, .5);
-      box-shadow: 0 24px 56px rgba(0,0,0,.5), 0 0 28px rgba(56, 189, 248, .14);
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      right: -70px;
-      top: -70px;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--glow), transparent 67%);
-      opacity: .75;
-      pointer-events: none;
-    }
-
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--accent);
-      color: #d4e3ee;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      background: rgba(8, 13, 18, .6);
-    }
-
-    .card h2 {
-      margin: 0;
-      font-size: clamp(24px, 2.2vw, 34px);
-      letter-spacing: -.03em;
-      line-height: 1.08;
-    }
-
-    .card p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.35;
-      max-width: 38ch;
-    }
-
-    .card .cta {
-      margin-top: 16px;
-      font-size: 13px;
-      font-weight: 900;
-      color: #f2f7fc;
-      letter-spacing: .03em;
-    }
-
-    .ladder { --accent: var(--green); --glow: rgba(34, 197, 94, .42); }
-    .context { --accent: var(--blue); --glow: rgba(47, 133, 255, .42); }
-    .intent { --accent: var(--purple); --glow: rgba(169, 112, 255, .42); }
-    .quickstart { --accent: var(--cyan); --glow: rgba(56, 189, 248, .42); }
-    .decision { --accent: var(--blue); --glow: rgba(47, 133, 255, .42); }
-    .example { --accent: var(--green); --glow: rgba(34, 197, 94, .42); }
-    .instructions-example { --accent: var(--purple); --glow: rgba(169, 112, 255, .42); }
-    .agents-example { --accent: var(--blue); --glow: rgba(56, 189, 248, .42); }
-    .apm { --accent: var(--cyan); --glow: rgba(56, 189, 248, .42); }
-    .coding-agent { --accent: var(--blue); --glow: rgba(47, 133, 255, .42); }
-    .continuous-improvement { --accent: var(--green); --glow: rgba(34, 197, 94, .42); }
-    .modernization { --accent: var(--cyan); --glow: rgba(56, 189, 248, .42); }
-    .metrics-dashboard { --accent: var(--purple); --glow: rgba(169, 112, 255, .42); }
-    .resources { --accent: var(--purple); --glow: rgba(169, 112, 255, .42); }
-    .governance { --accent: var(--green); --glow: rgba(34, 197, 94, .42); }
-
-    .footer {
-      margin-top: 18px;
-      padding: 12px 4px 0;
-      border-top: 1px solid var(--line);
-      color: #99a8b6;
-      font-size: 13px;
-      letter-spacing: .02em;
-    }
-
-    @keyframes sweep {
-      0%, 56% { transform: translateX(-120%); }
-      82%, 100% { transform: translateX(120%); }
-    }
-
-    @media (max-width: 980px) {
-      .site-nav {
-        left: 14px;
-        right: 14px;
-        transform: none;
-        border-radius: 18px;
-      }
-
-      .grid { grid-template-columns: 1fr; }
-      .page { padding: 108px 16px 40px; }
-      .hero { padding: 22px; }
-    }
   </style>
 </head>
 <body>
@@ -396,6 +50,7 @@
         <div class="site-nav-dropdown-menu">
           <a href="index.html?category=pattern">Patterns</a>
           <a href="index.html?category=operating-model">Operating Model</a>
+          <a href="index.html?category=process-value">Process Value</a>
           <a href="index.html?category=worked-example">Worked Examples</a>
           <a href="index.html?category=quickstart">Quickstarts</a>
           <a href="index.html?category=reference-tool">Reference/Tools</a>
@@ -405,6 +60,7 @@
       <a class="nav-metrics" href="metrics-dashboard.html">Metrics</a>
       <a class="nav-shared-problems" href="shared-problems-infographic.html">Shared Problems</a>
       <a class="nav-docs" href="https://github.com/matthewhall78/ai-strategy" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a class="nav-wcag" href="wcag-compliance-report.html">WCAG Report</a>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
         <span id="theme-icon">🌙</span>
       </button>
@@ -419,20 +75,20 @@
     </section>
 
     <section class="grid" aria-label="Page index">
-      <a class="card governance" data-category="pattern" href="open-source-product-governance-principles.html">
+      <a class="card topic-pattern" data-category="pattern" href="open-source-product-governance-principles.html">
         <span class="kicker">Patterns</span>
         <h2>Open Source Governance Principles</h2>
         <p>Flywheel model showing layered governance principles that compound trust, adoption, and contribution.</p>
         <div class="cta">Open page -></div>
       </a>
-      <a class="card ladder" data-category="pattern" href="agentic-maturity-ladder.html">
+      <a class="card topic-pattern" data-category="pattern" href="agentic-maturity-ladder.html">
         <span class="kicker">Patterns</span>
         <h2>Agentic Maturity Ladder</h2>
         <p>Shows the progression from manual delivery to delegated AI execution with human approvals.</p>
         <div class="cta">Open page -></div>
       </a>
 
-      <a class="card intent" data-category="pattern" href="human-intent-agent-execution.html">
+      <a class="card topic-pattern" data-category="pattern" href="human-intent-agent-execution.html">
         <span class="kicker">Patterns</span>
         <h2>Human Intent to Agent Execution</h2>
         <p>Visualizes the SDLC loop where people set intent and approvals while agents execute.</p>
@@ -448,35 +104,35 @@
     </section>
 
     <section class="grid" aria-label="Implementation guides and examples">
-      <a class="card quickstart" data-category="quickstart" href="first-30-minutes-quickstart.html">
+      <a class="card topic-quickstart" data-category="quickstart" href="first-30-minutes-quickstart.html">
         <span class="kicker">Quickstarts</span>
         <h2>First 30 Minutes</h2>
         <p>Set up one instructions file, one reusable skill, and a simple validation loop.</p>
         <div class="cta">Open guide -></div>
       </a>
 
-      <a class="card decision" data-category="quickstart" href="context-primitives-decision-guide.html">
+      <a class="card topic-quickstart" data-category="quickstart" href="context-primitives-decision-guide.html">
         <span class="kicker">Quickstarts</span>
         <h2>Instructions vs Skills vs Agents</h2>
         <p>Use the lightest mechanism that fits the behavior, workflow, or role you need.</p>
         <div class="cta">Open guide -></div>
       </a>
 
-      <a class="card example" data-category="worked-example" href="skills-md-example.html">
+      <a class="card topic-worked-example" data-category="worked-example" href="skills-md-example.html">
         <span class="kicker">Worked Examples</span>
         <h2>What Goes in skills.md</h2>
         <p>Review a concrete skill definition with clear inputs, steps, and output contract.</p>
         <div class="cta">Open example -></div>
       </a>
 
-      <a class="card instructions-example" data-category="worked-example" href="copilot-instructions-md-guide.html">
+      <a class="card topic-worked-example" data-category="worked-example" href="copilot-instructions-md-guide.html">
         <span class="kicker">Worked Examples</span>
         <h2>Making copilot-instructions.md</h2>
         <p>See what belongs in the file, what does not, and start from a small durable template.</p>
         <div class="cta">Open guide -></div>
       </a>
 
-      <a class="card agents-example" data-category="worked-example" href="agents-md-example.html">
+      <a class="card topic-worked-example" data-category="worked-example" href="agents-md-example.html">
         <span class="kicker">Worked Examples</span>
         <h2>What Goes in agents.md</h2>
         <p>Review a focused agent definition with role boundaries, inherited skills, and review posture.</p>
@@ -492,27 +148,27 @@
     </section>
 
     <section class="grid" aria-label="Operating models">
-      <a class="card apm" data-category="operating-model" href="apm-overview.html">
+      <a class="card topic-operating-model" data-category="operating-model" href="apm-overview.html">
         <span class="kicker">Operating Model</span>
         <h2>APM Overview</h2>
         <p>Shows the APM flow from source definition through lockfile and deployment targets in one visual.</p>
         <div class="cta">Open page -></div>
       </a>
 
-      <a class="card continuous-improvement" data-category="operating-model" href="continuous-improvement-copilot-workflow.html">
+      <a class="card topic-operating-model" data-category="operating-model" href="continuous-improvement-copilot-workflow.html">
         <span class="kicker">Operating Model</span>
         <h2>Continuous Improvement Workflow</h2>
         <p>Practical setup guide for making retrospective process improvements mandatory after each enhancement.</p>
         <div class="cta">Open guide -></div>
       </a>
 
-      <a class="card modernization" data-category="operating-model" href="github-copilot-modernization-getting-started.html">
+      <a class="card topic-operating-model" data-category="operating-model" href="github-copilot-modernization-getting-started.html">
         <span class="kicker">Operating Model</span>
         <h2>Copilot Modernization Guide</h2>
         <p>Architecture flow from assess and upgrade through security, containerization, and deployment with Copilot support.</p>
         <div class="cta">Open guide -></div>
       </a>
-      <a class="card shared-problems" data-category="operating-model" href="shared-problems-infographic.html">
+      <a class="card topic-operating-model" data-category="operating-model" href="shared-problems-infographic.html">
         <span class="kicker">Operating Model</span>
         <h2>Shared Problems Infographic</h2>
         <p>Interactive animated infographic on shared government problems, consequences, failures, and governance principles.</p>
@@ -529,32 +185,48 @@
 
     <section class="grid" aria-label="Additional references">
 
-      <a class="card context" data-category="reference-tool" href="context-engineering-primitives.html">
+      <a class="card topic-reference-tool" data-category="reference-tool" href="context-engineering-primitives.html">
         <span class="kicker">Reference/Tools</span>
         <h2>Context Engineering Primitives</h2>
         <p>Compares custom instructions, skills, and agents by purpose, usage, and strengths.</p>
         <div class="cta">Open page -></div>
       </a>
 
-      <a class="card metrics-dashboard" data-category="reference-tool" href="metrics-dashboard.html">
-        <span class="kicker">Reference/Tools</span>
-        <h2>Metrics Dashboard</h2>
-        <p>Balanced efficiency and quality dashboard showing the measurable value of process improvements over time.</p>
-        <div class="cta">Open dashboard -></div>
-      </a>
-
-      <a class="card resources" data-category="reference-tool" href="general-ghcp-resources-links.html">
+      <a class="card topic-reference-tool" data-category="reference-tool" href="general-ghcp-resources-links.html">
         <span class="kicker">Reference/Tools</span>
         <h2>General GHCP Resources</h2>
         <p>External GitHub Copilot links plus internal site links for the implementation guides.</p>
         <div class="cta">Open resources -></div>
       </a>
 
-      <a class="card coding-agent" data-category="reference-tool" href="github-copilot-coding-agent.html">
+      <a class="card topic-reference-tool" data-category="reference-tool" href="github-copilot-coding-agent.html">
         <span class="kicker">Reference/Tools</span>
         <h2>GitHub Copilot Coding Agent</h2>
         <p>Visual overview of the Coding Agent concept with an assignee-picker interface mockup.</p>
         <div class="cta">Open page -></div>
+      </a>
+    </section>
+
+    <section class="section-head" aria-label="Process value heading">
+      <div>
+        <h2>Process Value</h2>
+        <p>This section contains dashboards and reports that measure delivery quality, accessibility, and improvement outcomes.</p>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Process value reports and dashboards">
+      <a class="card topic-process-value" data-category="process-value" href="metrics-dashboard.html">
+        <span class="kicker">Process Value</span>
+        <h2>Metrics Dashboard</h2>
+        <p>Balanced efficiency and quality dashboard showing the measurable value of process improvements over time.</p>
+        <div class="cta">Open dashboard -></div>
+      </a>
+
+      <a class="card topic-process-value" data-category="process-value" href="wcag-compliance-report.html">
+        <span class="kicker">Process Value</span>
+        <h2>WCAG Compliance Report</h2>
+        <p>Accessibility audit results and compliance status for all pages on this site.</p>
+        <div class="cta">Open report -></div>
       </a>
     </section>
 
@@ -566,6 +238,7 @@
     const categoryMap = {
       'pattern': 'Patterns',
       'operating-model': 'Operating Model',
+      'process-value': 'Process Value',
       'worked-example': 'Worked Examples',
       'quickstart': 'Quickstarts',
       'reference-tool': 'Reference/Tools'

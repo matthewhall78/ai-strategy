@@ -5,47 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shared Problems, Shared Solutions</title>
   <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/shared-styles.css">
   <style>
-/* Default light mode theme */
-/* Dark mode - explicit toggle via data-theme attribute */
-    :root[data-theme="dark"] {
-      --bg: #080d12;
-      --panel: #121a24;
-      --panel-2: #182331;
-      --text: #edf3f8;
-      --muted: #aab8c6;
-      --line: rgba(128, 152, 176, .22);
-      --cyan: #38bdf8;
-      --green: #22c55e;
-      --blue: #2f85ff;
-      --purple: #a970ff;
-      --pink: #ec4899;
-      --navy: #60a5fa;
-      --shadow: 0 26px 70px rgba(0,0,0,.42);
-      color-scheme: dark;
-    }
-
-/* Dark mode variant */
-    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
-      :root {
-        --bg: #080d12;
-        --panel: #121a24;
-        --panel-2: #182331;
-        --text: #edf3f8;
-        --muted: #aab8c6;
-        --line: rgba(128, 152, 176, .22);
-        --cyan: #38bdf8;
-        --green: #22c55e;
-        --blue: #2f85ff;
-        --purple: #a970ff;
-        --pink: #ec4899;
-        --navy: #60a5fa;
-        --shadow: 0 26px 70px rgba(0,0,0,.42);
-        color-scheme: dark;
-      }
-    }
-
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
     html { scroll-behavior: smooth; }
 
@@ -650,6 +612,103 @@
       transform: translateY(0);
     }
 
+    /* Light mode overrides */
+    :root[data-theme="light"] .nav a {
+      background: rgba(245, 247, 250, 0.85);
+      color: #6b7d8f;
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .nav a:hover {
+      color: #1a2637;
+      border-color: rgba(39, 194, 242, 0.5);
+    }
+
+    :root[data-theme="light"] .satellite {
+      background: rgba(255, 255, 255, 0.9);
+      color: #1a2637;
+      border-color: rgba(26, 38, 55, 0.2);
+    }
+
+    :root[data-theme="light"] .node {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .node::before {
+      opacity: 0.1;
+    }
+
+    :root[data-theme="light"] .risk {
+      background: rgba(255, 255, 255, 0.92);
+      color: #1a2637;
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .card {
+      background: rgba(255, 255, 255, 0.88);
+      color: #1a2637;
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .card p {
+      color: #6b7d8f;
+    }
+
+    :root[data-theme="light"] .role-card {
+      background: rgba(255, 255, 255, 0.90);
+      color: #1a2637;
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .role-card p {
+      color: #6b7d8f;
+    }
+
+    :root[data-theme="light"] .layer {
+      background: rgba(255, 255, 255, 0.88);
+      color: #1a2637;
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] details {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] summary {
+      color: #1a2637;
+    }
+
+    :root[data-theme="light"] summary span {
+      color: var(--cyan);
+    }
+
+    :root[data-theme="light"] .details-body {
+      color: #6b7d8f;
+    }
+
+    :root[data-theme="light"] .icon {
+      background: rgba(39, 194, 242, 0.12);
+      border-color: rgba(39, 194, 242, 0.3);
+    }
+
+    :root[data-theme="light"] .lead {
+      color: #2d3d4f;
+    }
+
+    :root[data-theme="light"] .mini {
+      background: rgba(245, 247, 250, 0.9);
+      color: #1a2637;
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .action {
+      background: rgba(39, 194, 242, 0.08);
+      color: #1a2637;
+      border-color: rgba(39, 194, 242, 0.2);
+    }
+
     @media (max-width: 980px) {
       .nav { display: none; }
       .hero-grid, .split, .merge-diagram { grid-template-columns: 1fr; }
@@ -688,6 +747,7 @@
       <a class="nav-metrics" href="metrics-dashboard.html">Metrics</a>
       <a class="nav-shared-problems active" href="shared-problems-infographic.html">Shared Problems</a>
       <a class="nav-docs" href="https://github.com/matthewhall78/ai-strategy" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a class="nav-wcag" href="wcag-compliance-report.html">WCAG Report</a>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
         <span id="theme-icon">🌙</span>
       </button>

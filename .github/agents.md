@@ -20,6 +20,7 @@ skills:
   - New Site Page
   - Validation Checklist
   - Testing Guide
+  - WCAG Accessibility Audit
 ```
 
 [`.github/agent-site-maintainer.md`](./agent-site-maintainer.md)

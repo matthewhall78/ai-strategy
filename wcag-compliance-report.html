@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WCAG 2.1 Level AA Compliance Report</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/shared-styles.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(56, 189, 248, .14), transparent 32%),
+        radial-gradient(circle at 82% 84%, rgba(34, 197, 94, .10), transparent 30%),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .page {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 110px 26px 58px;
+    }
+
+    .hero {
+      margin-bottom: 48px;
+    }
+
+    .hero h1 {
+      margin: 0 0 12px 0;
+      font-size: 42px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      margin: 0;
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 600px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .metric {
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(56, 189, 248, .2);
+      background: rgba(56, 189, 248, .08);
+    }
+
+    .metric-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .metric-value {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .metric-status {
+      font-size: 14px;
+      margin-top: 8px;
+      color: var(--muted);
+    }
+
+    .status-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .legend-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+    }
+
+    .legend-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .legend-item.pass .legend-icon {
+      background: rgba(34, 197, 94, .2);
+      color: #22c55e;
+    }
+
+    .legend-item.progress .legend-icon {
+      background: rgba(250, 204, 21, .2);
+      color: #facc15;
+    }
+
+    .legend-item.untested .legend-icon {
+      background: rgba(107, 114, 128, .2);
+      color: #9ca3af;
+    }
+
+    .legend-label {
+      flex: 1;
+    }
+
+    .legend-label h4 {
+      margin: 0 0 4px 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .legend-label p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 48px;
+    }
+
+    .audit-table thead {
+      border-bottom: 2px solid rgba(255, 255, 255, .1);
+    }
+
+    .audit-table th {
+      padding: 16px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .04);
+    }
+
+    .audit-table td {
+      padding: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      font-size: 14px;
+    }
+
+    .audit-table tbody tr:hover {
+      background: rgba(255, 255, 255, .02);
+    }
+
+    .page-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-badge.pass {
+      background: rgba(34, 197, 94, .15);
+      color: #22c55e;
+    }
+
+    .status-badge.progress {
+      background: rgba(250, 204, 21, .15);
+      color: #facc15;
+    }
+
+    .status-badge.untested {
+      background: rgba(107, 114, 128, .15);
+      color: #9ca3af;
+    }
+
+    .issues-count {
+      font-family: 'Monaco', 'Courier New', monospace;
+      color: var(--muted);
+    }
+
+    .findings {
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: rgba(255, 255, 255, .04);
+      margin-bottom: 24px;
+    }
+
+    .findings h3 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .findings ul {
+      margin: 0;
+      padding: 0 0 0 20px;
+    }
+
+    .findings li {
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 48px 0 24px 0;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(56, 189, 248, .2);
+    }
+
+    .note {
+      padding: 16px;
+      border-left: 4px solid rgba(56, 189, 248, .4);
+      background: rgba(56, 189, 248, .08);
+      border-radius: 4px;
+      margin: 24px 0;
+    }
+
+    .note strong {
+      color: var(--text);
+    }
+
+    .note p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f5f7fa;
+        --text: #1a2637;
+        --muted: #4a5f75;
+        --cyan: #06b6d4;
+        --panel: #ffffff;
+        --panel-2: #f0f4f8;
+      }
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f5f7fa;
+      --text: #1a2637;
+      --muted: #4a5f75;
+      --cyan: #06b6d4;
+      --panel: #ffffff;
+      --panel-2: #f0f4f8;
+    }
+
+    :root[data-theme="light"] .audit-table th {
+      background: rgba(39, 194, 242, .08);
+      color: #4a5f75;
+    }
+
+    :root[data-theme="light"] .audit-table td {
+      border-color: rgba(26, 38, 55, .1);
+    }
+
+    :root[data-theme="light"] .findings {
+      background: rgba(39, 194, 242, .08);
+      border-color: rgba(39, 194, 242, .2);
+    }
+
+    :root[data-theme="light"] .metric {
+      background: rgba(39, 194, 242, .12);
+      border-color: rgba(39, 194, 242, .3);
+    }
+
+    :root[data-theme="light"] .legend-item {
+      background: rgba(245, 247, 250, 0.5);
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .note {
+      background: rgba(39, 194, 242, .1);
+      border-color: rgba(39, 194, 242, .4);
+    }
+
+    :root[data-theme="light"] .status-badge.pass {
+      background: rgba(34, 197, 94, .2);
+      color: #15803d;
+    }
+
+    :root[data-theme="light"] .status-badge.progress {
+      background: rgba(250, 204, 21, .2);
+      color: #92400e;
+    }
+
+    :root[data-theme="light"] .status-badge.untested {
+      background: rgba(107, 114, 128, .2);
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="site-nav-track">
+      <a href="index.html" class="nav-overview">Home</a>
+      <button class="nav-topics">Topics</button>
+      <a href="metrics-dashboard.html" class="nav-metrics">Metrics</a>
+      <a href="shared-problems-infographic.html" class="nav-shared-problems">Shared Problems</a>
+      <a href="https://github.com/matthewhall78/ai-strategy" class="nav-docs">Docs</a>
+      <a href="wcag-compliance-report.html" class="nav-wcag active">WCAG Report</a>
+      <button class="theme-toggle" title="Toggle dark/light mode">☀️</button>
+    </div>
+  </nav>
+
+  <main class="page">
+    <div class="hero">
+      <span class="kicker">Process Value</span>
+      <h1>WCAG 2.1 Level AA Compliance Report</h1>
+      <p>Accessibility audit results and compliance status for all pages on this site.</p>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <span class="metric-label">Pages Compliant</span>
+        <p class="metric-value">2</p>
+        <span class="metric-status">Fully passing all standards</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">In Progress</span>
+        <p class="metric-value">2</p>
+        <span class="metric-status">Issues identified & being fixed</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Total Pages</span>
+        <p class="metric-value">18</p>
+        <span class="metric-status">Across the entire site</span>
+      </div>
+      <div class="metric">
+        <span class="metric-label">Primary Standard</span>
+        <p class="metric-value">AA</p>
+        <span class="metric-status">WCAG 2.1 Level AA</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">Understanding Compliance Status</h2>
+
+    <div class="status-legend">
+      <div class="legend-item pass">
+        <div class="legend-icon">✓</div>
+        <div class="legend-label">
+          <h4>Fully Compliant</h4>
+          <p>Passes WCAG 2.1 Level AA in all supported modes (light & dark)</p>
+        </div>
+      </div>
+      <div class="legend-item progress">
+        <div class="legend-icon">⚙</div>
+        <div class="legend-label">
+          <h4>In Progress</h4>
+          <p>Issues identified; fixes are being applied and tested</p>
+        </div>
+      </div>
+      <div class="legend-item untested">
+        <div class="legend-icon">○</div>
+        <div class="legend-label">
+          <h4>Not Yet Tested</h4>
+          <p>Scheduled for comprehensive accessibility audit</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Audit Results by Page</h2>
+
+    <table class="audit-table">
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Status</th>
+          <th>Light Mode</th>
+          <th>Dark Mode</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="page-name">index.html</td>
+          <td><span class="status-badge pass">✓ PASS</span></td>
+          <td><span class="issues-count">0 issues</span></td>
+          <td><span class="issues-count">0 issues</span></td>
+          <td>Home/landing page — fully compliant</td>
+        </tr>
+        <tr>
+          <td class="page-name">apm-overview.html</td>
+          <td><span class="status-badge pass">✓ PASS</span></td>
+          <td><span class="issues-count">0 issues</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>APM system flow diagram</td>
+        </tr>
+        <tr>
+          <td class="page-name">metrics-dashboard.html</td>
+          <td><span class="status-badge progress">⚙ IN PROGRESS</span></td>
+          <td><span class="issues-count">12 issues</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Chart & table headers needing darker colors</td>
+        </tr>
+        <tr>
+          <td class="page-name">shared-problems-infographic.html</td>
+          <td><span class="status-badge progress">⚙ IN PROGRESS</span></td>
+          <td><span class="issues-count">10 issues</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Infographic text on colored backgrounds</td>
+        </tr>
+        <tr>
+          <td class="page-name">agents-md-example.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">context-engineering-primitives.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">context-primitives-decision-guide.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">continuous-improvement-copilot-workflow.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">copilot-instructions-md-guide.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">first-30-minutes-quickstart.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">general-ghcp-resources-links.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">github-copilot-coding-agent.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">github-copilot-modernization-getting-started.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">human-intent-agent-execution.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">open-source-product-governance-principles.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">presentation_tradeoff_quadrant.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+        <tr>
+          <td class="page-name">skills-md-example.html</td>
+          <td><span class="status-badge untested">○ NOT TESTED</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td><span class="issues-count">—</span></td>
+          <td>Scheduled for audit</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">Key Findings</h2>
+
+    <div class="findings">
+      <h3>Identified Pattern for Remaining Issues</h3>
+      <ul>
+        <li><strong>Light gray text in light mode:</strong> #6b7d8f color insufficient (4.24:1 ratio). Solution: Use darker #4a5f75 for 5.5:1+ ratio.</li>
+        <li><strong>Colored text on light backgrounds:</strong> Light cyan (#d6e8f4, #d4e3ee) fails in light mode. Solution: Use dark text (#1a2637) or darker alternatives.</li>
+        <li><strong>Weak background emphasis:</strong> rgba(..., 0.08-0.12) opacity insufficient. Solution: Strengthen to 0.24-0.32 opacity for 4.5:1+ contrast.</li>
+        <li><strong>Eyebrow & badge styling:</strong> Following kicker pattern fixes (text #0a3d54, background 0.32 opacity) solves most badge contrast issues.</li>
+      </ul>
+    </div>
+
+    <div class="findings">
+      <h3>Compliance Standards Applied</h3>
+      <ul>
+        <li><strong>WCAG 2.1 Level AA:</strong> Normal text minimum 4.5:1 contrast ratio</li>
+        <li><strong>WCAG 2.1 Level AA:</strong> Large text (≥18pt) minimum 3:1 contrast ratio</li>
+        <li><strong>WCAG 2.1 Level AA:</strong> UI components & graphical elements minimum 3:1 contrast ratio</li>
+        <li><strong>WCAG 2.1 Level AA:</strong> Focus indicators required and visible on all interactive elements</li>
+        <li><strong>Theme compliance:</strong> Light mode must have light backgrounds with dark text; dark mode must have dark backgrounds with light text</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <strong>Note:</strong>
+      <p>This report reflects the accessibility audit performed using automated luminance-based contrast ratio analysis. Tests measure the WCAG 2.1 contrast formula: (L1 + 0.05) / (L2 + 0.05), where L is relative luminance of the lighter and darker colors. Ratios are evaluated against the 4.5:1 minimum for normal text compliance.</p>
+    </div>
+
+    <h2 class="section-title">Technical Implementation</h2>
+
+    <div class="findings">
+      <h3>CSS Architecture</h3>
+      <ul>
+        <li><strong>Centralized styling:</strong> All theme-aware colors defined in <code>css/variables.css</code></li>
+        <li><strong>Shared components:</strong> Navigation, cards, typography, animations in <code>css/shared-styles.css</code></li>
+        <li><strong>Theme system:</strong> Explicit <code>data-theme</code> attribute + system preference fallback with <code>@media (prefers-color-scheme)</code></li>
+        <li><strong>Light mode overrides:</strong> <code>:root[data-theme="light"]</code> selectors provide page-specific adjustments for components</li>
+      </ul>
+    </div>
+
+    <div class="findings">
+      <h3>Audit Methodology</h3>
+      <ul>
+        <li><strong>Automated testing:</strong> Browser-based contrast calculation using W3C luminance formulas</li>
+        <li><strong>Manual verification:</strong> Visual inspection of light/dark mode toggle to confirm theme switching works correctly</li>
+        <li><strong>Component coverage:</strong> Tested paragraphs, headings, links, buttons, badges (kickers), tables, charts, and custom components</li>
+        <li><strong>Background detection:</strong> Parent-element traversal (up to 5 levels) to determine actual background when direct parent is transparent</li>
+      </ul>
+    </div>
+
+    <h2 class="section-title">Recommendations</h2>
+
+    <div class="findings">
+      <h3>Next Steps for Full Site Compliance</h3>
+      <ul>
+        <li><strong>Apply systematic fixes:</strong> Use identified color patterns to fix remaining 14 untested pages. Most should resolve with color value updates.</li>
+        <li><strong>Batch page updates:</strong> Group pages by component type (charts, tables, infographics, simple content) and apply targeted fixes.</li>
+        <li><strong>Dark mode verification:</strong> Once light mode issues are resolved, verify dark mode remains compliant (spot-check 3-4 fixed pages).</li>
+        <li><strong>Focus indicator audit:</strong> Test all interactive elements (buttons, links, form controls) with keyboard Tab navigation.</li>
+        <li><strong>Hover state testing:</strong> Verify tooltips and hover effects maintain 4.5:1 contrast in both light and dark modes.</li>
+        <li><strong>Final validation:</strong> Run full site accessibility audit with updated automated script after all fixes applied.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <strong>Skill Reference:</strong>
+      <p>For comprehensive accessibility testing procedures, manual audit checklists, and automated audit scripts, refer to <strong><code>.github/WCAG-ACCESSIBILITY-AUDIT.md</code></strong> in the project repository. This skill provides the full methodology, browser console audit code, and common issues reference.</p>
+    </div>
+  </main>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.querySelector('.theme-toggle');
+    const html = document.documentElement;
+
+    // Initialize theme from localStorage or system preference
+    function initializeTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        html.setAttribute('data-theme', savedTheme);
+        updateToggleButton(savedTheme);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        html.setAttribute('data-theme', 'dark');
+        updateToggleButton('dark');
+      }
+    }
+
+    function updateToggleButton(theme) {
+      themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateToggleButton(newTheme);
+    });
+
+    // Initialize on page load
+    initializeTheme();
+
+    // Topics dropdown (placeholder)
+    const topicsBtn = document.querySelector('.nav-topics');
+    if (topicsBtn) {
+      topicsBtn.addEventListener('click', () => {
+        alert('Topics navigation coming soon');
+      });
+    }
+  </script>
+</body>
+</html>

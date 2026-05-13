@@ -62,6 +62,18 @@ uncertainty: Medium
 
 [`.github/skill-layout-theme.md`](./skill-layout-theme.md)
 
+## Skill 6: WCAG Accessibility Audit
+
+```yaml
+name: WCAG Accessibility Audit
+description: Comprehensive WCAG 2.1 Level AA compliance testing and remediation for pages with theme switching, tooltips, and interactive elements
+category: Interactive Features & Dashboards
+effort: Medium
+uncertainty: Low
+```
+
+[`.github/WCAG-ACCESSIBILITY-AUDIT.md`](./WCAG-ACCESSIBILITY-AUDIT.md)
+
 ---
 
 ## How to Add a New Skill

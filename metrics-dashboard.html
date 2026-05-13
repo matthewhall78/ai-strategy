@@ -5,47 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Metrics Dashboard | Copilot Process Value</title>
   <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/shared-styles.css">
   <style>
-/* Default light mode theme */
-/* Dark mode - explicit toggle via data-theme attribute */
-    :root[data-theme="dark"] {
-      --bg: #080d12;
-      --panel: #121a24;
-      --panel-2: #182331;
-      --text: #edf3f8;
-      --muted: #aab8c6;
-      --line: rgba(128, 152, 176, .22);
-      --cyan: #38bdf8;
-      --green: #22c55e;
-      --blue: #2f85ff;
-      --purple: #a970ff;
-      --pink: #ec4899;
-      --navy: #60a5fa;
-      --shadow: 0 26px 70px rgba(0,0,0,.42);
-      color-scheme: dark;
-    }
-
-/* Dark mode variant */
-    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
-      :root {
-        --bg: #080d12;
-        --panel: #121a24;
-        --panel-2: #182331;
-        --text: #edf3f8;
-        --muted: #aab8c6;
-        --line: rgba(128, 152, 176, .22);
-        --cyan: #38bdf8;
-        --green: #22c55e;
-        --blue: #2f85ff;
-        --purple: #a970ff;
-        --pink: #ec4899;
-        --navy: #60a5fa;
-        --shadow: 0 26px 70px rgba(0,0,0,.42);
-        color-scheme: dark;
-      }
-    }
-
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -56,148 +18,6 @@
         radial-gradient(circle at 82% 84%, rgba(34, 197, 94, .10), transparent 30%),
         var(--bg);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    .site-nav {
-      --site-nav-bg: rgba(8, 13, 18, .78);
-      --site-nav-border: rgba(255,255,255,.14);
-      --site-nav-link: #d8e7f1;
-      --site-nav-hover-bg: rgba(56, 189, 248, .18);
-      --site-nav-hover-border: rgba(56, 189, 248, .4);
-      --site-nav-active-bg: rgba(34, 197, 94, .2);
-      --site-nav-active-border: rgba(34, 197, 94, .56);
-      position: fixed;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
-      max-width: calc(100vw - 28px);
-      padding: 10px;
-      border: 1px solid var(--site-nav-border);
-      border-radius: 999px;
-      background: var(--site-nav-bg);
-      backdrop-filter: blur(7px);
-      box-shadow: 0 12px 34px rgba(0,0,0,.34);
-      overflow: visible;
-    }
-
-    .site-nav-track {
-      display: flex;
-      gap: 10px;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      min-width: max-content;
-      align-items: center;
-      overflow: visible;
-    }
-
-    .site-nav a, .site-nav-dropdown-trigger {
-      flex: 0 0 auto;
-      white-space: nowrap;
-      color: var(--site-nav-link);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: .02em;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: background .22s ease, border-color .22s ease, color .22s ease;
-      cursor: pointer;
-      background: none;
-      font-family: inherit;
-    }
-
-    .site-nav a:hover,
-    .site-nav a:focus-visible,
-    .site-nav-dropdown-trigger:hover,
-    .site-nav-dropdown-trigger:focus-visible {
-      color: #ffffff;
-      background: var(--site-nav-hover-bg);
-      border-color: var(--site-nav-hover-border);
-      outline: none;
-    }
-
-    .site-nav a.active,
-    .site-nav-dropdown-trigger.active {
-      color: #ffffff;
-      background: var(--site-nav-active-bg);
-      border-color: var(--site-nav-active-border);
-    }
-
-    .site-nav-dropdown {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .site-nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      background: var(--site-nav-bg);
-      border: 1px solid var(--site-nav-border);
-      border-radius: 12px;
-      padding: 8px;
-      min-width: 160px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, .5);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition: opacity .22s ease, visibility .22s ease, transform .22s ease;
-      z-index: 40;
-      backdrop-filter: blur(7px);
-    }
-
-    .site-nav-dropdown:hover .site-nav-dropdown-menu,
-    .site-nav-dropdown:focus-within .site-nav-dropdown-menu,
-    .site-nav-dropdown-trigger[aria-expanded="true"] ~ .site-nav-dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .site-nav-dropdown-menu a {
-      padding: 8px 12px;
-      border-radius: 8px;
-      margin: 0;
-      transition: background .22s ease;
-    }
-
-    .site-nav-dropdown-menu a:hover {
-      background: var(--site-nav-hover-bg);
-    }
-
-    .site-nav-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .theme-toggle {
-      flex: 0 0 auto;
-      margin-left: auto;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: transparent;
-      color: var(--site-nav-link);
-      cursor: pointer;
-      font-size: 16px;
-      transition: background .22s ease, border-color .22s ease;
-      font-family: inherit;
-    }
-
-    .theme-toggle:hover,
-    .theme-toggle:focus-visible {
-      background: var(--site-nav-hover-bg);
-      border-color: var(--site-nav-hover-border);
-      outline: none;
-    }
-
-    body {
-      padding-top: 70px;
     }
 
     .page {
@@ -214,20 +34,6 @@
       border: 1px solid rgba(255,255,255,.08);
       box-shadow: var(--shadow);
       background: linear-gradient(135deg, rgba(255,255,255,.04), transparent 34%), var(--panel);
-    }
-
-    .hero { padding: clamp(24px, 4vw, 46px); }
-    .panel { padding: 20px; }
-
-    .hero::after,
-    .panel::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(56, 189, 248, .06), transparent);
-      transform: translateX(-120%);
-      animation: sweep 8s ease-in-out infinite;
-      pointer-events: none;
     }
 
     .eyebrow {
@@ -621,11 +427,6 @@
       font-size: 12px;
     }
 
-    @keyframes sweep {
-      0%, 56% { transform: translateX(-120%); }
-      82%, 100% { transform: translateX(120%); }
-    }
-
     @media (max-width: 1080px) {
       .page { padding: 108px 16px 36px; }
       .grid { grid-template-columns: 1fr 1fr; }
@@ -650,6 +451,61 @@
         max-width: 180px;
       }
     }
+
+    /* Light mode overrides */
+    :root[data-theme="light"] .eyebrow {
+      background: rgba(39, 194, 242, 0.32);
+      color: #0a3d54;
+      border-color: rgba(39, 194, 242, 0.6);
+    }
+
+    :root[data-theme="light"] h1 {
+      color: #1a2637;
+    }
+
+    :root[data-theme="light"] .sub {
+      color: #4a5f75;
+    }
+
+    :root[data-theme="light"] .metric-value {
+      color: #1a2637;
+    }
+
+    :root[data-theme="light"] .metric-note {
+      color: #4a5f75;
+    }
+
+    :root[data-theme="light"] .chart-wrap {
+      background: rgba(245, 247, 250, 0.8);
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .chart-head h3 {
+      color: #1a2637;
+    }
+
+    :root[data-theme="light"] .chart-legend {
+      color: #4a5f75;
+    }
+
+    :root[data-theme="light"] table {
+      color: #1a2637;
+    }
+
+    :root[data-theme="light"] th {
+      color: #1a2637;
+      background: rgba(39, 194, 242, 0.08);
+    }
+
+    :root[data-theme="light"] td {
+      color: #1a2637;
+      border-color: rgba(26, 38, 55, 0.1);
+    }
+
+    :root[data-theme="light"] tr:hover {
+      background: rgba(39, 194, 242, 0.08);
+    }
+
   </style>
 </head>
 <body data-category="reference-tool">
@@ -671,6 +527,7 @@
       <a class="nav-metrics active" href="metrics-dashboard.html">Metrics</a>
       <a class="nav-shared-problems" href="shared-problems-infographic.html">Shared Problems</a>
       <a class="nav-docs" href="https://github.com/matthewhall78/ai-strategy" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a class="nav-wcag" href="wcag-compliance-report.html">WCAG Report</a>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
         <span id="theme-icon">🌙</span>
       </button>

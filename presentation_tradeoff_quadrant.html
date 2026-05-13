@@ -5,62 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Presentation Tradeoff Quadrant</title>
   <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/shared-styles.css">
   <style>
-/* Default light mode theme */
-/* Dark mode - explicit toggle via data-theme attribute */
-    :root[data-theme="dark"] {
-      --bg: #080d12;
-      --panel: #121a24;
-      --panel-2: #182331;
-      --text: #edf3f8;
-      --muted: #aab8c6;
-      --line: rgba(128, 152, 176, .22);
-      --cyan: #38bdf8;
-      --green: #22c55e;
-      --blue: #2f85ff;
-      --purple: #a970ff;
-      --pink: #ec4899;
-      --navy: #60a5fa;
-      --shadow: 0 26px 70px rgba(0,0,0,.42);
-      color-scheme: dark;
-    }
-
-/* Dark mode variant */
-    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
-      :root {
-        --bg: #080d12;
-        --panel: #121a24;
-        --panel-2: #182331;
-        --text: #edf3f8;
-        --muted: #aab8c6;
-        --line: rgba(128, 152, 176, .22);
-        --cyan: #38bdf8;
-        --green: #22c55e;
-        --blue: #2f85ff;
-        --purple: #a970ff;
-        --pink: #ec4899;
-        --navy: #60a5fa;
-        --shadow: 0 26px 70px rgba(0,0,0,.42);
-        color-scheme: dark;
-      }
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 32% 45%, rgba(42, 218, 118, 0.18), transparent 28%),
-        radial-gradient(circle at 66% 54%, rgba(90, 75, 255, 0.20), transparent 30%),
-        radial-gradient(circle at 48% 80%, rgba(162, 59, 255, 0.18), transparent 24%),
-        linear-gradient(180deg, #000 0%, var(--bg) 58%, #010204 100%);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow-x: hidden;
-    }
-
-    .page {
+.page {
       width: min(1500px, 96vw);
       margin: 0 auto;
       padding: 34px 28px 44px;
@@ -387,6 +334,31 @@
       .chart-wrap { transform: scale(0.72); transform-origin: top center; min-height: 560px; }
       .quadrant { width: 650px; height: 650px; }
     }
+
+    /* Light mode overrides */
+    :root[data-theme="light"] .quadrant {
+      background: rgba(255, 255, 255, 0.88);
+      border-color: rgba(26, 38, 55, 0.15);
+    }
+
+    :root[data-theme="light"] .quad {
+      background: rgba(245, 247, 250, 0.9);
+      border-color: rgba(26, 38, 55, 0.1);
+    }
+
+    :root[data-theme="light"] .quad h3 {
+      color: #1a2637;
+    }
+
+    :root[data-theme="light"] .quad p {
+      color: #6b7d8f;
+    }
+
+    :root[data-theme="light"] h1,
+    :root[data-theme="light"] .eyebrow {
+      color: #1a2637;
+    }
+
   </style>
 </head>
 <body>
@@ -461,5 +433,40 @@
       </aside>
     </section>
   </main>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const root = document.documentElement;
+
+    // Detect system preference and saved preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+    function setTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+      document.documentElement.style.colorScheme = theme;
+    }
+
+    // Apply initial theme
+    setTheme(initialTheme);
+
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || 'light';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Sync theme when system preference changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    });
+  </script>
 </body>
 </html>

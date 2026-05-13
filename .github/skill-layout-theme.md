@@ -43,7 +43,7 @@ Plan the new theme by documenting:
 
 Example for Light Mode:
 
-```
+```css
 --bg: #f5f7fa (light gray)
 --panel: #ffffff (white)
 --text: #1a2637 (dark blue)
@@ -63,6 +63,7 @@ grep -A 20 ":root {" index.html | head -30
 ```
 
 Document:
+
 - All current `--` variable names
 - Which variables are colors vs. spacing vs. shadows
 - Which variables are used in navigation, cards, text, etc.
@@ -75,7 +76,7 @@ Document:
 
 Choose one approach:
 
-**Option A: System Preference (Recommended for Accessibility)**
+##### Option A: System Preference (Recommended for Accessibility)
 
 ```html
 <!-- In <head>, add media query support -->
@@ -104,7 +105,7 @@ Choose one approach:
 </style>
 ```
 
-**Option B: Manual Toggle Button**
+##### Option B: Manual Toggle Button
 
 ```html
 <!-- In nav or body, add toggle button -->
@@ -161,6 +162,7 @@ For **each `.html` file**:
 3. If using Option B (toggle), wrap variables in `[data-theme]` selectors
 
 Example:
+
 ```css
 :root[data-theme="light"] {
   --bg: #f5f7fa;
@@ -217,7 +219,8 @@ For each `.html` file in the root:
 3. Copy the new theme CSS variables from the reference file (or paste entire `:root` block)
 4. If using toggle button, ensure the script and button HTML are present
 
-**Automated approach using sed:**
+Automated approach using sed:
+
 ```bash
 # Create a backup first
 cp index.html index.html.backup
@@ -233,7 +236,8 @@ for file in *.html; do
 done
 ```
 
-**Better approach: Manual update of critical pages**
+Better approach: Manual update of critical pages
+
 - Update `index.html` first and test
 - Copy the exact `:root` CSS block and theme toggle script
 - Update remaining `.html` files in batches (5–10 at a time)
@@ -245,14 +249,13 @@ If using manual toggle button:
 
 1. Locate the `.site-nav` block in each `.html` file
 2. Add toggle button near the end of the nav (before closing `</nav>`):
+3. Ensure the toggle script (from Step 3, Option B) is included in `<head>` or before `</body>`
 
 ```html
 <button id="theme-toggle" aria-label="Toggle dark/light mode" style="margin-left: auto;">
   <span id="theme-icon">🌙</span>
 </button>
 ```
-
-3. Ensure the toggle script (from Step 3, Option B) is included in `<head>` or before `</body>`
 
 #### Step 8: Update Navigation Styling for New Theme
 
@@ -366,14 +369,16 @@ After merge, append one enhancement record to `metrics/metrics-data.js` with ret
 ### Issue: Light mode text is hard to read on light background
 
 **Fix:** Increase contrast ratio. Use a darker text color:
+
 - Current: `#6b7d8f` (too light)
 - Better: `#1a2637` (much darker)
 
-Test with WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
+Test with [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
 
 ### Issue: Theme toggle button doesn't work
 
 **Fix:** Verify:
+
 1. Script is in `<head>` or before `</body>`
 2. Button has `id="theme-toggle"`
 3. Root element can receive `data-theme` attribute
@@ -382,6 +387,7 @@ Test with WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
 ### Issue: Some pages still use old dark colors after toggle
 
 **Fix:**
+
 1. Check that ALL `:root` CSS blocks were updated
 2. Verify no inline `style` attributes override CSS variables
 3. Test in incognito/private mode to clear browser cache
@@ -390,6 +396,7 @@ Test with WebAIM Contrast Checker: https://webaim.org/resources/contrastchecker/
 ### Issue: Box shadows look wrong in light mode
 
 **Fix:** Adjust shadow opacity and blur:
+
 - **Dark mode:** `--shadow: 0 26px 70px rgba(0,0,0,.42)` (strong, dark shadow)
 - **Light mode:** `--shadow: 0 4px 12px rgba(0,0,0,.08)` (subtle, soft shadow)
 

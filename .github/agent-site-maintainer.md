@@ -51,6 +51,7 @@ Act as the site's consistency enforcer. Ensure every page follows the same struc
 - **New Site Page** — Add new documentation pages with full nav consistency (see `.github/skill-new-site-page.md`)
 - **Validation Checklist** — 6-step pre-push validation (see `.github/validation-checklist.md`)
 - **Testing Guide** — 6-step browser interaction testing (see `.github/testing-guide.md`)
+- **WCAG Accessibility Audit** — Comprehensive contrast and accessibility testing for light/dark modes (see `.github/WCAG-ACCESSIBILITY-AUDIT.md`)
 
 ## Constraints
 

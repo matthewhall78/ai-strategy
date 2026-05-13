@@ -46,6 +46,21 @@
 
 Refer to `.github/skills.md` — "New Site Page Skill" — for the complete workflow, validation checklist, and browser interaction testing requirements. The skill covers all 14 required steps from file creation through metrics logging.
 
+## Accessibility & Theme Compliance
+
+When modifying pages with theme switching (light/dark mode) or interactive elements:
+
+- Refer to `.github/WCAG-ACCESSIBILITY-AUDIT.md` for the comprehensive accessibility audit skill
+- Use the browser console audit script (in the skill) to automatically detect:
+  - Low contrast text (< 4.5:1 normal, < 3:1 large)
+  - Dark backgrounds in light mode
+  - Missing focus indicators
+  - Tooltip contrast issues
+- Test both light and dark modes before committing
+- Ensure nav text is dark on light backgrounds, light on dark backgrounds
+- Verify all interactive elements have visible focus indicators
+- Check tooltips and hover states for sufficient contrast in both modes
+
 ## Editing Discipline
 
 - Prefer small, focused edits. Do not touch files unrelated to the task.

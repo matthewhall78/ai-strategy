@@ -5,47 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agentic Maturity Ladder</title>
   <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/shared-styles.css">
   <style>
-/* Default light mode theme */
-/* Dark mode - explicit toggle via data-theme attribute */
-    :root[data-theme="dark"] {
-      --bg: #080d12;
-      --panel: #121a24;
-      --panel-2: #182331;
-      --text: #edf3f8;
-      --muted: #aab8c6;
-      --line: rgba(128, 152, 176, .22);
-      --cyan: #38bdf8;
-      --green: #22c55e;
-      --blue: #2f85ff;
-      --purple: #a970ff;
-      --pink: #ec4899;
-      --navy: #60a5fa;
-      --shadow: 0 26px 70px rgba(0,0,0,.42);
-      color-scheme: dark;
-    }
-
-/* Dark mode variant */
-    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
-      :root {
-        --bg: #080d12;
-        --panel: #121a24;
-        --panel-2: #182331;
-        --text: #edf3f8;
-        --muted: #aab8c6;
-        --line: rgba(128, 152, 176, .22);
-        --cyan: #38bdf8;
-        --green: #22c55e;
-        --blue: #2f85ff;
-        --purple: #a970ff;
-        --pink: #ec4899;
-        --navy: #60a5fa;
-        --shadow: 0 26px 70px rgba(0,0,0,.42);
-        color-scheme: dark;
-      }
-    }
-
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
     html { scroll-behavior: smooth; }
 
@@ -85,114 +47,6 @@
       box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
       z-index: 45;
     }
-
-    .site-nav {
-      --site-nav-bg: rgba(8, 13, 18, 0.78);
-      --site-nav-border: rgba(255, 255, 255, 0.14);
-      --site-nav-link: #d8e7f1;
-      --site-nav-hover-bg: rgba(56, 189, 248, 0.18);
-      --site-nav-hover-border: rgba(56, 189, 248, 0.4);
-      --site-nav-active-bg: rgba(34, 197, 94, 0.2);
-      --site-nav-active-border: rgba(34, 197, 94, 0.56);
-      position: fixed;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 30;
-      max-width: calc(100vw - 28px);
-      padding: 10px;
-      border: 1px solid var(--site-nav-border);
-      border-radius: 999px;
-      background: var(--site-nav-bg);
-      backdrop-filter: blur(7px);
-      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.34);
-      overflow: visible;
-    }
-
-    .site-nav-track {
-      display: flex;
-      gap: 10px;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      min-width: max-content;
-      align-items: center;
-      overflow: visible;
-    }
-
-    .site-nav a, .site-nav-dropdown-trigger {
-      flex: 0 0 auto;
-      white-space: nowrap;
-      color: var(--site-nav-link);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
-      padding: 8px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: background 0.22s ease, border-color 0.22s ease, color 0.22s ease;
-      cursor: pointer;
-      background: none;
-      font-family: inherit;
-    }
-
-    .site-nav a:hover,
-    .site-nav a:focus-visible,
-    .site-nav-dropdown-trigger:hover,
-    .site-nav-dropdown-trigger:focus-visible {
-      color: #ffffff;
-      background: var(--site-nav-hover-bg);
-      border-color: var(--site-nav-hover-border);
-      outline: none;
-    }
-
-    .site-nav-dropdown {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .site-nav-dropdown-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      background: var(--site-nav-bg);
-      border: 1px solid var(--site-nav-border);
-      border-radius: 12px;
-      padding: 8px;
-      min-width: 160px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease;
-      z-index: 40;
-      backdrop-filter: blur(7px);
-    }
-
-    .site-nav-dropdown:hover .site-nav-dropdown-menu,
-    .site-nav-dropdown:focus-within .site-nav-dropdown-menu,
-    .site-nav-dropdown-trigger[aria-expanded="true"] ~ .site-nav-dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .site-nav-dropdown-menu a {
-      padding: 8px 12px;
-      border-radius: 8px;
-      margin: 0;
-      transition: background 0.22s ease;
-    }
-
-    .site-nav-dropdown-menu a:hover {
-      background: var(--site-nav-hover-bg);
-    }
-
-    .site-nav-track::-webkit-scrollbar { display: none; }
 
     .section {
       min-height: 100vh;
@@ -551,6 +405,7 @@
       <a class="nav-metrics" href="metrics-dashboard.html">Metrics</a>
       <a class="nav-shared-problems" href="shared-problems-infographic.html">Shared Problems</a>
       <a class="nav-docs" href="https://github.com/matthewhall78/ai-strategy" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a class="nav-wcag" href="wcag-compliance-report.html">WCAG Report</a>
       <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
         <span id="theme-icon">🌙</span>
       </button>
