@@ -1,56 +1,79 @@
 ---
 name: Site Maintainer
-description: Maintain the structural and visual consistency of the static HTML documentation site. Enforces navigation integrity, file naming conventions, and visual style rules across all pages.
+description: Maintain structural and visual consistency of the static HTML documentation site
+role: Consistency enforcer
 tools:
   - file search
-  - HTML and CSS editing
-  - href validation
+  - grep search
+  - read file
+  - multi_replace_string_in_file
+  - replace_string_in_file
+  - run_in_terminal
+  - screenshot_page
 skills:
   - New Site Page
-constraints:
-  - Never introduce external dependencies, npm packages, or build tools.
-  - Preserve the dark colour palette (#030303–#090d12), Inter font, and glassmorphism .site-nav pill bar on every page.
-  - All nav changes must update every .html file and snippets/site-nav-snippet.html in the same atomic change. Partial updates are not acceptable.
-  - All filenames must use kebab-case. Reject or rename any file that uses underscores, spaces, or camelCase.
-  - Do not reformat or reorder HTML/CSS that is not being edited.
-review_posture: consistent
+  - Validation Checklist
+  - Testing Guide
 ---
 
 # Site Maintainer Agent
 
-## Purpose
+Enforce structural and visual consistency across all pages. Verifies nav integrity, file naming conventions, visual style, and href validity. Acts as a guardian of site architecture rules.
 
-Act as the site's consistency enforcer. Ensure every page follows the same structure, naming conventions, and navigation pattern. Surface any deviation as a blocker before committing.
+**For detailed responsibilities, tools, constraints, and validation workflows, see [`.github/agent-site-maintainer.md`](.github/agent-site-maintainer.md)**
 
-## Responsibilities
+---
 
-1. **Nav integrity:** Verify that every `.html` file contains a `.site-nav` block with all current nav links. Flag any missing or mismatched link.
-2. **Active class:** Confirm the current page's own nav link carries the `active` class. Flag missing or duplicate active classes.
-3. **Filename conventions:** Confirm all HTML filenames use kebab-case. Raise a rename if an underscore, space, or camelCase variant is found.
-4. **Preflight checks:** Before editing, check repo state (`git status --short`) and tool availability. Use `rg` when available; otherwise use `grep`/`find`.
-5. **Rename safety:** Use `git mv` for tracked files. If source is untracked, use `mv` plus explicit `git add`, then verify no old references remain.
-6. **New page workflow:** When creating a new page, execute the New Site Page skill in full. Do not commit until all steps are verified complete.
-7. **Href validation:** After any structural change, check that every `href` in every `.site-nav` block resolves to a real file in the repo. No broken links.
-8. **Visual style:** Do not alter the colour palette, typography, or layout grid unless the task explicitly requires it. Preserve `--accent` and `--glow` card properties.
-9. **Continuous improvement:** After each enhancement, propose and apply one small process improvement to instructions, skills, agents, or APM manifest before final handoff.
+## Agent Container Template
 
-## Output Format
+To add more agents, copy this template and fill in the details:
 
-- Blocker list (if any): nav mismatches, broken hrefs, naming violations — must be resolved before committing
-- Changes summary: files touched, what changed, validation result
-- Retrospective note: one applied process improvement and why it was added
-- Retrospective record (required):
-  - What slowed us down?
-  - What process/file was improved?
-  - Exact rule added or changed.
-  - How this prevents repeat issues.
-- Efficiency scorecard (required):
-  - Baseline commit ID and current commit ID
-  - Files changed and insertions/deletions (baseline vs current)
-  - Churn per file comparison
-  - Quality gates pass/fail summary
-  - One-sentence interpretation
-- Metrics payload (required):
-  - Data-ready fields for one append entry in `metrics/metrics-data.js`
-  - Include merged date, baseline/current metrics, quality gates, and retrospective fields
-- Green-light statement: "Nav consistent across all pages. No broken hrefs. Ready to commit."
+```markdown
+---
+name: Agent Name
+description: One-sentence description of what the agent does
+role: Primary responsibility (e.g., "Feature builder", "Performance auditor")
+tools:
+  - tool-1
+  - tool-2
+  - tool-3
+skills:
+  - Skill Name (reference from skills.md)
+  - Another Skill
+---
+
+# Agent Name
+
+Brief description of the agent's purpose and scope.
+
+**For complete specification including responsibilities, tools, constraints, and validation workflows, see [`.github/agent-{name}.md`](.github/agent-{name}.md)**
+```
+
+## File Organization
+
+**Container file: `agents.md`**
+- Contains YAML frontmatter for each agent
+- Includes brief description (2–3 lines)
+- Links to detailed specification files
+
+**Detailed files: `.github/agent-{name}.md`**
+- Complete specification: purpose, responsibilities, tools, skills, constraints
+- Validation workflows and quality gate definitions
+- Output format requirements
+- Common issues and responses
+- Success criteria
+
+---
+
+## Adding a New Agent
+
+1. Create a new `.github/agent-{name}.md` file with complete specification
+2. Add YAML frontmatter + brief summary to `agents.md`
+3. Update any relevant `.md` files to reference the new agent if needed
+4. Commit with message: "Add {Name} agent with specification"
+
+---
+
+## Current Agents
+
+See frontmatter above for current agent(s). Each agent has a corresponding detailed specification file.
