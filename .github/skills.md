@@ -25,9 +25,7 @@ outputs:
   - Updated README.md page listing
 ---
 
-Add a new documentation page with consistent navigation across all pages (atomic update pattern).
-
-**Full procedure:** [`.github/skill-new-site-page.md`](./skill-new-site-page.md)
+[`.github/skill-new-site-page.md`](./skill-new-site-page.md)
 
 ---
 
@@ -52,9 +50,7 @@ outputs:
   - Updated README.md (if skill creates new pages/features)
 ---
 
-Create new skills and maintain the skills registry following the container file pattern.
-
-**Full procedure:** [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
+[`.github/skill-manage-skills.md`](./skill-manage-skills.md)
 
 ---
 
