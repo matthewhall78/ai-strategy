@@ -263,7 +263,23 @@ If the agent represents a new capability or workflow, consider documenting it in
 
 ### Phase 5: Validation
 
-#### Step 13: Verify Agent File Structure
+#### Step 13: Check Markdown Linting
+
+Before finalizing, verify your new agent's markdown file has no linting errors:
+
+```bash
+# Check for linting errors in the new agent file
+# Look for these common issues in the new .github/agent-{name}.md file:
+# - MD003: Heading style (use # not underlines)
+# - MD022: Blank lines around headings
+# - MD031: Blank lines around code blocks
+# - MD032: Blank lines around lists
+# - MD007: List indentation
+```
+
+Fix any linting errors before proceeding.
+
+#### Step 14: Verify Agent File Structure
 
 ```bash
 # Check that agent specification file exists

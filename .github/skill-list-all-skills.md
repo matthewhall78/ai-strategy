@@ -108,7 +108,21 @@ These utility docs are used across multiple skills; open them on-demand.
 
 ---
 
-### Phase 4: Understand the Skill Management System
+### Phase 4: Check Markdown Linting
+
+#### Step 9: Review Markdown Quality
+
+While reading through the skill files, you may notice markdown formatting. All documentation files should follow markdown linting standards:
+
+- **MD003**: Use `#` for headings (atx style), not underlines
+- **MD022**: Headings surrounded by blank lines
+- **MD031**: Code blocks surrounded by blank lines
+- **MD032**: Lists surrounded by blank lines
+- **MD007**: Lists start at column 0 (no indentation for bullet points)
+
+If you're authoring new skill files, check for these issues before committing.
+
+### Phase 5: Understand the Skill Management System
 
 #### Step 9: Review the Manage Skills Procedure
 

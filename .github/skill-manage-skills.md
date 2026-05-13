@@ -272,7 +272,23 @@ If the skill requires new validation checks or browser tests, create or update:
 
 ### Phase 5: Validation
 
-#### Step 13: Verify Skill File Structure
+#### Step 13: Check Markdown Linting
+
+Before finalizing, verify your new skill's markdown file has no linting errors:
+
+```bash
+# Check for linting errors in the new skill file
+# Look for these common issues in the new .github/skill-{name}.md file:
+# - MD003: Heading style (use # not underlines)
+# - MD022: Blank lines around headings
+# - MD031: Blank lines around code blocks  
+# - MD032: Blank lines around lists
+# - MD007: List indentation
+```
+
+Fix any linting errors before proceeding.
+
+#### Step 14: Verify Skill File Structure
 
 ```bash
 # Check that skill procedure file exists

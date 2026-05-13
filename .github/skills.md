@@ -2,59 +2,51 @@
 
 This file is a **catalog** of available skills for the AI website project. Each skill is a repeatable workflow with a dedicated procedure file.
 
----
-
 ## Skill 1: New Site Page
 
----
+```yaml
 name: New Site Page
 description: Add a new documentation page to the static HTML site, keeping navigation consistent across all existing pages
 category: Page Content & Integration
 effort: Low–Medium
 uncertainty: Low
----
+```
 
 [`.github/skill-new-site-page.md`](./skill-new-site-page.md)
 
----
-
 ## Skill 2: Manage Skills
 
----
+```yaml
 name: Manage Skills
 description: Add, update, and maintain skills in the skills registry with complete documentation and reference files
 category: Process & Governance
 effort: Low–Medium
 uncertainty: Low
----
+```
 
 [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
 
----
-
 ## Skill 3: List All Skills
 
----
+```yaml
 name: List All Skills
 description: Discover and understand all available skills in the registry, their categorization, effort levels, and uncertainty
 category: Process & Governance
 effort: Low
 uncertainty: Low
----
+```
 
 [`.github/skill-list-all-skills.md`](./skill-list-all-skills.md)
 
----
-
 ## Skill 4: Manage Agents
 
----
+```yaml
 name: Manage Agents
 description: Create, update, and maintain agents in the agents registry with complete documentation and reference files
 category: Process & Governance
 effort: Low–Medium
 uncertainty: Low
----
+```
 
 [`.github/skill-manage-agents.md`](./skill-manage-agents.md)
 

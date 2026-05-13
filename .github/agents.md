@@ -2,11 +2,9 @@
 
 This file is a **catalog** of available agents for the AI website project. Each agent is a specialized tool with focused responsibilities and a dedicated specification file.
 
----
-
 ## Agent 1: Site Maintainer
 
----
+```yaml
 name: Site Maintainer
 description: Maintain structural and visual consistency of the static HTML documentation site
 role: Consistency enforcer
@@ -22,7 +20,7 @@ skills:
   - New Site Page
   - Validation Checklist
   - Testing Guide
----
+```
 
 [`.github/agent-site-maintainer.md`](./agent-site-maintainer.md)
 
