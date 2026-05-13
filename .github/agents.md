@@ -1,21 +1,3 @@
----
-name: Site Maintainer
-description: Maintain structural and visual consistency of the static HTML documentation site
-role: Consistency enforcer
-tools:
-  - file search
-  - grep search
-  - read file
-  - multi_replace_string_in_file
-  - replace_string_in_file
-  - run_in_terminal
-  - screenshot_page
-skills:
-  - New Site Page
-  - Validation Checklist
-  - Testing Guide
----
-
 # Agents Registry
 
 This file is a **catalog** of available agents for the AI website project. Each agent is a specialized tool with focused responsibilities and a dedicated specification file.
