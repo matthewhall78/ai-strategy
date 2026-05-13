@@ -110,16 +110,15 @@ Maintain the skills registry in `.github/skills.md`, create new skills with comp
 
 ## Adding a New Skill
 
-To add a new skill to the registry:
+To add a new skill to the registry, follow the complete workflow in [`.github/skill-manage-skills.md`](./skill-manage-skills.md):
 
-1. **Define the skill** using Phase 1 of [`.github/skill-manage-skills.md`](./skill-manage-skills.md) (scope, category, effort, uncertainty, inputs, outputs)
-2. **Create the detailed reference file** [`.github/skill-{name}.md`](./skill-manage-skills.md) with complete procedures (Phase 2)
-3. **Update this file** (`skills.md`) with YAML frontmatter and quick reference (Phase 3)
-4. **Update supporting documentation** as needed (Phase 4)
-5. **Validate and test** the skill on a real task (Phase 5)
-6. **Commit** with message: "Add {Skill Name} skill with complete procedure"
+1. **Phase 1:** Define skill scope, categorization, effort, uncertainty, inputs/outputs
+2. **Phase 2:** Create `.github/skill-{name}.md` with complete step-by-step procedures and validation references
+3. **Phase 3:** Update `skills.md` with YAML frontmatter and quick reference table
+4. **Phase 4:** Update supporting documentation (README.md, validation, testing, metrics)
+5. **Phase 5:** Validate file structure and test skill on a real task
 
-Full details: See [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
+**Full workflow and success criteria:** See [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
 
 ---
 
