@@ -1,6 +1,6 @@
 window.__METRICS_DATA = {
   schemaVersion: "1.0.0",
-  updatedAt: "2026-05-07",
+  updatedAt: "2026-05-12",
   qualityGateOrder: [
     "nav-link-presence",
     "nav-href-resolution",
@@ -359,6 +359,41 @@ window.__METRICS_DATA = {
         prevention: "Prevents regressions where category dashboards drift from the canonical taxonomy or silently omit categories."
       },
       interpretation: "Faster than the prior dashboard enhancement baseline with substantially lower churn per file while improving decision-ready category visibility."
+    },
+    {
+      id: "enh-2026-05-12-markdown-linting-procedures",
+      title: "Enforce comprehensive markdown linting and skill procedure completeness",
+      type: "Process & Governance",
+      mergedAt: "2026-05-12",
+      baselineCommitId: "c4a0a54",
+      currentCommitId: "e8a2429",
+      baseline: {
+        filesChanged: 8,
+        insertions: 156,
+        deletions: 54,
+        churnPerFile: 26.25
+      },
+      current: {
+        filesChanged: 10,
+        insertions: 188,
+        deletions: 78,
+        churnPerFile: 26.6
+      },
+      qualityGates: {
+        "nav-link-presence": "pass",
+        "nav-href-resolution": "pass",
+        "rename-cleanup": "pass",
+        "canonical-sync": "pass",
+        "retrospective-update": "pass",
+        "efficiency-scorecard": "pass"
+      },
+      retrospective: {
+        slowdown: "Manual reminders needed to push changes and enforce full multi-file linting validation; iterative linting errors required multiple fix cycles.",
+        processFile: ".github/skill-manage-skills.md and .github/skill-manage-agents.md",
+        ruleChanged: "All markdown linting steps must run on all modified files and fix every error before completion. All workflow procedures must end with git push to GitHub.",
+        prevention: "Explicit requirement in skill procedures to validate zero linting errors across all affected files and auto-push on completion prevents partial work from being marked done."
+      },
+      interpretation: "Slightly slower due to discovery of and fixes for multi-file linting errors, but now more robust with explicit completion criteria and automated push enforcement."
     }
   ]
 };
