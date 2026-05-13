@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Common Capability Strategies</title>
   <style>
-    /* Default light mode theme */
+    /* Light mode (default) */
     :root {
       --bg: #f5f7fa;
       --panel: #ffffff;
@@ -23,9 +23,27 @@
       color-scheme: light;
     }
 
-    /* Dark mode variant */
-    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
-      :root {
+    /* Dark mode - explicit toggle via data-theme attribute */
+    :root[data-theme="dark"] {
+      --bg: #080d12;
+      --panel: #121a24;
+      --panel-2: #182331;
+      --text: #edf3f8;
+      --muted: #aab8c6;
+      --line: rgba(128, 152, 176, .22);
+      --cyan: #38bdf8;
+      --green: #22c55e;
+      --blue: #2f85ff;
+      --purple: #a970ff;
+      --pink: #ec4899;
+      --navy: #60a5fa;
+      --shadow: 0 26px 70px rgba(0,0,0,.42);
+      color-scheme: dark;
+    }
+
+    /* Dark mode when system prefers dark (unless explicitly overridden) */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
         --bg: #080d12;
         --panel: #121a24;
         --panel-2: #182331;
