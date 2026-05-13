@@ -32,6 +32,20 @@ uncertainty: Low
 
 ---
 
+## Skill 3: List All Skills
+
+---
+name: List All Skills
+description: Discover and understand all available skills in the registry, their categorization, effort levels, and uncertainty
+category: Process & Governance
+effort: Low
+uncertainty: Low
+---
+
+[`.github/skill-list-all-skills.md`](./skill-list-all-skills.md)
+
+---
+
 ## How to Add a New Skill
 
 1. Follow the **Manage Skills** procedure in [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
