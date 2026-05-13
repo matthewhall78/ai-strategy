@@ -42,6 +42,7 @@ Plan the new theme by documenting:
 - **Dark Mode vs Light Mode** — Document any special handling for system preference detection
 
 Example for Light Mode:
+
 ```
 --bg: #f5f7fa (light gray)
 --panel: #ffffff (white)
