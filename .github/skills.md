@@ -12,17 +12,6 @@ description: Add a new documentation page to the static HTML site, keeping navig
 category: Page Content & Integration
 effort: Low–Medium
 uncertainty: Low
-inputs:
-  - Page title
-  - Purpose or description (one sentence)
-  - Nav label (short, fits in the pill nav bar)
-  - Section it belongs in on index.html
-outputs:
-  - New .html page file (kebab-case filename)
-  - Updated index.html with card in the correct section
-  - Updated .site-nav block on every existing page
-  - Updated snippets/site-nav-snippet.html
-  - Updated README.md page listing
 ---
 
 [`.github/skill-new-site-page.md`](./skill-new-site-page.md)
@@ -37,17 +26,6 @@ description: Add, update, and maintain skills in the skills registry with comple
 category: Process & Governance
 effort: Low–Medium
 uncertainty: Low
-inputs:
-  - Repeatable workflow name and description
-  - Categorization (one of 5 fixed categories)
-  - Effort estimate (Low through High)
-  - Uncertainty estimate (Low through High)
-  - Input/output specifications
-outputs:
-  - New `.github/skill-{name}.md` detailed procedure file
-  - YAML entry added to `skills.md`
-  - Cross-references to validation/testing/metrics guides
-  - Updated README.md (if skill creates new pages/features)
 ---
 
 [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
