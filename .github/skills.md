@@ -46,6 +46,20 @@ uncertainty: Low
 
 ---
 
+## Skill 4: Manage Agents
+
+---
+name: Manage Agents
+description: Create, update, and maintain agents in the agents registry with complete documentation and reference files
+category: Process & Governance
+effort: Low–Medium
+uncertainty: Low
+---
+
+[`.github/skill-manage-agents.md`](./skill-manage-agents.md)
+
+---
+
 ## How to Add a New Skill
 
 1. Follow the **Manage Skills** procedure in [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
