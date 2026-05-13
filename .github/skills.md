@@ -1,3 +1,11 @@
+# Skills Registry
+
+This file is a **catalog** of available skills for the AI website project. Each skill is a repeatable workflow with a dedicated procedure file.
+
+---
+
+## Skill 1: New Site Page
+
 ---
 name: New Site Page
 description: Add a new documentation page to the static HTML site, keeping navigation consistent across all existing pages
@@ -8,39 +16,22 @@ inputs:
   - Page title
   - Purpose or description (one sentence)
   - Nav label (short, fits in the pill nav bar)
-  - Section it belongs in on index.html (Patterns, Operating Models, Worked Examples, Quickstarts, References)
+  - Section it belongs in on index.html
 outputs:
-  - New .html page file (kebab-case filename) with full embedded CSS and shared nav
+  - New .html page file (kebab-case filename)
   - Updated index.html with card in the correct section
-  - Updated .site-nav block on every existing .html page
+  - Updated .site-nav block on every existing page
   - Updated snippets/site-nav-snippet.html
   - Updated README.md page listing
 ---
 
-# New Site Page Skill
+Add a new documentation page with consistent navigation across all pages (atomic update pattern).
 
-Create a new page for the site and ensure navigation is fully consistent across every file. This workflow must be completed atomically — partial nav updates leave the site in a broken state.
-
-**For complete 14-step workflow, validation procedures, browser testing, and common issues, see [`.github/skill-new-site-page.md`](./skill-new-site-page.md)**
+**Full procedure:** [`.github/skill-new-site-page.md`](./skill-new-site-page.md)
 
 ---
 
-## Skill Quick Reference
-
-| Step | Phase | Key Action |
-|------|-------|-----------|
-| 1–2 | Planning | Preflight checks, choose kebab-case filename |
-| 3–4 | Creation | Create HTML file, add content & CSS |
-| 5–8 | Navigation | Add active nav link, update all pages, update snippet |
-| 9–10 | Documentation | Update README.md and general-ghcp-resources-links.html |
-| 11–12 | Validation | Run 6 validation checks, run 6 browser tests |
-| 13–14 | Metrics | Write retrospective record, append metrics entry |
-
-**Validation reference:** See [`.github/validation-checklist.md`](./validation-checklist.md) for 6 pre-push checks with exact commands  
-**Testing reference:** See [`.github/testing-guide.md`](./testing-guide.md) for 6 browser test paths  
-**Metrics reference:** See [`.github/metrics.md`](./metrics.md) for retrospective record and scorecard templates  
-
----
+## Skill 2: Manage Skills
 
 ---
 name: Manage Skills
@@ -61,84 +52,17 @@ outputs:
   - Updated README.md (if skill creates new pages/features)
 ---
 
-# Manage Skills Skill
+Create new skills and maintain the skills registry following the container file pattern.
 
-Maintain the skills registry in `.github/skills.md`, create new skills with complete procedures, update existing skill definitions, and ensure all skills follow the container file pattern with focused reference files.
-
-**For complete procedures on defining, documenting, validating, and maintaining skills, see [`.github/skill-manage-skills.md`](./skill-manage-skills.md)**
+**Full procedure:** [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
 
 ---
 
-## Skill Quick Reference
+## How to Add a New Skill
 
-| Phase | Key Actions |
-|-------|-------------|
-| Phase 1: Planning | Define scope, categorize, estimate effort/uncertainty, specify inputs/outputs |
-| Phase 2: Create Reference File | Create `.github/skill-{name}.md` with all phases, steps, issues, success criteria |
-| Phase 3: Update Registry | Add YAML frontmatter + brief description + quick reference table to `skills.md` |
-| Phase 4: Documentation | Update README.md and related reference files (validation, testing, metrics) |
-| Phase 5: Validation | Verify file structure, test skill on real task |
+1. Follow the **Manage Skills** procedure in [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
+2. Create a new `.github/skill-{name}.md` file with complete step-by-step workflow
+3. Add a new YAML + brief description + link entry to this file (`skills.md`)
+4. Commit with message: "Add {Skill Name} skill with complete procedure"
 
-**Related references:**
-- [`.github/validation-checklist.md`](./validation-checklist.md) — When creating skills that require validation
-- [`.github/testing-guide.md`](./testing-guide.md) — When creating skills that require browser testing
-- [`.github/metrics.md`](./metrics.md) — For categorization guidance and metrics logging
-
----
-
-## File Organization
-
-**Container file: `skills.md`**
-- Lists all skills with YAML frontmatter (name, description, category, effort, uncertainty, inputs, outputs)
-- Includes quick reference table for each skill (phases and key actions)
-- Links to detailed procedure files
-- Shows a template section (in Manage Skills reference file) for adding new skills
-
-**Detailed files: `.github/skill-{name}.md`**
-- Complete step-by-step procedure organized by phases
-- Validation requirements and test references
-- Common issues and fixes specific to this skill
-- Success criteria for completion
-- References to supporting documents (validation-checklist.md, testing-guide.md, metrics.md)
-
-**Supporting reference files:**
-- [`.github/validation-checklist.md`](./validation-checklist.md) — 6 pre-push validation checks
-- [`.github/testing-guide.md`](./testing-guide.md) — 6 browser interaction test paths
-- [`.github/metrics.md`](./metrics.md) — Metrics categories, retrospective records, efficiency scorecards, quality gates
-
----
-
-## Adding a New Skill
-
-To add a new skill to the registry, follow the complete workflow in [`.github/skill-manage-skills.md`](./skill-manage-skills.md):
-
-1. **Phase 1:** Define skill scope, categorization, effort, uncertainty, inputs/outputs
-2. **Phase 2:** Create `.github/skill-{name}.md` with complete step-by-step procedures and validation references
-3. **Phase 3:** Update `skills.md` with YAML frontmatter and quick reference table
-4. **Phase 4:** Update supporting documentation (README.md, validation, testing, metrics)
-5. **Phase 5:** Validate file structure and test skill on a real task
-
-**Full workflow and success criteria:** See [`.github/skill-manage-skills.md`](./skill-manage-skills.md)
-
----
-
-## Skill Categories Reference
-
-When managing skills, classify them into one of these 5 fixed categories:
-
-| Category | When to Use | Example Skills |
-|----------|-------------|-----------------|
-| **Page Content & Integration** | New pages, content updates, site map expansion | New Site Page, Update Content |
-| **Layout & Responsive Architecture** | Full-page redesigns, grid restructuring | Redesign Dashboard, Fix Responsive Layout |
-| **Navigation & Information Architecture** | Nav redesigns, menu changes, filtering | Add Nav Link, Reorganize Menu |
-| **Interactive Features & Dashboards** | Charts, data viz, interactive controls, animations | Create Chart, Add Filter Control |
-| **Process & Governance** | Workflow guardrails, validation, documentation, instructions | Manage Skills, Update Validation Rules, Document Workflow |
-
----
-
-## Current Skills
-
-1. **New Site Page** — Add new documentation pages with consistent navigation
-2. **Manage Skills** — Maintain and create new skills in the skills registry
-
-Each skill has a corresponding detailed procedure file in `.github/skill-{name}.md`.
+All procedural details, validation requirements, browser tests, and common issues are in the dedicated `.github/skill-{name}.md` files—not here.
