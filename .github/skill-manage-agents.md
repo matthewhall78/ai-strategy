@@ -29,7 +29,6 @@ Create, update, and maintain agents in the agents registry with complete documen
 
 An agent is a **specialized tool with focused responsibilities**. Examples:
 
-
 - **Site Maintainer** (current) — Enforce structural and visual consistency across all documentation pages
 - **Code Refactor Agent** (hypothetical) — Coordinate refactoring tasks across multiple files
 - **Performance Auditor** (hypothetical) — Analyze and optimize site performance metrics
@@ -51,12 +50,12 @@ Examples for Site Maintainer:
 - Href validation
 - Visual style preservation
 
-
 #### Step 3: Specify the Agent's Tools
 
 List the specific tools (VS Code, command-line, file operations, etc.) the agent will use:
 
 Examples for Site Maintainer:
+
 - file search
 - grep search
 - read file
@@ -65,22 +64,22 @@ Examples for Site Maintainer:
 - run_in_terminal
 - screenshot_page
 
-
 #### Step 4: Specify the Agent's Skills
 
 Reference skills from [`.github/skills.md`](./skills.md) that the agent will use:
 
 Examples for Site Maintainer:
+
 - New Site Page
 - Validation Checklist
 - Testing Guide
-
 
 #### Step 5: Define Hard Constraints
 
 Hard constraints are **non-negotiable rules** the agent must always follow:
 
 Examples for Site Maintainer:
+
 - No external dependencies or npm packages
 - Preserve color palette and font styling
 - Atomic nav updates across all files
@@ -94,6 +93,7 @@ Examples for Site Maintainer:
 #### Step 6: Create `.github/agent-{name}.md`
 
 Choose a kebab-case filename matching the agent name:
+
 - "Site Maintainer" → `agent-site-maintainer.md` (already exists)
 - "Code Refactor" → `agent-code-refactor.md`
 - "Performance Auditor" → `agent-performance-auditor.md`
@@ -257,6 +257,7 @@ Brief description of what this agent does.
 #### Step 11: Update Related Agent References
 
 If the new agent replaces or relates to an existing agent, update cross-references in:
+
 - [`.github/copilot-instructions.md`](./copilot-instructions.md)
 - [`.github/agents.md`](./agents.md)
 - Any skill files that reference agents
@@ -272,7 +273,6 @@ If the agent represents a new capability or workflow, consider documenting it in
 #### Step 13: Check Markdown Linting
 
 Before finalizing, verify your new agent's markdown file has no linting errors:
-
 
 ```bash
 # Check for linting errors in the new agent file

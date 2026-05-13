@@ -1,11 +1,5 @@
 # Manage Skills Skill
 
-**Skill Type:** Process & Governance  
-**Effort:** Low–Medium  
-**Uncertainty:** Low  
-
----
-
 ## Purpose
 
 Maintain the skills registry in `.github/skills.md`, add new skills with complete documentation, update existing skill definitions, and ensure all skills follow the container file pattern with focused reference files. This skill is the operational backbone for evolving the site's workflow library.
@@ -190,11 +184,16 @@ See `.github/skill-new-site-page.md` for a complete example with 14 steps across
 
 Identify 3–5 common problems that can occur while applying this skill:
 
+| --- | --- | --- |
+| Missing active class on new nav link | grep for `class="nav-name"` (no `active`), vs other links which have `class="nav-name active"` | Add `active` class to the nav link on the new page itself |
+| Old filename references remain after rename | grep for old filename across .html, .md, .js files | Use `find` + `sed` or editor find-replace to update all references |
+| Nav link order differs between pages | Compare .site-nav blocks on any two pages visually | Use `snippets/site-nav-snippet.html` as the canonical source; copy exact link order to all pages |
 
 | Issue | How to Detect | How to Fix |
 | --- | --- | --- |
 | Missing active class on new nav link | grep for `class="nav-name"` (no `active`), vs other links which have `class="nav-name active"` | Add `active` class to the nav link on the new page itself |
 | Old filename references remain after rename | grep for old filename across .html, .md, .js files | Use `find` + `sed` or editor find-replace to update all references |
+
 | Nav link order differs between pages | Compare .site-nav blocks on any two pages visually | Use `snippets/site-nav-snippet.html` as the canonical source; copy exact link order to all pages |
 
 ---
@@ -273,29 +272,30 @@ If the skill creates new site features or pages, update the `README.md` page lis
 If the skill requires new validation checks or browser tests, create or update:
 
 - [`.github/validation-checklist.md`](./validation-checklist.md) — Add new checks specific to this skill
-- [`.github/testing-guide.md`](./testing-guide.md) — Add new test paths specific to this skill
 
----
+## Phase 5: Validation
 
-### Phase 5: Validation
+### Step 13: Check Markdown Linting
 
-#### Step 13: Check Markdown Linting
-
-Before finalizing, verify your new skill's markdown file has no linting errors:
+Before finalizing, run the markdown linter on all modified files (including the new skill file, any updated documentation, and registry files). Ensure there are no remaining linting errors in any affected file:
 
 ```bash
-# Check for linting errors in the new skill file
-# Look for these common issues in the new .github/skill-{name}.md file:
+# Check for linting errors in all modified files
+markdownlint .github/*.md README.md *.html
+# Look for these common issues:
 # - MD003: Heading style (use # not underlines)
+# - MD012: Multiple consecutive blank lines
 # - MD022: Blank lines around headings
-# - MD031: Blank lines around code blocks  
+# - MD031: Blank lines around code blocks
 # - MD032: Blank lines around lists
+# - MD040: Fenced code blocks should have a language
+
 # - MD007: List indentation
 ```
 
-Fix any linting errors before proceeding.
+Fix all linting errors in every modified file before proceeding. Do not claim completion until the linter reports zero errors across all affected files.
 
-#### Step 14: Verify Skill File Structure
+### Step 14: Verify Skill File Structure
 
 ```bash
 # Check that skill procedure file exists
@@ -308,9 +308,10 @@ grep -q "skill-{name}.md" ".github/skills.md" && echo "✓ Skill referenced in s
 grep -q "^name:" ".github/skills.md" && echo "✓ YAML frontmatter present"
 ```
 
-#### Step 14: Test the Skill on a Real Task
+### Step 15: Test the Skill on a Real Task
 
 Before committing:
+
 1. Choose a simple real task that applies this skill
 2. Follow the procedure end-to-end
 3. Note any steps that were unclear or missing

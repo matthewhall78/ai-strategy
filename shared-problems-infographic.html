@@ -5,26 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shared Problems, Shared Solutions</title>
   <style>
+    /* Default light mode theme */
     :root {
-      --bg: #081827;
-      --bg-2: #0d2236;
-      --panel: rgba(15, 38, 59, 0.82);
-      --panel-2: rgba(12, 31, 49, 0.95);
-      --text: #f4f8fb;
-      --muted: #a9bac8;
-      --line: rgba(54, 195, 235, 0.35);
-      --cyan: #27c2f2;
-      --cyan-soft: rgba(39, 194, 242, 0.16);
-      --yellow: #ffd447;
-      --yellow-soft: rgba(255, 212, 71, 0.14);
-      --pink: #e779c1;
-      --pink-soft: rgba(231, 121, 193, 0.14);
-      --green: #7bd88f;
-      --green-soft: rgba(123, 216, 143, 0.14);
-      --red: #ff7b7b;
-      --red-soft: rgba(255, 123, 123, 0.14);
-      --radius: 24px;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --panel-2: #f0f4f8;
+      --text: #1a2637;
+      --muted: #6b7d8f;
+      --line: rgba(100, 120, 150, .18);
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+      --navy: #1e3a8a;
+      --shadow: 0 4px 12px rgba(0, 0, 0, .08);
+      color-scheme: light;
+    }
+
+    /* Dark mode variant */
+    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
+      :root {
+        --bg: #080d12;
+        --panel: #121a24;
+        --panel-2: #182331;
+        --text: #edf3f8;
+        --muted: #aab8c6;
+        --line: rgba(128, 152, 176, .22);
+        --cyan: #38bdf8;
+        --green: #22c55e;
+        --blue: #2f85ff;
+        --purple: #a970ff;
+        --pink: #ec4899;
+        --navy: #60a5fa;
+        --shadow: 0 26px 70px rgba(0,0,0,.42);
+        color-scheme: dark;
+      }
     }
 
     * { box-sizing: border-box; }
@@ -670,6 +686,9 @@
       <a class="nav-metrics" href="metrics-dashboard.html">Metrics</a>
       <a class="nav-shared-problems active" href="shared-problems-infographic.html">Shared Problems</a>
       <a class="nav-docs" href="https://github.com/matthewhall78/ai-strategy" target="_blank" rel="noopener noreferrer">Docs</a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <span id="theme-icon">🌙</span>
+      </button>
     </div>
   </nav>
 
@@ -789,6 +808,27 @@
 
     .site-nav-track::-webkit-scrollbar {
       display: none;
+    }
+
+    .theme-toggle {
+      flex: 0 0 auto;
+      margin-left: auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--site-nav-link);
+      cursor: pointer;
+      font-size: 16px;
+      transition: background .22s ease, border-color .22s ease;
+      font-family: inherit;
+    }
+
+    .theme-toggle:hover,
+    .theme-toggle:focus-visible {
+      background: var(--site-nav-hover-bg);
+      border-color: var(--site-nav-hover-border);
+      outline: none;
     }
 
     body {
@@ -1088,6 +1128,42 @@
     }, { threshold: 0.14 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+
+    // Theme toggle functionality
+    if (document.getElementById('theme-toggle')) {
+      const themeToggle = document.getElementById('theme-toggle');
+      const themeIcon = document.getElementById('theme-icon');
+      const root = document.documentElement;
+
+      // Detect system preference and saved preference
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+
+      function setTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
+        document.documentElement.style.colorScheme = theme;
+      }
+
+      // Apply initial theme
+      setTheme(initialTheme);
+
+      // Toggle theme on button click
+      themeToggle.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme') || 'light';
+        setTheme(current === 'dark' ? 'light' : 'dark');
+      });
+
+      // Sync theme when system preference changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          setTheme(e.matches ? 'dark' : 'light');
+        }
+      });
+    }
   </script>
 </body>
 </html>

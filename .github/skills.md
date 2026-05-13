@@ -50,6 +50,18 @@ uncertainty: Low
 
 [`.github/skill-manage-agents.md`](./skill-manage-agents.md)
 
+## Skill 5: Layout & Theme
+
+```yaml
+name: Layout & Theme
+description: Implement color themes (light mode, dark mode, high contrast), add theme toggle mechanisms, and update all pages for consistent styling
+category: Layout & Responsive Architecture
+effort: Medium
+uncertainty: Medium
+```
+
+[`.github/skill-layout-theme.md`](./skill-layout-theme.md)
+
 ---
 
 ## How to Add a New Skill

@@ -5,17 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Use Context Engineering Primitives</title>
   <style>
+    /* Default light mode theme */
     :root {
-      --bg: #030303;
-      --panel: #191919;
-      --grid: #050505;
-      --text: #e8e8ec;
-      --muted: #cfd0d5;
-      --cyan: #0ea5b7;
-      --blue: #2f6eea;
-      --purple: #7c3aed;
-      --line: rgba(38, 109, 192, .55);
-      --horizon: rgba(126, 34, 206, .65);
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --panel-2: #f0f4f8;
+      --text: #1a2637;
+      --muted: #6b7d8f;
+      --line: rgba(100, 120, 150, .18);
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --blue: #3b82f6;
+      --purple: #8b5cf6;
+      --pink: #ec4899;
+      --navy: #1e3a8a;
+      --shadow: 0 4px 12px rgba(0, 0, 0, .08);
+      color-scheme: light;
+    }
+
+    /* Dark mode variant */
+    @media (prefers-color-scheme: dark), :root[data-theme="dark"] {
+      :root {
+        --bg: #080d12;
+        --panel: #121a24;
+        --panel-2: #182331;
+        --text: #edf3f8;
+        --muted: #aab8c6;
+        --line: rgba(128, 152, 176, .22);
+        --cyan: #38bdf8;
+        --green: #22c55e;
+        --blue: #2f85ff;
+        --purple: #a970ff;
+        --pink: #ec4899;
+        --navy: #60a5fa;
+        --shadow: 0 26px 70px rgba(0,0,0,.42);
+        color-scheme: dark;
+      }
     }
 
     * { box-sizing: border-box; }
@@ -145,6 +170,27 @@
 
     .site-nav-track::-webkit-scrollbar {
       display: none;
+    }
+
+    .theme-toggle {
+      flex: 0 0 auto;
+      margin-left: auto;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--site-nav-link);
+      cursor: pointer;
+      font-size: 16px;
+      transition: background .22s ease, border-color .22s ease;
+      font-family: inherit;
+    }
+
+    .theme-toggle:hover,
+    .theme-toggle:focus-visible {
+      background: var(--site-nav-hover-bg);
+      border-color: var(--site-nav-hover-border);
+      outline: none;
     }
 
     body {
@@ -371,6 +417,9 @@
       <a class="nav-metrics" href="metrics-dashboard.html">Metrics</a>
       <a class="nav-shared-problems" href="shared-problems-infographic.html">Shared Problems</a>
       <a class="nav-docs" href="https://github.com/matthewhall78/ai-strategy" target="_blank" rel="noopener noreferrer">Docs</a>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <span id="theme-icon">🌙</span>
+      </button>
     </div>
   </nav>
 
