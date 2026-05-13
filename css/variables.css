@@ -1,0 +1,55 @@
+/* Light mode (default) */
+:root {
+  --bg: #f5f7fa;
+  --panel: #ffffff;
+  --panel-2: #f0f4f8;
+  --text: #1a2637;
+  --muted: #6b7d8f;
+  --line: rgba(100, 120, 150, .18);
+  --cyan: #06b6d4;
+  --green: #10b981;
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --pink: #ec4899;
+  --navy: #1e3a8a;
+  --shadow: 0 4px 12px rgba(0, 0, 0, .08);
+  color-scheme: light;
+}
+
+/* Dark mode - explicit toggle via data-theme attribute */
+:root[data-theme="dark"] {
+  --bg: #080d12;
+  --panel: #121a24;
+  --panel-2: #182331;
+  --text: #edf3f8;
+  --muted: #aab8c6;
+  --line: rgba(128, 152, 176, .22);
+  --cyan: #38bdf8;
+  --green: #22c55e;
+  --blue: #2f85ff;
+  --purple: #a970ff;
+  --pink: #ec4899;
+  --navy: #60a5fa;
+  --shadow: 0 26px 70px rgba(0,0,0,.42);
+  color-scheme: dark;
+}
+
+/* Dark mode when system prefers dark (unless explicitly overridden) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #080d12;
+    --panel: #121a24;
+    --panel-2: #182331;
+    --text: #edf3f8;
+    --muted: #aab8c6;
+    --line: rgba(128, 152, 176, .22);
+    --cyan: #38bdf8;
+    --green: #22c55e;
+    --blue: #2f85ff;
+    --purple: #a970ff;
+    --pink: #ec4899;
+    --navy: #60a5fa;
+    --shadow: 0 26px 70px rgba(0,0,0,.42);
+    color-scheme: dark;
+  }
+}

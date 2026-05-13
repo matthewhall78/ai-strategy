@@ -2,7 +2,8 @@
 
 ## Architecture
 
-- This is a static HTML site. Every page is a self-contained `.html` file with embedded CSS.
+- This is a static HTML site. Every page is a self-contained `.html` file with semantic markup.
+- Styles are centralized in external CSS files in the `css/` directory—not embedded in HTML pages.
 - No build system, no package manager, no external JavaScript frameworks.
 - Do not introduce dependencies, npm packages, or bundling tools.
 
@@ -18,6 +19,19 @@
 - Navigation: glassmorphism pill bar (`.site-nav`) fixed at the top. Preserve all CSS custom properties and layout.
 - Page backgrounds use an animated perspective grid. Preserve the `@keyframes` and canvas/gradient pattern.
 - Card components use `--accent` and `--glow` CSS custom properties for per-card theming. Preserve this pattern.
+
+## CSS Organization
+
+- All styles are maintained in two external CSS files in `css/`:
+  - `css/variables.css` — Color variables and theme definitions (light and dark modes)
+  - `css/shared-styles.css` — Shared layout, typography, navigation, components, and animations
+- Every HTML page must link to both files in the `<head>` immediately after the `<title>` tag:
+  ```html
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/shared-styles.css">
+  ```
+- To update styles across all pages, edit only the relevant CSS file—no need to touch HTML files.
+- When adding new CSS: prefer `css/shared-styles.css` unless it's a new theme color (which belongs in `css/variables.css`).
 
 ## Navigation Rule
 
