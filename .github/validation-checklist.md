@@ -7,6 +7,7 @@ Run these checks before committing new page additions or changes to navigation s
 Verify that every `.html` file's `.site-nav` block contains all current nav links (including the new one if applicable).
 
 **Command:**
+
 ```bash
 grep -l "class=\"nav-home\"" *.html | while read f; do echo "=== $f ==="; grep -c "class=\"nav-" "$f"; done
 ```
@@ -14,6 +15,7 @@ grep -l "class=\"nav-home\"" *.html | while read f; do echo "=== $f ==="; grep -
 **Expected result:** Every HTML file should have at least 5 nav links (home, topics, metrics, shared-problems, docs). New pages should have 5, existing pages should gain 1 more.
 
 **Manual verification:**
+
 - Open each changed `.html` file
 - Locate the `.site-nav` block
 - Count the `<a>` tags and button
@@ -26,6 +28,7 @@ grep -l "class=\"nav-home\"" *.html | while read f; do echo "=== $f ==="; grep -
 Verify every local nav `href` target resolves to an existing file in the repo.
 
 **Commands:**
+
 ```bash
 # Find all nav href values
 grep -oP 'class="nav-[^"]*"\s+href="\K[^"]+' *.html | sort -u
@@ -41,6 +44,7 @@ done
 **Expected result:** All local hrefs should point to existing files. No output means all checks passed.
 
 **Fallback manual check:**
+
 - For each `<a href="...">` in `.site-nav`, verify the target file exists:
   - `index.html` → file exists ✓
   - `metrics-dashboard.html` → file exists ✓
@@ -54,6 +58,7 @@ done
 If renaming a page, verify zero references to the old filename remain.
 
 **Commands:**
+
 ```bash
 # After renaming, search for old filename everywhere
 grep -R "old-filename.html" . --include="*.html" --include="*.md"
@@ -73,6 +78,7 @@ git log --all --source --oneline -- old-filename.html | head -5
 Verify that `snippets/site-nav-snippet.html` matches the live nav structure on all pages.
 
 **Command:**
+
 ```bash
 # Extract nav from canonical snippet
 grep -A 10 "NAV BLOCK:" snippets/site-nav-snippet.html | grep 'class="nav-' | wc -l
@@ -84,6 +90,7 @@ grep -c 'class="nav-' index.html
 **Expected result:** Both counts should match (same number of nav links).
 
 **Manual verification:**
+
 - Open `snippets/site-nav-snippet.html` and find the "NAV BLOCK" section
 - Count the `<a>` and `<button>` tags with `class="nav-*"`
 - Open `index.html` and count nav links in `.site-nav` block
@@ -98,6 +105,7 @@ grep -c 'class="nav-' index.html
 Verify no broken internal links exist in the entire site.
 
 **Commands:**
+
 ```bash
 # Find all internal hrefs (not http/https)
 grep -rh 'href="[^"]*"' *.html | grep -v 'http' | grep -oP 'href="\K[^"]+'  | sort -u
@@ -117,10 +125,12 @@ done
 ## 6. Active Class Consistency
 
 Verify that:
+
 1. Only ONE page has its own nav link marked with `active` class
 2. The `active` class is on the CURRENT page's own link, not duplicated elsewhere
 
 **Command:**
+
 ```bash
 # Find all active nav links
 for f in *.html; do
@@ -132,6 +142,7 @@ done
 ```
 
 **Expected result:**
+
 - `index.html`: `class="nav-home active"`
 - `metrics-dashboard.html`: `class="nav-metrics active"`
 - `shared-problems-infographic.html`: `class="nav-shared-problems active"`
@@ -139,6 +150,7 @@ done
 - No duplicates within a single page
 
 **Manual verification:**
+
 - For each `.html` file:
   - Find the `.site-nav` block
   - Verify exactly ONE link has `active` class

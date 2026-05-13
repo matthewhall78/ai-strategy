@@ -7,6 +7,7 @@ This file specifies the metrics system for tracking website enhancement efficien
 **Location:** `metrics/metrics-data.js`
 
 The metrics system stores enhancement records with:
+
 - **Metadata:** Title, type (from fixed taxonomy), merged date, baseline commit, current commit
 - **Efficiency values:** Files changed, insertions, deletions, churn per file (baseline/current)
 - **Quality gates:** Pass/fail status for 6 validation gates
@@ -14,6 +15,7 @@ The metrics system stores enhancement records with:
 - **Interpretation:** One-sentence efficiency comparison
 
 **Schema Requirements:**
+
 - Keep `schemaVersion` and increment only on structural changes
 - Preserve backward compatibility for older records when adding new fields
 - Put optional future metrics into new fields without removing existing required fields
@@ -23,30 +25,35 @@ The metrics system stores enhancement records with:
 All enhancement records must use exactly one of these five category values for the `type` field. This fixed set prevents category sprawl and enables deterministic baseline selection.
 
 ### 1. Page Content & Integration
+
 - **When to use:** Adding new pages, new content sections, integrating external content blocks, page creation workflows
 - **Effort:** Low–Medium | **Uncertainty:** Low
 - **Examples:** New page creation, content block integration, site map expansion
 - **Baseline rule:** Use most recent "Page Content & Integration" enhancement, or current if none exists
 
 ### 2. Layout & Responsive Architecture
+
 - **When to use:** Full-page redesigns, grid restructuring, scroll behavior overhauls, breakpoint changes, major DOM reorganization
 - **Effort:** High | **Uncertainty:** Medium
 - **Examples:** Fixed-canvas-to-scroll refactors, multi-column-to-single-column changes, responsive layout fixes
 - **Baseline rule:** Use most recent "Layout & Responsive Architecture" enhancement, or current if none exists
 
 ### 3. Navigation & Information Architecture
+
 - **When to use:** Nav bar redesigns, menu structure changes, category systems, filtering systems, discoverability patterns, information hierarchy
 - **Effort:** Medium–High | **Uncertainty:** Medium
 - **Examples:** Nav restructure, dropdown implementation, category filtering, breadcrumb changes
 - **Baseline rule:** Use most recent "Navigation & Information Architecture" enhancement, or current if none exists
 
 ### 4. Interactive Features & Dashboards
+
 - **When to use:** Charting, data visualization, interactive controls, tooltips, dynamic behavior, event handlers, animations
 - **Effort:** Medium | **Uncertainty:** High
 - **Examples:** Trend charts, dashboards, interactive toggles, animated transitions
 - **Baseline rule:** Use most recent "Interactive Features & Dashboards" enhancement, or current if none exists
 
 ### 5. Process & Governance
+
 - **When to use:** Workflow guardrails, validation rules, documentation, quality gates, instruction updates, process templates
 - **Effort:** Low–Medium | **Uncertainty:** Low
 - **Examples:** Pre-push gates, validation rules, instruction documentation, process improvements
@@ -92,12 +99,14 @@ After merge, append one enhancement record to `metrics/metrics-data.js` with:
 If no comparable baseline exists for the category, log an explicit initial baseline snapshot by setting baseline commit and baseline metrics to the current commit and current metrics for that first record.
 
 **Baseline Selection Logic:**
+
 - For each enhancement, identify its `type` category (one of the five fixed categories)
 - Search `metrics-data.js` for the most recent prior enhancement with the same `type`
 - Use that prior enhancement's metrics as the baseline for comparison
 - If no prior enhancement of the same type exists, use the current enhancement as its own baseline (initial snapshot)
 
 **Example Record:**
+
 ```json
 {
   "id": "enh-2026-05-07-dashboard-category-ledger",
@@ -141,6 +150,7 @@ If no comparable baseline exists for the category, log an explicit initial basel
 When dashboard tables or bars are aggregated by the fixed taxonomy, validate that exactly five category rows render and each fixed category appears once. This prevents duplicate categories, missing categories, or off-by-one errors in aggregation logic.
 
 **Validation Checklist:**
+
 - [ ] Render the dashboard in a browser
 - [ ] Count the rows in the aggregation table (should be exactly 5)
 - [ ] Verify each row corresponds to one of the five fixed categories

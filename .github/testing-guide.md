@@ -12,11 +12,13 @@ When creating a new page or modifying navigation/interactive features, run these
 ## Test Path 1: Page Load and Initial Render
 
 **Steps:**
+
 1. Navigate to the new page URL (e.g., `file:///path/to/new-page.html`)
 2. Wait for page to fully load (animated grid background should be visible)
 3. Inspect the page visually
 
 **Expected results:**
+
 - ✓ Page title appears in browser tab
 - ✓ Dark background (#030303–#090d12 range) displays without flickering
 - ✓ Animated perspective grid background animates smoothly in the back
@@ -31,12 +33,14 @@ When creating a new page or modifying navigation/interactive features, run these
 ## Test Path 2: Navigation Bar Structure and Styling
 
 **Steps:**
+
 1. Locate the `.site-nav` block at the top of the page
 2. Hover over each nav link to see hover state
 3. Click nav-home to navigate to home
 4. Return to the new page (back button)
 
 **Expected results:**
+
 - ✓ Nav bar displays as a horizontal pill shape (rounded, centered)
 - ✓ All 5 nav links visible: Home, Topics (button), Metrics, Shared Problems, Docs
 - ✓ New page's own nav link has green background (active class) with rgba(34, 197, 94, .2) background and .56 border
@@ -52,6 +56,7 @@ When creating a new page or modifying navigation/interactive features, run these
 ## Test Path 3: Topics Dropdown Menu
 
 **Steps:**
+
 1. Locate the "Topics" button in the nav
 2. Hover over the Topics button (desktop) or click it (mobile)
 3. Verify dropdown menu appears below the button
@@ -60,6 +65,7 @@ When creating a new page or modifying navigation/interactive features, run these
 6. Return to the new page
 
 **Expected results:**
+
 - ✓ Dropdown menu appears on hover (desktop) or click (mobile/touch)
 - ✓ Menu shows 5 category options: Patterns, Operating Model, Worked Examples, Quickstarts, Reference/Tools
 - ✓ Clicking a category navigates to index.html with the category filter applied
@@ -73,6 +79,7 @@ When creating a new page or modifying navigation/interactive features, run these
 ## Test Path 4: Active Nav Link Verification
 
 **Steps:**
+
 1. While on the new page, inspect the nav HTML (DevTools → Inspector)
 2. Find the new page's own nav link element (e.g., `<a class="nav-new-page active"...>`)
 3. Verify the `active` class is present
@@ -81,6 +88,7 @@ When creating a new page or modifying navigation/interactive features, run these
 6. Return to the new page and verify active state is restored
 
 **Expected results:**
+
 - ✓ New page's nav link has both class name (e.g., `nav-new-page`) and `active` class
 - ✓ Active link displays with green background (not cyan, not default)
 - ✓ Only ONE link in the nav bar has `active` class (no duplicates)
@@ -94,6 +102,7 @@ When creating a new page or modifying navigation/interactive features, run these
 ## Test Path 5: Page Content Scrolling and Full-Page Layout
 
 **Steps:**
+
 1. Scroll to the top of the page
 2. Verify nav bar is visible and not overlapped by content
 3. Scroll to the middle of the page
@@ -102,6 +111,7 @@ When creating a new page or modifying navigation/interactive features, run these
 6. Verify footer or end-of-content is readable and not cut off
 
 **Expected results:**
+
 - ✓ Page has `padding-top: 70px` applied (nav doesn't cover content at top)
 - ✓ Content starts at least 70px from top, giving clearance for fixed nav
 - ✓ All page content is scrollable and readable at top, middle, and bottom
@@ -116,6 +126,7 @@ When creating a new page or modifying navigation/interactive features, run these
 ## Test Path 6: Responsive Breakpoint (Mobile View)
 
 **Steps:**
+
 1. Open DevTools (F12 / Cmd+Opt+I)
 2. Enable Device Emulation (Cmd+Shift+M on Chrome/Edge, Cmd+Opt+M on Firefox)
 3. Set viewport to iPhone 12 (390px × 844px) or similar mobile size
@@ -124,6 +135,7 @@ When creating a new page or modifying navigation/interactive features, run these
 6. Check nav bar behavior at mobile width
 
 **Expected results:**
+
 - ✓ Page layout reflows to single column or mobile-optimized grid
 - ✓ Text remains readable at mobile width (font size doesn't shrink below 16px for body text)
 - ✓ Nav bar remains visible and functional on mobile
@@ -140,7 +152,8 @@ When creating a new page or modifying navigation/interactive features, run these
 When running these tests, document your findings:
 
 **Passing test report:**
-```
+
+```text
 ✅ Test Path 1 (Page Load): PASS
 ✅ Test Path 2 (Nav Bar): PASS
 ✅ Test Path 3 (Dropdown): PASS
@@ -152,7 +165,8 @@ Result: All browser interaction tests passed. Ready to commit.
 ```
 
 **Failing test report:**
-```
+
+```text
 ✅ Test Path 1 (Page Load): PASS
 ✅ Test Path 2 (Nav Bar): PASS
 ❌ Test Path 3 (Dropdown): FAIL — Menu does not close when clicking outside
